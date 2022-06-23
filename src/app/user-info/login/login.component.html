@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <h3>Login </h3>
+        <form #myForm = "ngForm">
+            <div class="text-danger">{{ invalidMessage }}</div>
+            <div class="form-group mb-2">
+                <input type="text" class="form-control" placeholder="Your username please *"
+                    name="userName" id="userName" [(ngModel)]= "userDetails.userName" required
+                    #userName="ngModel">
+                <div *ngIf= "!userName.valid && userName.touched" class="text-danger small">
+                    Username is required!
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password here"
+                    name="password" id="password" [(ngModel)]= "userDetails.password" required
+                    #password= "ngModel">
+                    <div *ngIf= "!password.valid && password.touched" class="text-danger small">
+                        Password is required!!
+                    </div>
+            </div>
+            <div class="form-group mt-3">
+                <button type="button" class="btn btn-primary" (click)="validateLogin()"
+                [disabled]="!myForm.valid">Login</button>
+            </div><!---->
+        </form>
+    </div>
+</div>
+
