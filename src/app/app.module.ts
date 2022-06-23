@@ -11,6 +11,7 @@ import { CartComponent } from './cart/cart.component';
 import { UserComponent } from './user/user.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,11 +23,13 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CartComponent,
     UserComponent,
     OrdersComponent,
-    CheckoutComponent
+    CheckoutComponent,
+  
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
