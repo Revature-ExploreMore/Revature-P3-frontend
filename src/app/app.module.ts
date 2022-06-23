@@ -11,6 +11,8 @@ import { CartComponent } from './cart/cart.component';
 import { UserComponent } from './user/user.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
+import { ViewUserProfileComponent } from './user/view-user-profile/view-user-profile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CartComponent,
     UserComponent,
     OrdersComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    EditUserProfileComponent,
+    ViewUserProfileComponent
   ],
   imports: [
     BrowserModule,
