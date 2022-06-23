@@ -1,1 +1,36 @@
-<p>cart works!</p>
+
+<div class="container padding-bottom-3x mb-1">  
+    <div class="table-responsive shopping-cart">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Subtotal</th>
+                    <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="course-thumb" href="#"><img src="{{course.image_url}}" alt="Course"></a>
+                            <div class="course-info">
+                                <h4 class="course-title"><a href="#">{{course.name}}</a></h4><span><em>Category:</em> {{category.category_name}}</span><span><em>Color:</em> Dark Blue</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center text-lg text-medium">{{course.price}}</td>  
+                    <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="shopping-cart-footer">
+        <div class="column text-lg">Subtotal: <span class="text-medium">{{cart.total}}</span></div>
+    </div>
+    <div class="shopping-cart-footer">
+        <div class="column"><a class="btn btn-outline-secondary" href="#"><i class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
+        <div class="column"><a class="btn btn-success" routerLink="checkout">Checkout</a></div>
+    </div>
+</div>
