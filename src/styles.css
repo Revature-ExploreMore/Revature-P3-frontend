@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.registerform{
+    width: 600px;
+    height: auto;
+}
+.card-footer{
+    text-align: center;
+}
+.mybtn{
+    border: 1px solid white;
+    border-radius: 10px;
+}

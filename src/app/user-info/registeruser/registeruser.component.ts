@@ -22,7 +22,7 @@ export class RegisteruserComponent implements OnInit {
     password: '',
     darkModePrefrence:false,
     registerDate:new Date("2022-07-07"),
-    roleId:0
+    roleId:2
   }
 
   constructor(private authService:AuthService, private userservice:UserService) { }
@@ -33,7 +33,6 @@ export class RegisteruserComponent implements OnInit {
   addANewUser(){
     let user= this.authService.getUserDetails();
     let addUser:UserDetails={
-
       id: 0,
       name: this.newUser.name,
       email: this.newUser.email,
@@ -42,7 +41,7 @@ export class RegisteruserComponent implements OnInit {
       password: this.newUser.password,
       darkModePrefrence:false,
       registerDate:this.newUser.registerDate,
-      roleId:0
+      roleId:2
     };
 
     this.newUser={
@@ -54,9 +53,14 @@ export class RegisteruserComponent implements OnInit {
       password: '',
       darkModePrefrence:false,
       registerDate:new Date("2022-07-07"),
-      roleId:0
+      roleId:2
     }
-    //i need some code to add user here
+    
+    this.userservice.registerUser(addUser).subscribe((response)=>{
+      console.log(response);
+      console.log(user.id);
+      this.userRegister=false;
+    })
   }
 
 }

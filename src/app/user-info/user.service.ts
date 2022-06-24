@@ -16,4 +16,8 @@ export class UserService {
   validLogin(userDetails:UserDetails):Observable<UserDetails>{
     return this.http.post<UserDetails>(this.baseUrlLogin, userDetails);
   }
+
+  registerUser(newUser1:UserDetails):Observable<UserDetails>{
+    return this.http.post<UserDetails>(this.baseUrlLogin+"", newUser1);
+  }
 }
