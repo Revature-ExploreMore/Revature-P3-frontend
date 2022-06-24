@@ -17,6 +17,9 @@ export class UserService {
     return this.http.post<User>(this.baseUrl, user);
   }
 
+  registerUser(newUser1: User):Observable<User>{
+    return this.http.post<User>(this.baseUrlLogin+"", newUser1);
+  }
 
 
   getAllUsers(): Observable<User[]> {
@@ -29,5 +32,4 @@ export class UserService {
     return this.http.put<User>(this.baseUrl, sentUser);
 
   }
-
 }

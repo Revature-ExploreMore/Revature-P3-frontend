@@ -20,4 +20,15 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(`should an empty string as invalidMessage`, () => {
+    const login = fixture.componentInstance;
+    expect(login.invalidMessage).toEqual('" "');
+  });
+
+  it(`should render title`, () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('registerform .h1')?.textContent).toContain('ExploreMore');
+  });
 });
