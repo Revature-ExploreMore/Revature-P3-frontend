@@ -1,0 +1,59 @@
+<div class="container">
+    <form #myForm = "ngForm">
+        <div class="card m-3">
+            <div class="card-header bg-primary">Registeration Form</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="uName" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="uName" placeholder="Please fill your name here.."
+                            name="urName" required [(ngModel)]="newUser.name" #name="ngModel">
+                        <div *ngIf="!name.valid && name.touched" class="text-danger small">Name is required</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="uEmail" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="uEmail" placeholder="Your @email id here.."
+                            name="urEmail" [(ngModel)]="newUser.email" #email="ngModel" required>
+                        <div *ngIf="!email.valid && email.touched" class="text-danger small">Email is required</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Phone Number:</label>
+                        <input type="text" class="form-control" id="contact" pattern="[0-9]+"
+                            placeholder="Fill your contact number" name="urContact" [(ngModel)]="newUser.phoneNumber"
+                            #phoneNumber="ngModel" required>
+                            <div *ngIf="!phoneNumber.valid && phoneNumber.touched" class="text-danger small">Contact number is required</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">UserName:</label>
+                        <input type="text" class="form-control" id="userName" placeholder="Give user name for login"
+                            name="usrName" [(ngModel)]="newUser.userName" #userName="ngModel" required>
+                            <div *ngIf="!userName.valid && userName.touched" class="text-danger small">Username is required</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" placeholder="Create secure password for yourself"
+                            name="userPassword" [(ngModel)]="newUser.password" #password="ngModel" required>
+                            <div *ngIf="password.valid && password.touched" class="text-danger small">Password required</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="datetime-local" class="form-control" id="date" placeholder="yyyy-mm--dd"
+                        name="localDate" [(ngModel)]="newUser.registerDate" #registerDate="ngModel" required>
+                        <div *ngIf="!registerDate.valid && registerDate.touched" class="text-danger small">Please select date from calender</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userRole" class="form-label">Admin/User</label>
+                        <input type="text" class=" form-control" value="user" readonly id="userRole" disabled="true">
+                    </div>
+                    <div class="card-footer bg-primary">
+                        <button 
+                            type="button" 
+                            class="btn btn-success"  [disabled]="!myForm.valid"
+                            (click)="addANewUser()">Register</button>
+                    </div>
+                </div>
+            
+        </div>
+    </form>  
+    <!---->  
+</div>
+
