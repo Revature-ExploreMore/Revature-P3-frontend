@@ -16,12 +16,26 @@ export class CheckoutComponent implements OnInit {
 
     this.checkoutFormGroup = this.formBuilder.group({
       customerBilling : this.formBuilder.group({
-        streetName:'',
-        city:'',
-        state:'',
-        zipCode:''
+        street:[''],
+        city:[''],
+        state:[''],
+        zipCode:['']
+        //user id = sessionStorage of the user
+      }),
+      paymentInfo: this.formBuilder.group({
+        cardType:[''],
+        cardNumber:[''],
+        expDate:[''],
+        cvv:[''],
+
       })
     })
   }
+
+  onSubmit() {
+    console.log("Handling form data");
+    console.log(this.checkoutFormGroup.get('customerBilling')?.value);
+  }
+
 
 }
