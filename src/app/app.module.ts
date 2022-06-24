@@ -12,7 +12,6 @@ import { OrdersComponent } from './orders/orders.component';
 //import { DisplayComponent } from './display/display.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { LoginComponent } from './user-info/login/login.component';
-import { LogoutComponent } from './user-info/logout/logout.component';
 import { RegisteruserComponent } from './user-info/registeruser/registeruser.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +22,6 @@ import { ViewUserProfileComponent } from './user/view-user-profile/view-user-pro
   declarations: [
     AppComponent,
     HeaderComponent,
-    LogoutComponent,
     LandingComponent,
     StorefrontComponent,
     CartComponent,
