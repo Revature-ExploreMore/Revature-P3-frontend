@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserDetails } from './user.model';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +9,25 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   //this url is just from my local to test for functions
-  baseUrlLogin:string="http://localhost:7272/api/login-employee";
+  baseUrl: string = "http://localhost:7272/api/login-employee";
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  validLogin(userDetails:UserDetails):Observable<UserDetails>{
-    return this.http.post<UserDetails>(this.baseUrlLogin, userDetails);
+  validLogin(user: User): Observable<User> {
+    return this.http.post<User>(this.baseUrl, user);
   }
+
+
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl);
+  }
+  getUser(id: any): Observable<User> {
+    return this.http.get<User>(this.baseUrl + '/' + id);
+  }
+  updateUser(sentUser: User): Observable<User> {
+    return this.http.put<User>(this.baseUrl, sentUser);
+
+  }
+
 }
