@@ -54,7 +54,6 @@ export class RegisteruserComponent implements OnInit {
       darkModePreference: false,
       registerDate:new Date,
       roleId:2
-
     }
     
     this.userservice.registerUser(addUser).subscribe((response)=>{

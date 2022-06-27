@@ -32,6 +32,7 @@
                         <label for="password" class="form-label">Password:</label>
                         <input type="password" class="form-control" id="password" placeholder="Create secure password for yourself"
                             name="password" [(ngModel)]="newUser.password" #password="ngModel" min="6" required>
+
                             <div *ngIf="password.valid && password.touched" class="text-danger small">Password required with minimum 6 character</div>
                     </div>
                     <div class="card-footer bg-primary">
