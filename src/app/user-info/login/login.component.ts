@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from '../auth.service';
-import { UserDetails } from '../user.model';
 import { UserService } from '../user.service';
 
 @Component({
@@ -13,14 +13,14 @@ import { UserService } from '../user.service';
 export class LoginComponent implements OnInit {
 
   invalidMessage: string = "";
-  userDetails:UserDetails={
+  userDetails:User={
     id: 0,
     name: '',
     email: '',
     phoneNumber: '',
     userName: '',
-    password: '',
-    darkModePrefrence:false,
+    hashedPassword: '',
+    darkModePreference:false,
     registerDate:new Date("2022-07-07"),
     roleId:0
   }

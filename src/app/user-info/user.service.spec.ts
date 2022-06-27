@@ -13,4 +13,8 @@ describe('UserService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should return correct url', () => {
+    expect(service.baseUrlLogin).toBe('http://localhost:7272/');
+  });
 });
