@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from '../auth.service';
-import { UserDetails } from '../user.model';
 import { UserService } from '../user.service';
 
 @Component({
@@ -13,15 +13,15 @@ import { UserService } from '../user.service';
 export class LoginComponent implements OnInit {
 
   invalidMessage: string = "";
-  userDetails:UserDetails={
+  userDetails:User={
     id: 0,
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
+    username: '',
     password: '',
-    darkModePrefrence:false,
-    registerDate:new Date("2022-07-07"),
+    darkModePreference:false,
+    registerDate:new Date("2022-06-27"),
     roleId:0
   }
 
@@ -40,7 +40,11 @@ export class LoginComponent implements OnInit {
           this.authService.isAdmin=true;
         }else if(response.roleId==2){
         this.authService.isUser=true;
-        }else{
+        }else if(response.roleId==3){
+          this.authService.isUser=true;
+          }
+        
+        else{
           this.invalidMessage="Invalid username/password";
         }
       }
