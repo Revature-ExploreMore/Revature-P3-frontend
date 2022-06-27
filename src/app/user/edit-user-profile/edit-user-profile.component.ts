@@ -9,10 +9,9 @@ import { User } from 'src/app/models/user.model';
 })
 export class EditUserProfileComponent implements OnInit {
   editUser: User = {
-  name: '',
-  email: '',
-  phoneNumber: 0,
-   
+    name: '',
+    email: '',
+    phoneNumber: 0
 
   }
 

@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from '../models/order.model';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
-  selector: 'app-orders',
+  selector: 'orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
 
-  constructor() { }
+  orders!: Order[];
 
-  ngOnInit(): void {
+  constructor(private ordersService:OrdersService) { }
+
+  ngOnInit() {
+    this.listOrders();
+  }
+  listOrders(){
+    this.ordersService.getOrdersList().subscribe(
+      data=>{
+         this.orders=data;
+      }
+    );
   }
 
 }
