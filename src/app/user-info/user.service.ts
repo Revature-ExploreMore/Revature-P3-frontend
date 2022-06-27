@@ -6,30 +6,27 @@ import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-
-  //this url is just from my local to test for functions
-  baseUrl: string = "http://localhost:7272/api/login-employee";
-
-  constructor(private http: HttpClient) { }
+export class UserService { 
+  baseUrlLogin: string = "http://localhost:7474/api/user-info/";
+   constructor(private http: HttpClient) { }
 
   validLogin(user: User): Observable<User> {
-    return this.http.post<User>(this.baseUrl, user);
+    return this.http.post<User>(this.baseUrlLogin+"login", user);
   }
 
   registerUser(newUser1: User):Observable<User>{
-    return this.http.post<User>(this.baseUrl+"", newUser1);
+    return this.http.post<User>(this.baseUrlLogin+"register", newUser1);
   }
 
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl);
+    return this.http.get<User[]>(this.baseUrlLogin);
   }
   getUser(id: any): Observable<User> {
-    return this.http.get<User>(this.baseUrl + '/' + id);
+    return this.http.get<User>(this.baseUrlLogin + '/' + id);
   }
   updateUser(sentUser: User): Observable<User> {
-    return this.http.put<User>(this.baseUrl, sentUser);
+    return this.http.put<User>(this.baseUrlLogin, sentUser);
 
   }
 }

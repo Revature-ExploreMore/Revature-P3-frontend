@@ -18,10 +18,10 @@ export class LoginComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
-    hashedPassword: '',
+    username: '',
+    password: '',
     darkModePreference:false,
-    registerDate:new Date("2022-07-07"),
+    registerDate:new Date("2022-06-27"),
     roleId:0
   }
 
@@ -40,7 +40,11 @@ export class LoginComponent implements OnInit {
           this.authService.isAdmin=true;
         }else if(response.roleId==2){
         this.authService.isUser=true;
-        }else{
+        }else if(response.roleId==3){
+          this.authService.isUser=true;
+          }
+        
+        else{
           this.invalidMessage="Invalid username/password";
         }
       }
