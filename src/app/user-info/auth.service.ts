@@ -1,6 +1,6 @@
-import { UserDetails } from './user.model';
 import { Injectable } from '@angular/core';
 import { JsonpClientBackend } from '@angular/common/http';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ isUser:boolean=false;
     }
   }
 
-  storeUserDetails(userDetails:UserDetails){
+  storeUserDetails(userDetails:User){
     sessionStorage.setItem('user',JSON.stringify(userDetails));
   }
 

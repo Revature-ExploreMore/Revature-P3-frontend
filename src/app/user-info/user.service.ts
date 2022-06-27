@@ -18,7 +18,7 @@ export class UserService {
   }
 
   registerUser(newUser1: User):Observable<User>{
-    return this.http.post<User>(this.baseUrlLogin+"", newUser1);
+    return this.http.post<User>(this.baseUrl+"", newUser1);
   }
 
 
