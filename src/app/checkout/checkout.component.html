@@ -106,7 +106,7 @@
                   value=""
                   required
                 />
-                <div class="invalid-feedback">
+                <div *ngIf="!checkoutFormGroup.valid">
                   Valid first name is required.
                 </div>
               </div>
@@ -137,10 +137,12 @@
                   formControlName="street"
                   id="street"
                   placeholder="123 main st"
-                  required
+                  
                 />
-                <div class="invalid-feedback" style="width: 100%">
-                  Your street is required.
+                <div *ngIf="billingAddressStreet?.invalid &&  billingAddressStreet?.touched" class="text-danger small">
+                  <div *ngIf="billingAddressStreet?.errors?.['required']">
+                  please enter a valid street.
+                </div>
                 </div>
               </div>
             </div>
@@ -156,7 +158,11 @@
                   placeholder="new york"
                   formControlName="city"
                 />
-                <div class="invalid-feedback">Please enter a city.</div>
+                <div *ngIf="billingAddressCity?.invalid &&  billingAddressCity?.touched" class="text-danger small">
+                  <div *ngIf="billingAddressCity?.errors?.['required']">
+                  please enter a city name.
+                </div>
+                </div>
               </div>
             </div>
 
@@ -167,6 +173,7 @@
               <div class="col-md-5 mb-3">
                 <label for="country">Country</label>
                 <select
+                  type="text"
                   class="custom-select d-block w-100"
                   id="country"
                   required
@@ -174,8 +181,7 @@
                   <option value="">Choose...</option>
                   <option>United States</option>
                 </select>
-                <div class="invalid-feedback">
-                  Please select a valid country.
+                <div >
                 </div>
               </div>
 
@@ -183,6 +189,7 @@
               <div class="col-md-4 mb-3">
                 <label for="state">State</label>
                 <select
+                  type="text"
                   formControlName="state"
                   class="custom-select d-block w-100"
                   id="state"
@@ -206,7 +213,14 @@
                   placeholder=""
                   required
                 />
-                <div class="invalid-feedback">Zip code required.</div>
+                <div *ngIf="billingAddressZipCode?.invalid && (billingAddressZipCode?.dirty || billingAddressZipCode?.touched)" class="text-danger small">
+                  <div *ngIf="billingAddressZipCode?.errors?.['required']">
+                      Zip code is required
+                  </div>
+                  <div *ngIf="billingAddressZipCode?.errors?.['minlength']">
+                      Zip code must be at least 2 characters long
+                  </div>
+              </div>
               </div>
 
 
