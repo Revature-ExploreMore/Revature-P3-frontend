@@ -90,7 +90,7 @@
         <h4 class="mb-3">Billing address</h4>
 
 
-        <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+        <form [formGroup]="checkoutFormGroup" (ngSubmit)="addPaymentInfo()">
           <!-- Beginning of Billing Address Form Group---------------------->
           <div formGroupName="customerBilling" class="form-group">
             <div class="row">
