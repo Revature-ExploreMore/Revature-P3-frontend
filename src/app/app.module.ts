@@ -15,9 +15,9 @@ import { LoginComponent } from './user-info/login/login.component';
 import { RegisteruserComponent } from './user-info/registeruser/registeruser.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
-import { ViewUserProfileComponent } from './user/view-user-profile/view-user-profile.component';
 import { OrdersService } from './services/orders.service';
+//import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
+// import { ViewUserProfileComponent } from './user/view-user-profile/view-user-profile.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +31,8 @@ import { OrdersService } from './services/orders.service';
     CheckoutComponent,
     LoginComponent,
     RegisteruserComponent,
-    EditUserProfileComponent,
-    ViewUserProfileComponent
+   // EditUserProfileComponent,
+    // ViewUserProfileComponent
   ],
   imports: [
     BrowserModule,
