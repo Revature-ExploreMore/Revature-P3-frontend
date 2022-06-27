@@ -5,13 +5,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { StorefrontComponent } from './storefront/storefront.component';
 import { LandingComponent } from './landing/landing.component';
+import { CartComponent } from './cart/cart.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
-  {path:"login", component:LoginComponent},
-  {path:"registeruser", component:RegisteruserComponent},
+  {path: "", component:LandingComponent}, 
+  {path: "login", component:LoginComponent},
+  {path: "registeruser", component:RegisteruserComponent},
   {path: "store", component: StorefrontComponent},
-  {path:"landing", component:LandingComponent}, 
-  {path: 'checkout', component: CheckoutComponent}
+  {path: "checkout", component: CheckoutComponent},
+  {path: "cart", component: CartComponent},
+  {path: "orders", component: OrdersComponent}
 
 ];
 

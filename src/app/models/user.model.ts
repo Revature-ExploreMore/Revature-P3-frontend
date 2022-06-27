@@ -4,7 +4,7 @@ export interface User {
     email: string,
     phoneNumber: string,
     userName: string,
-    hashedPAssword: string,
+    hashedPassword: string,
     darkModePreference: boolean,
     registerDate: any,
     roleId: number,
