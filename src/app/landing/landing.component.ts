@@ -13,7 +13,7 @@ export class LandingComponent implements OnInit {
   allCourse: Course [] = [] ;
 
   newCategory: Category = {
-    categoryId: 0,
+    id: 0,
     categoryName: ''
   }
 
@@ -22,7 +22,7 @@ export class LandingComponent implements OnInit {
     name: '',
     description: '',
     price: 0,
-    image_url: '',
+    imageUrl: '',
     category: this.newCategory
   };
 
