@@ -47,7 +47,19 @@ export class StorefrontComponent implements OnInit {
   ngOnInit(): void {
     this.setUser();
     this.setCourses();
+    this.setCart();
   }
+
+  setUser() {
+    let userData : any = sessionStorage.getItem('user');
+    if(userData != null){
+      this.user = JSON.parse(userData) as User;
+      console.log(this.user);
+    } else {
+      this.router.navigateByUrl('');
+    }
+  }
+  
   setCourses() {
     console.log("hello");
     this.courseServ.getAll().subscribe({
@@ -65,14 +77,9 @@ export class StorefrontComponent implements OnInit {
       error: (err) => console.log(err)
     })
   }
-  setUser() {
-    let userData : any = sessionStorage.getItem('user');
-    if(userData != null){
-      this.user = JSON.parse(userData) as User;
-      console.log(this.user);
-    } else {
-      this.router.navigateByUrl('');
-    }
+
+  setCart() {
+    throw new Error('Method not implemented.');
   }
 
 }
