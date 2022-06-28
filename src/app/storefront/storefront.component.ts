@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { Cart } from '../models/cart.model';
 import { Course } from '../models/course.model';
+import { AuthService } from '../user-info/auth.service';
+
 
 @Component({
   selector: 'app-storefront',
@@ -15,10 +17,10 @@ export class StorefrontComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
-    hashedPassword: '',
+    username: '',
+    password: '',
     darkModePreference: false,
-    registerDate : '',
+    registerDate : new Date(),
     roleId: 0
   }
 
@@ -34,7 +36,9 @@ export class StorefrontComponent implements OnInit {
 
   courses: Course[] = [];
 
-  constructor() { }
+  constructor(
+    private authServ : AuthService
+  ) {}
 
   ngOnInit(): void {
   }
