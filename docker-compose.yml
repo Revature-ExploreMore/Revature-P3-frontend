@@ -1,0 +1,7 @@
+version: '3'
+services:
+  angular-service:
+    image: angular-app
+    build: .
+    ports:
+      - 5200:80
