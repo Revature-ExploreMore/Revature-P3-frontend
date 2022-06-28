@@ -15,7 +15,7 @@ export class EditUserProfileComponent implements OnInit {
     email: '',
     phoneNumber: '',
     userName: '',
-    hashedPAssword: '',
+    hashedPassword: '',
     darkModePreference: false,
     registerDate: undefined,
     roleId: 0
