@@ -25,8 +25,8 @@
           <li class="nav-item" *ngIf="hasLoggedIn()">
             <a class="nav-link" routerLink="logout">Log Out</a>
           </li>  
-          <li class="nav-item" *ngIf="hasLoggedIn()">                     
-            <a class="nav-link" routerLink="goToEditUser">My Profile</a>            <!--Added for edit user profile function-->
+          <li class="nav-item" >     <!-- uncomment *ngIf="hasLoggedIn() when user profile function completed -->                
+            <a class="nav-link" routerLink="profile">My Profile</a>            <!--Added for edit user profile function-->
           </li>
         </ul>
       </div>
