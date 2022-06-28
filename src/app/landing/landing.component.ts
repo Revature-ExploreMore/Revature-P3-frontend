@@ -1,15 +1,18 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from '../models/course.model';
 import { Category } from '../models/category.model';
 import { CoursesService } from '../services/courses.service';
 
+
 @Component({
-  selector: 'app-landing',
+  selector: 'landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
+
 
   allCourse: Course[];
   categories: String[];
@@ -31,6 +34,12 @@ export class LandingComponent implements OnInit {
     this.viewAllCategory();
   }
 
+  addANewUser(){
+    return this.router.navigate(['registeruser']);
+   
+    };
+
+    
   viewAllCourse() {
     this.coursesService.getAll().subscribe(response => {
           console.log(response);
@@ -48,7 +57,3 @@ export class LandingComponent implements OnInit {
       }
     })
   }
-
-
-
-}
