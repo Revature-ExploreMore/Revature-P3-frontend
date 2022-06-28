@@ -80,17 +80,17 @@
 </div>
 
 <!-- ---------------------------------------------------------------------------------->
-    <!--  WORKING WITH NgFor to display Course
+    WORKING WITH NgFor to display Course
     <div class="container">
         <div class="row align-items-start">
             <h2>categories</h2>
-            <div class="col-4" *ngFor="let course of allCourse">
+            <div class="col-4" *ngFor="let course of allCourse; index as i">
                 <h5 class="card-title">title</h5>
                 <p class="card-text">text</p>
             </div>
         </div>
     </div>
-    -->
+    
 <!-- ---------------------------------------------------------------------------------->
 
 <!-- ---------------------------------------------------------------------------------->

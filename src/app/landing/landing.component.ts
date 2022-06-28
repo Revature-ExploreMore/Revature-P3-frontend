@@ -19,9 +19,9 @@ export class LandingComponent implements OnInit {
 
   newCourse: Course = {
     id: 0,
-    name: '',
-    description: '',
-    price: 0,
+    name: 'test',
+    description: 'test1',
+    price: 1,
     image_url: '',
     category: this.newCategory
   };

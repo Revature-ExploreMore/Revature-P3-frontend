@@ -15,10 +15,10 @@ export class StorefrontComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
-    hashedPassword: '',
+    username: '',
+    password: '',
     darkModePreference: false,
-    registerDate : '',
+    registerDate : new Date,
     roleId: 0
   }
 
