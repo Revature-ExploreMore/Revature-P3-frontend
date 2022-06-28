@@ -22,7 +22,7 @@ export class StorefrontComponent implements OnInit {
     username: '',
     password: '',
     darkModePreference: false,
-    registerDate : new Date(),
+    registerDate : new Date,
     roleId: 0
   }
 
