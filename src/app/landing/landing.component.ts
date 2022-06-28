@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Course } from '../models/course.model';
 import { Category } from '../models/category.model';
 import { CoursesService } from '../services/courses.service';
@@ -57,3 +56,4 @@ export class LandingComponent implements OnInit {
       }
     })
   }
+}
