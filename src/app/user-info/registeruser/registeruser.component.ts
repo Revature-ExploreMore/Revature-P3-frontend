@@ -18,10 +18,10 @@ export class RegisteruserComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
-    hashedPassword: '',
-    darkModePreference:false,
-    registerDate:new Date("2022-07-07"),
+    username: '',
+    password: '',
+    darkModePreference: false,
+    registerDate:new Date,
     roleId:2
   }
 
@@ -37,9 +37,9 @@ export class RegisteruserComponent implements OnInit {
       name: this.newUser.name,
       email: this.newUser.email,
       phoneNumber: this.newUser.phoneNumber,
-      userName: this.newUser.userName,
-      hashedPassword: this.newUser.hashedPassword,
-      darkModePreference:false,
+      username: this.newUser.username,
+      password: this.newUser.password,
+      darkModePreference: false,
       registerDate:this.newUser.registerDate,
       roleId:2
     };
@@ -49,10 +49,10 @@ export class RegisteruserComponent implements OnInit {
       name: '',
       email: '',
       phoneNumber: '',
-      userName: '',
-      hashedPassword: '',
-      darkModePreference:false,
-      registerDate:new Date("2022-07-07"),
+      username: '',
+      password: '',
+      darkModePreference: false,
+      registerDate:new Date,
       roleId:2
     }
     
