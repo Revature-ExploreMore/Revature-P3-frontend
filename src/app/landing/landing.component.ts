@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from '../models/course.model';
 import { Category } from '../models/category.model';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
   selector: 'app-landing',
@@ -10,35 +11,44 @@ import { Category } from '../models/category.model';
 })
 export class LandingComponent implements OnInit {
 
-  allCourse: Course [] = [] ;
+  allCourse: Course[];
+  categories: String[];
 
   newCategory: Category = {
     categoryId: 0,
     categoryName: ''
   }
 
-  newCourse: Course = {
-    id: 0,
-    name: '',
-    description: '',
-    price: 0,
-    image_url: '',
-    category: this.newCategory
-  };
-
   
-
-  constructor(
-              private router: Router) { 
-  
+  constructor(private coursesService: CoursesService,
+    private router: Router) {
+        this.allCourse = [];
+        this.categories = [];
   }
 
   ngOnInit(): void {
-    this.loadData();
+    this.viewAllCourse();
+    this.viewAllCategory();
   }
 
-  loadData(){
-   // this.categoryHttpService.getAllCa
+  viewAllCourse() {
+    this.coursesService.getAll().subscribe(response => {
+          console.log(response);
+          this.allCourse = response;
+        });
   }
+  viewAllCategory(){
+    this.coursesService.getAll().subscribe(response => {
+      console.log(response);
+      for(let course of response){
+        this.allCourse.push(course);
+        if(!this.categories.includes(course.category.categoryName)){
+          this.categories.push(course.category.categoryName);
+        }
+      }
+    })
+  }
+
+
 
 }
