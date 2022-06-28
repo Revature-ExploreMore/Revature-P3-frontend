@@ -1,5 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Course } from '../models/course.model';
+import { Category } from '../models/category.model';
+import { CoursesService } from '../services/courses.service';
 
 
 @Component({
@@ -8,9 +12,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-    constructor(private router:Router) { }
+
+
+  allCourse: Course[];
+  categories: String[];
+
+  newCategory: Category = {
+    categoryId: 0,
+    categoryName: ''
+  }
+
+  
+  constructor(private coursesService: CoursesService,
+    private router: Router) {
+        this.allCourse = [];
+        this.categories = [];
+  }
 
   ngOnInit(): void {
+    this.viewAllCourse();
+    this.viewAllCategory();
   }
 
   addANewUser(){
@@ -19,8 +40,20 @@ export class LandingComponent implements OnInit {
     };
 
     
-  
+  viewAllCourse() {
+    this.coursesService.getAll().subscribe(response => {
+          console.log(response);
+          this.allCourse = response;
+        });
   }
-
-
-
+  viewAllCategory(){
+    this.coursesService.getAll().subscribe(response => {
+      console.log(response);
+      for(let course of response){
+        this.allCourse.push(course);
+        if(!this.categories.includes(course.category.categoryName)){
+          this.categories.push(course.category.categoryName);
+        }
+      }
+    })
+  }

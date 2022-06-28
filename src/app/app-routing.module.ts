@@ -7,6 +7,8 @@ import { StorefrontComponent } from './storefront/storefront.component';
 import { LandingComponent } from './landing/landing.component';
 import { CartComponent } from './cart/cart.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
+import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 
 const routes: Routes = [
   {path: "", component:LandingComponent}, 
@@ -17,7 +19,8 @@ const routes: Routes = [
   {path: "cart", component: CartComponent},
   {path: "orders", component: OrdersComponent},
   {path:"landing", component:LandingComponent},
-  
+  {path: "profile", component: ViewUserComponent},
+  {path: "profile/edit", component: EditUserProfileComponent}
 
 ];
 

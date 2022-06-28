@@ -19,8 +19,9 @@ isAnonymous:boolean=false;
   getUserDetails(){
     let userData:any=sessionStorage.getItem('user');
     if(userData!=null){
-      return JSON.parse(userData);
+      return JSON.parse(userData) as User;
     }
+    return null;
   }
 
   storeUserDetails(userDetails:User){
