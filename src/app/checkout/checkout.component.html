@@ -315,7 +315,14 @@
                 required
                 formControlName="expDate"
               />
-              <div class="invalid-feedback">Expiration date required</div>
+              <div *ngIf="creditCardExpDate?.invalid && (creditCardExpDate?.dirty || creditCardExpDate?.touched)" class="text-danger small">
+                <div *ngIf="creditCardExpDate?.errors?.['required']">
+                    Security code is required
+                </div>
+                <div *ngIf="creditCardExpDate?.errors?.['pattern']">
+                    please enter a valid date (yyyy-mm-dd)
+                </div>
+            </div>
             </div>
 
 
