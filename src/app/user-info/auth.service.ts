@@ -10,6 +10,7 @@ export class AuthService {
 isLoggedIn:boolean=false;
 isAdmin:boolean=false;
 isUser:boolean=false;
+isAnonymous:boolean=false;
 
   constructor() {
     this.getUserDetails();

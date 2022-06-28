@@ -1,5 +1,5 @@
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from '../auth.service';
@@ -21,11 +21,12 @@ export class LoginComponent implements OnInit {
     username: '',
     password: '',
     darkModePreference:false,
-    registerDate:new Date("2022-06-27"),
+    registerDate:new Date,
     roleId:0
   }
 
-  constructor(private userService:UserService, private authService:AuthService,private http:HttpClient) { }
+  constructor(private userService:UserService, private authService:AuthService,
+    private http:HttpClient, private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -34,14 +35,19 @@ export class LoginComponent implements OnInit {
     this.userService.validLogin(this.userDetails).subscribe((response)=>{
       console.log(response)
       if(response.roleId!=0){
+        
         this.authService.storeUserDetails(response);
         this.authService.isLoggedIn=true;
         if(response.roleId==1){
           this.authService.isAdmin=true;
+         
+          this.router.navigate(['app-storefront']);
         }else if(response.roleId==2){
         this.authService.isUser=true;
+        this.router.navigate(['app-storefront']);
         }else if(response.roleId==3){
-          this.authService.isUser=true;
+          this.authService.isAnonymous=true;
+          this.router.navigate(['app-storefront']);
           }
         
         else{

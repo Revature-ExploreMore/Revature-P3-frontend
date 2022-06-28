@@ -6,6 +6,6 @@ export interface UserDetails{
     username: string,
     password: string,
     darkModePreference: boolean,
-    registerDate: any,
+    registerDate: Date,
     roleId: number,
 }

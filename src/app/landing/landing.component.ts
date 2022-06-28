@@ -1,15 +1,26 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
-  selector: 'app-landing',
+  selector: 'landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-
-  constructor() { }
+    constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
 
-}
+  addANewUser(){
+    return this.router.navigate(['registeruser']);
+   
+    };
+
+    
+  
+  }
+
+
+
