@@ -1,2 +1,2 @@
 FROM nginx:latest
-COPY dist/my-hello-angular /usr/share/nginx/html
+COPY dist/project3-frontend /usr/share/nginx/html
