@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
-    hashedPassword: '',
+    username: '',
+    password: '',
     darkModePreference:false,
     registerDate:new Date,
     roleId:0
