@@ -33,6 +33,6 @@ describe('LoginComponent', () => {
   it(`should render title`, () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('registerform.row.h2')?.textContent).toContain("ExploreMore");
+    expect(compiled.querySelector('.registerform h2')?.textContent).toContain("ExploreMore");
   });
 });
