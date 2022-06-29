@@ -15,4 +15,16 @@ export class HeaderComponent implements OnInit {
   hasLoggedIn(){
     return this.authService.isLoggedIn;
   }
+
+  isAdmin(){
+    return this.authService.isAdmin;
+  }
+
+  isUser(){
+    return this.authService.isUser;
+  }
+
+  isAnonymous(){
+    return this.authService.isAnonymous;
+  }
 }

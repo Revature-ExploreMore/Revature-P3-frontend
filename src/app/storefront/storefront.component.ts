@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { Cart } from '../models/cart.model';
 import { Course } from '../models/course.model';
+import { Router } from '@angular/router';
+import { CoursesService } from '../services/courses.service';
+import { Category } from '../models/category.model';
+
 
 @Component({
   selector: 'app-storefront',
@@ -15,10 +19,10 @@ export class StorefrontComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
-    hashedPassword: '',
+    username: '',
+    password: '',
     darkModePreference: false,
-    registerDate : '',
+    registerDate : new Date,
     roleId: 0
   }
 
@@ -33,10 +37,50 @@ export class StorefrontComponent implements OnInit {
   }
 
   courses: Course[] = [];
+  categories: String[] = [];
 
-  constructor() { }
+  constructor(
+    private courseServ : CoursesService,
+    private router : Router
+  ) {}
 
   ngOnInit(): void {
+    this.setUser();
+    this.setCourses();
+    this.setCart();
+  }
+
+  setUser() {
+    let userData : any = sessionStorage.getItem('user');
+    if(userData != null){
+      this.user = JSON.parse(userData) as User;
+      console.log(this.user);
+    } else {
+      this.router.navigateByUrl('');
+    }
+  }
+  
+  setCourses() {
+    console.log("hello");
+    this.courseServ.getAll().subscribe({
+      next: (response) => {
+        console.log(response);
+        for(let course of response) {
+          this.courses.push(course);
+          if(!this.categories.includes(course.category.categoryName)) {
+            this.categories.push(course.category.categoryName);
+          }
+        }
+        console.log("courses", this.courses);
+        console.log("categories", this.categories);
+      },
+      error: (err) => console.log(err)
+    })
+  }
+
+  setCart() {
+    throw new Error('Method not implemented.');
   }
 
 }
+
