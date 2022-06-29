@@ -1,9 +1,9 @@
 export interface Cart {
     id: number,
-    created_at: any,
-    modified_at: any,
-    cart_total: number,
-    is_removed: boolean,    
-    user_id: number,
-    order_id: number
+    createdAt: any,
+    modifiedAt: any,
+    isRemoved: boolean,
+    cartTotal: number,
+    userId: number,
+    orderId: number
 }
