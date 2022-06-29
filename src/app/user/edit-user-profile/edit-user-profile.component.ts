@@ -14,10 +14,10 @@ export class EditUserProfileComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
-    hashedPassword: '',
+    username: '',
+    password: '',
     darkModePreference: false,
-    registerDate: undefined,
+    registerDate: new Date,
     roleId: 0
   }
 

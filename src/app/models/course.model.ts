@@ -5,6 +5,6 @@ export interface Course {
     name: string,
     description: string,
     price: number,
-    image_url: string
+    imageUrl: string
     category: Category
 }

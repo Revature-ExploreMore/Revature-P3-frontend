@@ -14,6 +14,17 @@ export class ViewUserComponent implements OnInit {
   currentAllUsers: User[];
   storeMessage: string = "";
   shouldDisplay: boolean = false;
+  user: User = { 
+              id: 1,
+              name: "John",
+              email: "Example@nowhere.com",
+              phoneNumber: "000-000-0000",                  //delete when backend works
+              username: "Example",
+              password: "Password",
+              darkModePreference: false,
+              registerDate: new Date ("6-28-22"),
+              roleId: 2
+  }
 
 
   constructor(private userService: UserService, private router: Router) {
@@ -37,8 +48,8 @@ export class ViewUserComponent implements OnInit {
         }
       })
   }
-  goToEditUser(id: number) {
-    this.router.navigate(['edit-user-profile', id]);
+  goToEditUser(user: User) {
+    this.router.navigate(['profile/edit', user]);
   }
 
   displayUserForm() {

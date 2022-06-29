@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Billing } from '../models/billing.model';
+import { AuthService } from '../user-info/auth.service';
 
 @Component({
   selector: 'checkout',
@@ -39,7 +40,7 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private checkOut: CheckoutService
+    private checkOut: CheckoutService, private authService: AuthService
   ) {
 
 
@@ -69,6 +70,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   addPaymentInfo() {
+    let user:any = this.authService.getUserDetails();
+
     this.billinInfo = {
       id: 0,
       streetName: this.checkoutFormGroup.get('customerBilling')?.get('street')
@@ -77,7 +80,7 @@ export class CheckoutComponent implements OnInit {
       state: this.checkoutFormGroup.get('customerBilling')?.get('state')?.value,
       zipCode: this.checkoutFormGroup.get('customerBilling')?.get('zipCode')
         ?.value,
-      userId: 4,
+      userId: user?.id,
     };
     this.paymentInfo = {
       id: 0,
@@ -87,7 +90,7 @@ export class CheckoutComponent implements OnInit {
         ?.value,
       expDate: this.checkoutFormGroup.get('paymentInfo')?.get('expDate')?.value,
       cvv: this.checkoutFormGroup.get('paymentInfo')?.get('cvv')?.value,
-      userId: 3,
+      userId: user?.id
     };
 
     this.checkOut.addBillingInfo(this.billinInfo).subscribe({
