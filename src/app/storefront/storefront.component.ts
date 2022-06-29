@@ -18,15 +18,16 @@ export class StorefrontComponent implements OnInit {
     userName: '',
     hashedPassword: '',
     darkModePreference: false,
-    registerDate : '',
-    roleId: 0
+    registerDate: new Date,
+    roleId: 0,
+    
   }
 
   cart: Cart = {
     id: 0,
     created_at: '',
     modified_at: '',
-    is_removed: false, 
+    is_removed: false,
     cart_total: 0,
     user_id: this.user.id,
     order_id: 0

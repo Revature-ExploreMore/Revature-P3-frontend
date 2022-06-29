@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./registeruser.component.css']
 })
 export class RegisteruserComponent implements OnInit {
-  
+
   userRegister:boolean=false;
 
   newUser: User={
@@ -18,8 +18,8 @@ export class RegisteruserComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    username: '',
-    password: '',
+    userName: '',
+    hashedPassword: '',
     darkModePreference: false,
     registerDate:new Date,
     roleId:2
@@ -37,8 +37,8 @@ export class RegisteruserComponent implements OnInit {
       name: this.newUser.name,
       email: this.newUser.email,
       phoneNumber: this.newUser.phoneNumber,
-      username: this.newUser.username,
-      password: this.newUser.password,
+      userName: this.newUser.userName,
+      hashedPassword: this.newUser.hashedPassword,
       darkModePreference: false,
       registerDate:this.newUser.registerDate,
       roleId:2
@@ -49,13 +49,13 @@ export class RegisteruserComponent implements OnInit {
       name: '',
       email: '',
       phoneNumber: '',
-      username: '',
-      password: '',
+      userName: '',
+      hashedPassword: '',
       darkModePreference: false,
       registerDate:new Date,
       roleId:2
     }
-    
+
     this.userservice.registerUser(addUser).subscribe((response)=>{
       console.log(response);
       console.log(user.id);

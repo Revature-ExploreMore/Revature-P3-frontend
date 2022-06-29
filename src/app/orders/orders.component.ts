@@ -9,19 +9,26 @@ import { OrdersService } from '../services/orders.service';
 })
 export class OrdersComponent implements OnInit {
 
-  orders!: Order[];
+ // orders!: Order[];
+ orderHistoryList:Order[]=[];
+ storage : Storage =sessionStorage;
+
 
   constructor(private ordersService:OrdersService) { }
 
-  ngOnInit() {
-    this.listOrders();
+  ngOnInit(): void {
+ this.handleOrderHistory();
   }
-  listOrders(){
-    this.ordersService.getOrdersList().subscribe(
+  handleOrderHistory() {
+// @ts-ignore: Object is possibly 'null'.
+    const theEmail=JSON.parse(this.storage.getItem('userEmail'));
+    this.ordersService.getOrderHistory(theEmail).subscribe(
       data=>{
-         this.orders=data;
+        this.orderHistoryList=data.orders;
       }
+
     );
   }
+
 
 }

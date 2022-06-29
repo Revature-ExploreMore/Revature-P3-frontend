@@ -14,9 +14,10 @@ const routes: Routes = [
   {path: "registeruser", component:RegisteruserComponent},
   {path: "store", component: StorefrontComponent},
   {path: 'checkout', component: CheckoutComponent},
-  {path:"orders",component:OrdersComponent},
+  {path:"orders-history",component:OrdersComponent},
   {path: "cart", component: CartComponent},
-  {path: "orders", component: OrdersComponent}
+
+
 
 ];
 

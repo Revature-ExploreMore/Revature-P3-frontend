@@ -1,28 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {  Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
-import{map}from'rxjs/operators';
+import { map } from 'rxjs/operators';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrdersService {
+  private orderUrl = 'Http://localhost:8080/orders';
 
-private baseUrl="Http://localhost:8080/api/orders";
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  getOrdersList():Observable<Order[]>{
-
-    return this.httpClient.get<GetResponse>(this.baseUrl).pipe(
-    map(response=>response._embedded.orders)
-    );
-
+  getOrderHistory(theEmail: string): Observable<GetResponseOrderHistory> {
+    const orderHistoryUrl = `${this.orderUrl}/search/findByCustomerEmail?email=${theEmail}`;
+    return this.httpClient.get<GetResponseOrderHistory>(orderHistoryUrl);
   }
 }
-interface GetResponse{
-
-  _embedded:{
-    orders:Order[];
-  }
-
+interface GetResponseOrderHistory {
+  orders: Order[];
 }

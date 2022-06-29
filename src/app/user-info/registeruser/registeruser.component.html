@@ -17,7 +17,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="contact" class="form-label">Phone Number:</label>
-                        <input type="text" class="form-control" id="contact" pattern="[0-9]+" maxlength="10" 
+                        <input type="text" class="form-control" id="contact" pattern="[0-9]+" maxlength="10"
                         placeholder="0123-456-789" name="urContact" [(ngModel)]="newUser.phoneNumber"
                             #phoneNumber="ngModel" required>
                             <div *ngIf="!phoneNumber.valid && phoneNumber.touched" class="text-danger small">Contact number is required</div>
@@ -25,26 +25,26 @@
                     <div class="mb-3">
                         <label for="userName" class="form-label">UserName:</label>
                         <input type="text" class="form-control" id="userName" placeholder="Give user name for login"
-                            name="usrName" [(ngModel)]="newUser.username" #username="ngModel" required>
+                            name="usrName" [(ngModel)]="newUser.userName" #username="ngModel" required>
                             <div *ngIf="!username.valid && username.touched" class="text-danger small">Username is required</div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password:</label>
                         <input type="password" class="form-control" id="password" placeholder="Create secure password for yourself"
-                            name="password" [(ngModel)]="newUser.password" #password="ngModel" min="6" required>
+                            name="password" [(ngModel)]="newUser.hashedPassword" #password="ngModel" min="6" required>
 
                             <div *ngIf="password.valid && password.touched" class="text-danger small">Password required with minimum 6 character</div>
                     </div>
                     <div class="card-footer bg-primary">
-                        <button 
-                            type="button" 
+                        <button
+                            type="button"
                             class="btn btn-primary mybtn"  [disabled]="!myForm.valid"
                             (click)="addANewUser()">Register</button>
                     </div>
                 </div>
-            
+
         </div>
-    </form>  
-    <!---->  
+    </form>
+    <!---->
 </div>
 
