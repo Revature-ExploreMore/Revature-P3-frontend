@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
 import { CartService } from '../services/cart.service';
+import { CoursesService } from '../services/courses.service';
 import { AuthService } from '../user-info/auth.service';
 
 @Component({
-  selector: 'app-cart',
+  selector: 'cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
@@ -35,18 +37,24 @@ newUser: User = {
   registerDate: new Date(),
   roleId: 0
 }
+cartCourse : CartCourse = {
+  id: 0,
+  cart: this.newCart,
+  course: null
+}
+  
   constructor(private cartService: CartService,
-              private authService: AuthService) { 
+              private authService: AuthService,
+              private courseService: CoursesService,
+              private router: Router) { 
     this.courses = [];
   
   }
   ngOnInit(): void {
- //   this.newUser = this.authService.getUserDetails();
- //   this.newCart = this.authService.getCartDetails();
- //   let uidParam= this.newUser.id;
- //   this.cartService.getCartId(uidParam)
-    this.loadData();
-
+    this.setCart();
+    this.setUser();
+    this.setCourses();
+  //  this.loadData();
   }
 setUser(){
   let userData: any = sessionStorage.getItem('user');
@@ -69,7 +77,32 @@ setUser(){
     })
   }
   */
-
+ setCart(){
+ let cart : any = sessionStorage.getItem("cart");
+ if (cart != null){
+  this.newCart = JSON.parse(cart) as Cart;
+  console.log(this.newCart);
+}
+ }
+ /*
+ setCartCourses() {
+  this.cartServ.getCartCourses(this.cart.id).subscribe({
+    next: (response) => {
+      console.log("cartCourses", response);
+      this.cartCourse.cart = this.cart;
+      for(let cartCourse of response) {
+        if(cartCourse.course) {
+          this.cartCourseIDs.push(cartCourse.course.id);
+        }
+      }
+      console.log("cartCourseIDs", this.cartCourseIDs);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+}
+*/
   setCourses(){
     let cidParam = this.newCart.id;
     this.cartService.getCartCourses(cidParam).subscribe({
@@ -96,6 +129,14 @@ setUser(){
       console.log(response);
       this.loadData();
     });
+  }
+
+  goToStoreFront() {
+    this.router.navigateByUrl("storefront");
+  }
+
+  goToCheckout() {
+    this.router.navigateByUrl("checkout");
   }
 }
 
