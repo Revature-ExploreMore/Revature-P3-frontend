@@ -147,5 +147,9 @@ export class StorefrontComponent implements OnInit {
       }
     })
   }
+
+  goToCart() {
+    this.router.navigateByUrl("cart");
+  }
 }
 
