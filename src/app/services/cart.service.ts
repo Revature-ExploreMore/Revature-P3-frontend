@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
@@ -10,7 +11,8 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class CartService {
-  baseURL: string = "http://localhost:7474/cart/";
+  baseURL: string = environment.apiUrl + "/cart";
+  //baseURL: string = "http://localhost:7474/cart/";
   constructor(private http: HttpClient) { }
 
   deleteItem(cartCourseId: number): Observable<boolean>{

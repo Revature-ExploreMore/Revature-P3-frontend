@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { order } from '../models/order.model';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class OrdersService {
 
   constructor(private http:HttpClient) { }
 
-  baseUrl:string = 'http://localhost/api/'
+  baseUrl:string = environment.apiUrl;
 
   viewOrderId (orderId: order): Observable<order>{
     
