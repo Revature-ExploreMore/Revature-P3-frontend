@@ -16,7 +16,7 @@ export class ViewUserComponent implements OnInit {
   shouldDisplay: boolean = false;
   user: User = { 
               id: 1,
-              name: "John",
+              name: "John Example",
               email: "Example@nowhere.com",
               phoneNumber: "000-000-0000",                  //delete when backend works
               username: "Example",
