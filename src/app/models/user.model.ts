@@ -1,11 +1,10 @@
 export interface User {
     id: number,
     name: string,
-    userName:string,
+    username:string,
     email: string,
     phoneNumber: string,
-    
-    hashedPassword: string,
+    password: string,
     darkModePreference: boolean,
     registerDate:Date,
     roleId: number,

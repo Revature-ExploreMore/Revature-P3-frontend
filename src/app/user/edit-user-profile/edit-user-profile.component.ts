@@ -14,10 +14,10 @@ export class EditUserProfileComponent implements OnInit {
     name: '',
     email: '',
     phoneNumber: '',
-    userName: '',
-    hashedPassword: '',
+    username: '',
+    password: '',
     darkModePreference: false,
-    registerDate: undefined,
+    registerDate: new Date,
     roleId: 0
   }
 
@@ -38,7 +38,7 @@ export class EditUserProfileComponent implements OnInit {
 
   updateProfileInfo() {
     this.userService.updateUser(this.updateUser).subscribe((response) => {
-      this.router.navigate(['view-user-profile']);
+      this.router.navigate(['profile']);
     })
   }
 

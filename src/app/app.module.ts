@@ -15,9 +15,9 @@ import { LoginComponent } from './user-info/login/login.component';
 import { RegisteruserComponent } from './user-info/registeruser/registeruser.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { OrdersService } from './services/orders.service';
-//import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
+import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
+import { LogoutComponent } from './user-info/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +31,9 @@ import { ViewUserComponent } from './user/view-user-profile/view-user-profile.co
     CheckoutComponent,
     LoginComponent,
     RegisteruserComponent,
-   // EditUserProfileComponent,
-   ViewUserComponent
+    EditUserProfileComponent,
+    ViewUserComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,7 @@ import { ViewUserComponent } from './user/view-user-profile/view-user-profile.co
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [OrdersService],
+  // providers: [OrdersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,15 +7,25 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class OrdersService {
-  private orderUrl = 'Http://localhost:8080/orders';
+  private baseUrl = 'Http://localhost:7474/orders';
 
-  constructor(private httpClient: HttpClient) {}
 
-  getOrderHistory(theEmail: string): Observable<GetResponseOrderHistory> {
-    const orderHistoryUrl = `${this.orderUrl}/search/findByCustomerEmail?email=${theEmail}`;
-    return this.httpClient.get<GetResponseOrderHistory>(orderHistoryUrl);
+  constructor(private http:HttpClient) { }
+
+  // getOrderHistory(theEmail: string): Observable<Order> {
+  //   const orderHistoryUrl = `${this.baseUrl}/search/findByCustomerEmail?email=${theEmail}`;
+  //   return this.http.get<GetResponseOrderHistory>(orderHistoryUrl);
+  // }
+
+  viewOrderId (orderId: Order): Observable<Order>{
+    
+
+    return this.http.get<Order>(this.baseUrl + '/' + orderId);
   }
-}
-interface GetResponseOrderHistory {
-  orders: Order[];
+
+  viewAllOrders (): Observable<Order[]>{
+
+    return this.http.get<Order[]>(this.baseUrl);
+  }
+
 }

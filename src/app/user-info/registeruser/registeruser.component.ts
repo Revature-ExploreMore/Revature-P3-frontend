@@ -58,7 +58,7 @@ export class RegisteruserComponent implements OnInit {
 
     this.userservice.registerUser(addUser).subscribe((response)=>{
       console.log(response);
-      console.log(user.id);
+      // console.log(user.id);
       this.userRegister=false;
     })
   }
