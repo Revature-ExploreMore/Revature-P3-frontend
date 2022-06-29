@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cart } from '../models/cart.model';
-import { CartCourseDetails } from '../models/cartCourseDetails.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
@@ -15,7 +14,8 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
   deleteItem(cartCourseId: number): Observable<boolean>{
-    return this.http.delete<boolean>(this.baseUrl+'/'+ cartCourseId);
+    return this.http.delete<boolean>(this.baseURL+'/'+ cartCourseId);
+  }
   getCartByUserID(id : number) : Observable<Cart> {
     return this.http.get<Cart>(`${this.baseURL}cart/${id}`);
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from '../models/cart.model';
-import { CartCourseDetails } from '../models/cartCourseDetails.model';
+import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
 import { CartService } from '../services/cart.service';
@@ -12,29 +12,29 @@ import { AuthService } from '../user-info/auth.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  courses: CartCourseDetails [];
+  courses: CartCourse [];
 
 //  cartMessage: string "";
 newCart: Cart = {
   id: 0,
-  created_at: new Date(),
-  modified_at: new Date(),
-  cart_total: 0,
-  is_removed: false, 
-  user_id: 0,
-  order_id: 0,
+  createdAt: new Date(),
+  modifiedAt: new Date(),
+  cartTotal: 0,
+  isRemoved: false, 
+  userId: 0,
+  orderId: 0,
 }
-  newUser: User = {
-id: 0,
-name: '',
-email: '',
-phoneNumber: '',
-username: '',
-password: '',
-darkModePreference: false,
-registerDate: new Date(),
-roleId: 0,
-  }
+newUser: User = {
+  id: 0,
+  name: '',
+  email: '',
+  phoneNumber: '',
+  username: '',
+  password: '',
+  darkModePreference: false,
+  registerDate: new Date(),
+  roleId: 0
+}
   constructor(private cartService: CartService,
               private authService: AuthService) { 
     this.courses = [];
