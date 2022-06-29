@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login.component';
 
@@ -8,7 +11,8 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+      declarations: [ LoginComponent ],
+      imports:[HttpClientTestingModule, RouterTestingModule,FormsModule]
     })
     .compileComponents();
 
@@ -19,5 +23,16 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should an empty string as invalidMessage`, () => {
+    const login = fixture.componentInstance;
+    expect(login.invalidMessage).toEqual('');
+  });
+
+  it(`should render title`, () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('registerform.row.h2')?.textContent).toContain("ExploreMore");
   });
 });

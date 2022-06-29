@@ -1,43 +1,72 @@
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-lg-14 col-xl-8">
-            <div class="image-container">
-                <img class="img-fluid" src="assets\img\glow.gif" alt="alternative" />
+        <div class="col-md-8">
+            <div class="img" id="landingImg">
+                <img class="rounded float-start" id="frontimg" src="assets\img\landingPage2-img.jpg" alt="alternative"
+                    width="950" height="600">
             </div>
         </div>
-        <div class="col-lg-6 col-xl-8">
-            <div class="text-container">
-                <h1 class="h1-large"></h1>
-                <p class="p-large">COMING SOON</p>
-            </div>
+        <div class="col-2">
+            <img class="logo" src="assets\img\ExploreMore-logo.png" width="180" height="180">
+            <h4 class="h1">ExploreMore</h4>
+            <p>wants to learn more?</p>
+            <p>Get Started with us.</p>
+            <button type="button" class="btn btn-primary" (click)="addANewUser()">SignUp today</button>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="row align-items-start">
-        <h2>Top categories</h2>
-        <div class="col">
-            <h1>Java</h1>
-            <img class ="working" src ="assets\img\comingsoon.png"/>
-          <p>COMING SOON</p> 
-        </div>
-        <div class="col">
-            <h1>Python</h1>
-            <img class ="working" src ="assets\img\comingsoon.png"/>
-            <p>COMING SOON</p> 
-        </div>
-        <div class="col">
-            <h1>C++</h1>
-            <img class ="working" src ="assets\img\comingsoon.png"/>
-            <p>COMING SOON</p> 
+        <h2>List of Courses</h2>
+        <div class="col-4" *ngFor="let course of allCourse; let i=index">
+            <div *ngIf="i<9">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="assets\img\comingsoon.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{course.name}}</h5>
+                        <p>{{course.description}}</p>
+                        <p> $ {{course.price}} </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- ---------------------------------------------------------------------------------->
 <div class="container">
+    <div class="row align-items-start">
+        <h2>List of categories</h2>
+    </div>
+    <div class="row align-items-start">
+        <div class="col-4" *ngFor="let cateogory of categories; let i=index">
+            <div *ngIf="i<6">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="assets\img\comingsoon.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{cateogory}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-5 p-4 bg-dark text-white text-center">
     <div class="row">
-        <h2>Subscribe</h2>
-        <h2>COMING SOON</h2>
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+            <p>Contact Us</p>
+            <p>info@exploremore.com</p>
+            <p>p 123-456-7890</p>
+            <p></p>
+        </div>
     </div>
 </div>

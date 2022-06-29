@@ -1,7 +1,11 @@
 version: '3'
 services:
   angular-service:
+<<<<<<< HEAD
     image: angular-app
+=======
+    image: exploremore-frontend
+>>>>>>> f562a77888bf1f1156c8334ab07a47bd945b95dd
     build: .
     ports:
       - 5200:80

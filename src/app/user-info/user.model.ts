@@ -3,9 +3,9 @@ export interface UserDetails{
     name: string,
     email: string,
     phoneNumber: string,
-    userName: string,
+    username: string,
     password: string,
-    darkModePrefrence:boolean,
-    registerDate:Date,
-    roleId:number
+    darkModePreference: boolean,
+    registerDate: Date,
+    roleId: number,
 }

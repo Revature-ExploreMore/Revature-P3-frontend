@@ -7,15 +7,46 @@
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
           <li class="nav-item" >
+            <a class="nav-link" href="landing">Home</a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="#">View Courses by Id</a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="#">View All Courses</a>
+          </li>      
+          <li class="nav-item" *ngIf="hasLoggedIn()">
+            <a class="nav-link" routerLink="logout">Log Out</a>
+          </li>  
+          <li class="nav-item" *ngIf="hasLoggedIn() && isUser()">                     
+            <a class="nav-link" routerLink="goToEditUser">My Profile</a>            <!--Added for edit user profile function-->
+          </li>
+          <li class="nav-item" *ngIf="hasLoggedIn() && isAdmin()" >
+            <a class="nav-link" routerLink="">Add new Course</a>
+          </li>
+          <li class="nav-item" *ngIf="hasLoggedIn() && isAdmin()">
+            <a class="nav-link" routerLink="">Edit a Course</a>
+          </li>
+          <li class="nav-item" *ngIf="hasLoggedIn() && isAdmin()">
+            <a class="nav-link" routerLink="">Delete a Course</a>
+          </li>
+        </ul>
+        
+      </div>
+      <div class="d-flex align-items-center">      
+        <ul class="navbar-nav">
+          <li class="nav-item" *ngIf="!hasLoggedIn()" >
             <a class="nav-link" routerLink="login">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="registeruser">Sign up/Register</a>
           </li>
-
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="hasLoggedIn()">
             <a class="nav-link" routerLink="logout">Log Out</a>
           </li>  
+          <li class="nav-item" >     <!-- uncomment *ngIf="hasLoggedIn() when user profile function completed -->                
+            <a class="nav-link" routerLink="profile">My Profile</a>            <!--Added for edit user profile function-->
+          </li>
         </ul>
       </div>
     </div>
