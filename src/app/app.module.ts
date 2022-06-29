@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
+import { LogoutComponent } from './user-info/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ViewUserComponent } from './user/view-user-profile/view-user-profile.co
     LoginComponent,
     RegisteruserComponent,
     EditUserProfileComponent,
-    ViewUserComponent
+    ViewUserComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

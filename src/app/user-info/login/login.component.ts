@@ -41,13 +41,13 @@ export class LoginComponent implements OnInit {
         if(response.roleId==1){
           this.authService.isAdmin=true;
          
-          this.router.navigate(['app-storefront']);
+          this.router.navigate(['store']);
         }else if(response.roleId==2){
         this.authService.isUser=true;
-        this.router.navigate(['app-storefront']);
+        this.router.navigate(['store']);
         }else if(response.roleId==3){
           this.authService.isAnonymous=true;
-          this.router.navigate(['app-storefront']);
+          this.router.navigate(['store']);
           }
         
         else{
