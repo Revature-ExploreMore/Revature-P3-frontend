@@ -10,7 +10,7 @@ import { CartService } from '../services/cart.service';
 
 
 @Component({
-  selector: 'app-storefront',
+  selector: 'store',
   templateUrl: './storefront.component.html',
   styleUrls: ['./storefront.component.css']
 })
