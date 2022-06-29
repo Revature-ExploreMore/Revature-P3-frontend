@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Cart } from '../models/cart.model';
+import { CartCourseDetails } from '../models/cartCourseDetails.model';
+import { Course } from '../models/course.model';
+import { User } from '../models/user.model';
+import { CartService } from '../services/cart.service';
+import { AuthService } from '../user-info/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -6,10 +12,90 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  courses: CartCourseDetails [];
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+//  cartMessage: string "";
+newCart: Cart = {
+  id: 0,
+  created_at: new Date(),
+  modified_at: new Date(),
+  cart_total: 0,
+  is_removed: false, 
+  user_id: 0,
+  order_id: 0,
 }
+  newUser: User = {
+id: 0,
+name: '',
+email: '',
+phoneNumber: '',
+username: '',
+password: '',
+darkModePreference: false,
+registerDate: new Date(),
+roleId: 0,
+  }
+  constructor(private cartService: CartService,
+              private authService: AuthService) { 
+    this.courses = [];
+  
+  }
+  ngOnInit(): void {
+ //   this.newUser = this.authService.getUserDetails();
+ //   this.newCart = this.authService.getCartDetails();
+ //   let uidParam= this.newUser.id;
+ //   this.cartService.getCartId(uidParam)
+    this.loadData();
+
+  }
+setUser(){
+  let userData: any = sessionStorage.getItem('user');
+  if (userData != null){
+    this.newUser = JSON.parse(userData) as User;
+    console.log(this.newUser);
+  }
+}
+
+  loadData(){
+    this.courses;
+  }
+/*
+  getCartId(userId: number){
+    this.cartService.getCartId(userId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.currentCartId = response;
+      }
+    })
+  }
+  */
+
+  setCourses(){
+    let cidParam = this.newCart.id;
+    this.cartService.getCartCourses(cidParam).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.courses = response;
+      //  for(let course of response){
+      //    this.courses.push(course);
+
+       // }
+      //  this.cartMessage = '';
+        
+      },
+ //     error: (error) => {
+ //       console.log(error.error.errorMessage);
+  //      this.cartMessage = error.error.errorMessage;
+  //    }
+    });
+  
+}
+
+  deleteItem(cartCourseId: number){
+    this.cartService.deleteItem(cartCourseId).subscribe((response)=>{
+      console.log(response);
+      this.loadData();
+    });
+  }
+}
+
