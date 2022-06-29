@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Billing } from '../models/billing.model';
 import { Country } from '../models/countries.model';
+import { Order } from '../models/order.model';
 import { PaymentInfo } from '../models/payment.model';
 
 @Injectable({
@@ -13,15 +14,21 @@ export class CheckoutService {
   constructor(private http:HttpClient) { 
     
   }
-  baseUrl:string = 'http://localhost:7474/api/'
+  baseUrl:string = 'http://localhost:7474/'
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
-    return this.http.post<PaymentInfo>(this.baseUrl+'payment',paymentInfo);
+    return this.http.post<PaymentInfo>(this.baseUrl + 'payment/payment',paymentInfo);
 
   }
 
   addBillingInfo(billingInfo:Billing):Observable<Billing>{
-    return this.http.post<Billing>(this.baseUrl+'billing-address',billingInfo);
+    return this.http.post<Billing>(this.baseUrl+'billing/billing-address',billingInfo);
+  }
+
+  addOrder(order: Order):Observable<Order>{
+
+    return this.http.post<Order>(`${this.baseUrl}order/orders`,order);
+
   }
   
   getCountries():Country[]{

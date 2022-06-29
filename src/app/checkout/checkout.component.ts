@@ -56,13 +56,13 @@ export class CheckoutComponent implements OnInit {
         paymentInfo: this.formBuilder.group({
           cardType: new FormControl('', [Validators.required]),
           cardNumber: new FormControl('', [Validators.required,Validators.pattern('[0-9]{16}')]),
-          expDate: new FormControl('', [Validators.required, Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')]),
-          cvv: new FormControl('', [Validators.required,Validators.pattern('[0-9]{3}'),]),
+          expDate: new FormControl('', [Validators.required,Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')]),
+          cvv: new FormControl('', [Validators.required,Validators.pattern('[0-9]{3}')]),
         }),
       });
   }
 
-
+  // Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')
 
   ngOnInit(): void {
     this.countries = this.checkOut.getCountries();
@@ -80,7 +80,7 @@ export class CheckoutComponent implements OnInit {
       state: this.checkoutFormGroup.get('customerBilling')?.get('state')?.value,
       zipCode: this.checkoutFormGroup.get('customerBilling')?.get('zipCode')
         ?.value,
-      userId: user?.id,
+      userId: 4//user?.id,
     };
     this.paymentInfo = {
       id: 0,
@@ -90,7 +90,7 @@ export class CheckoutComponent implements OnInit {
         ?.value,
       expDate: this.checkoutFormGroup.get('paymentInfo')?.get('expDate')?.value,
       cvv: this.checkoutFormGroup.get('paymentInfo')?.get('cvv')?.value,
-      userId: user?.id
+      userId: 4//user?.id
     };
 
     this.checkOut.addBillingInfo(this.billinInfo).subscribe({
