@@ -9,9 +9,9 @@
                 <img src="https://freesvg.org/img/abstract-user-flat-4.png"
                   class="rounded-circle img-fluid" style="width: 100px;" /> 
               </div>
-              <h3 class="mb-2"><input type="text" class="form-control" placeholder="Edit First and Last Name" ng-model="profile/edit.Name"></h3> 
-              <h3 class="mb-2"><input type="text" class="form-control" placeholder="Edit Phone Number" ng-model="profile/edit.phoneNumber"></h3>
-              <h3 class="mb-2"><input type="email" class="form-control" placeholder="Edit Email Adress" ng-model="profile/edit.Email"></h3>
+              <h3 class="mb-2"><input type="text" class="form-control" placeholder={{user.name}} ng-model="profile/edit.Name"></h3> 
+              <h3 class="mb-2"><input type="text" class="form-control" placeholder={{user.phoneNumber}} ng-model="profile/edit.phoneNumber"></h3>
+              <h3 class="mb-2"><input type="email" class="form-control" placeholder={{user.email}} ng-model="profile/edit.Email"></h3>
                 <button type="button" class="btn btn-primary"
                   (click)="updateProfileInfo()">
                   <i class="material-icons>edit">Submit Profile Changes</i>

@@ -9,21 +9,26 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./edit-user-profile.component.css']
 })
 export class EditUserProfileComponent implements OnInit {
+  userData:any=sessionStorage.getItem('user')
+  user = JSON.parse(this.userData) as User
   updateUser: User = {
-    id: 0,
-    name: '',
-    email: '',
-    phoneNumber: '',
-    username: '',
-    password: '',
-    darkModePreference: false,
-    registerDate: new Date,
-    roleId: 0
+    id: this.user.id,
+    name:  this.user.name,
+    email: this.user.email,
+    phoneNumber: this.user.phoneNumber,
+    username: this.user.username,
+    password: this.user.password,
+    darkModePreference: this.user.darkModePreference,
+    registerDate: this.user.registerDate,
+    roleId: this.user.roleId
   }
 
   constructor(private activateRoute: ActivatedRoute,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router) { 
+      ;
+  
+    }
 
   ngOnInit(): void {
 
