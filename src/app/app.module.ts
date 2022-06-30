@@ -27,7 +27,7 @@ import { LogoutComponent } from './user-info/logout/logout.component';
     StorefrontComponent,
     CartComponent,
     UserComponent,
-    OrdersComponent,   
+    OrdersComponent,
     CheckoutComponent,
     LoginComponent,
     RegisteruserComponent,
