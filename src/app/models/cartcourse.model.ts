@@ -4,5 +4,5 @@ import { Course } from "./course.model";
 export interface CartCourse {
     id : number,
     cart : Cart,
-    course : Course | null
+    course : Course
 }

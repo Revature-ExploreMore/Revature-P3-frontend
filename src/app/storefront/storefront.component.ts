@@ -10,7 +10,7 @@ import { CartService } from '../services/cart.service';
 
 
 @Component({
-  selector: 'app-storefront',
+  selector: 'store',
   templateUrl: './storefront.component.html',
   styleUrls: ['./storefront.component.css']
 })
@@ -27,7 +27,18 @@ export class StorefrontComponent implements OnInit {
     registerDate : new Date,
     roleId: 0
   }
-
+  newCategory: Category = {
+    id: 0,
+    categoryName: ''
+  }
+  newCourse : Course = {
+    id: 0,
+    name: '',
+    description: '',
+    price: 0,
+    imageUrl: '',
+    category: this.newCategory,
+  }
   cart: Cart = {
     id: 0,
     createdAt: '',
@@ -42,7 +53,7 @@ export class StorefrontComponent implements OnInit {
   cartCourse : CartCourse = {
     id: 0,
     cart: this.cart,
-    course: null
+    course: this.newCourse
   }
   courses: Course[] = [];
 
@@ -146,6 +157,10 @@ export class StorefrontComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  goToCart() {
+    this.router.navigateByUrl("cart");
   }
 }
 

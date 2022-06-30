@@ -1,8 +1,8 @@
 export interface Order {
 
     orderId: number,
-    orderTimestamp: string,
+    orderTimestamp: Date,
     orderTotal: number,
-    userId: number
+    //userId: number
 
 }
