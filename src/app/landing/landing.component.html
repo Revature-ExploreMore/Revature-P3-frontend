@@ -67,6 +67,20 @@
             <p class = "CompanyEmail">info@exploremore.com</p>
             <p class = "CompanyPhone">p 123-456-7890</p>
             <p></p>
+            <form>
+                
+                <h3> Dark Mode</h3>
+                 <section>
+                <mat-icon>brightness_5</mat-icon>
+                <mat-slide-toggle input
+                type="checkbox"
+                [checked]="darkMode$ | async"
+                (change)="onToggle()">
+                </mat-slide-toggle>
+                <mat-icon>bedtime</mat-icon>
+                </section>
+                
+                </form>
         </div>
     </div>
 </div>

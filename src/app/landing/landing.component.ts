@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../models/course.model';
 import { Category } from '../models/category.model';
 import { CoursesService } from '../services/courses.service';
+import { Observable } from 'rxjs';
+import { DarkModeService } from 'angular-dark-mode';
 
 
 @Component({
@@ -16,9 +18,9 @@ export class LandingComponent implements OnInit {
   allCourse: Course[];
   categories: String[];
 
-
+  darkMode$: Observable<boolean> = this.darkModeService.darkMode$;
   constructor(private coursesService: CoursesService,
-    private router: Router) {
+    private router: Router, private darkModeService: DarkModeService) {
         this.allCourse = [];
         this.categories = [];
   }
@@ -51,4 +53,8 @@ export class LandingComponent implements OnInit {
       }
     })
   }
+
+  onToggle(): void{
+    this.darkModeService.toggle();
+}
 }
