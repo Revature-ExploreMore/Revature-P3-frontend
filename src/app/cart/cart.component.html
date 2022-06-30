@@ -32,8 +32,8 @@
         <div class="column text-lg">Subtotal: <span class="text-medium">{{newCart.cartTotal}}</span></div>
     </div>
     <div class="shopping-cart-footer">
-        <div class="column"><a class="btn btn-outline-secondary"><i class="icon-arrow-left"
-                    (click)="goToStoreFront()"></i>&nbsp;Back to Shopping</a></div>
+        <div class="column"><a (click)="goToStoreFront()" class="btn btn-outline-secondary"><i class="icon-arrow-left"
+                    ></i>&nbsp;Back to Shopping</a></div>
         <div class="column"><a class="btn btn-success" (click)="goToCheckout()">Checkout</a></div>
     </div>
 </div>
