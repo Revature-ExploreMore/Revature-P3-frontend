@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
+import { Category } from '../models/category.model';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
 import { CartService } from '../services/cart.service';
@@ -14,8 +15,20 @@ import { AuthService } from '../user-info/auth.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  
+  newCategory: Category = {
+    id: 0,
+    categoryName: ''
+  }
+  newCourse : Course = {
+    id: 0,
+    name: '',
+    description: '',
+    price: 0,
+    imageUrl: '',
+    category: this.newCategory,
+  }
   courses: CartCourse [];
-
 //  cartMessage: string "";
 newCart: Cart = {
   id: 0,
@@ -40,21 +53,24 @@ newUser: User = {
 cartCourse : CartCourse = {
   id: 0,
   cart: this.newCart,
-  course: null
+  course: this.newCourse,
 }
+
+
+
   
   constructor(private cartService: CartService,
               private authService: AuthService,
               private courseService: CoursesService,
               private router: Router) { 
     this.courses = [];
-  
+     
   }
   ngOnInit(): void {
     this.setCart();
     this.setUser();
     this.setCourses();
-  //  this.loadData();
+   
   }
 setUser(){
   let userData: any = sessionStorage.getItem('user');
@@ -64,9 +80,7 @@ setUser(){
   }
 }
 
-  loadData(){
-    this.courses;
-  }
+ 
 /*
   getCartId(userId: number){
     this.cartService.getCartId(userId).subscribe({
@@ -109,6 +123,7 @@ setUser(){
       next: (response) => {
         console.log(response);
         this.courses = response;
+        console.log(this.courses);
       //  for(let course of response){
       //    this.courses.push(course);
 
@@ -127,12 +142,13 @@ setUser(){
   deleteItem(cartCourseId: number){
     this.cartService.deleteItem(cartCourseId).subscribe((response)=>{
       console.log(response);
-      this.loadData();
+      this.setCourses();
     });
+    
   }
 
   goToStoreFront() {
-    this.router.navigateByUrl("storefront");
+    this.router.navigateByUrl("store");
   }
 
   goToCheckout() {
