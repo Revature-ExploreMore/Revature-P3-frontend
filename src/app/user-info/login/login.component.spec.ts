@@ -30,9 +30,9 @@ describe('LoginComponent', () => {
     expect(login.invalidMessage).toEqual('');
   });
 
-  it(`should render title`, () => {
+  it(`should have as title 'ExploreMore'`, () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.registerform h2')?.textContent).toContain("ExploreMore");
+    expect(compiled.querySelector('.registerform h2')?.textContent  ).toContain("ExploreMore");
   });
 });
