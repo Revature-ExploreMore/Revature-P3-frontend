@@ -1,6 +1,6 @@
 <div class="container registerform">
     <div class="row">
-        <h2>ExploreMore</h2>       
+        <h2>ExploreMore</h2>
         <form #myForm = "ngForm">
             <div class="card m-3">
             <div class="card-header bg-primary">Login</div>
@@ -23,10 +23,9 @@
                     </div>
             </div>
         </div>
-        <div class="card-footer bg-primary">            
+        <div class="card-footer bg-primary">
                 <button type="button" class="btn btn-primary mybtn" (click)="validateLogin()"
                 [disabled]="!myForm.valid">Login</button>
-           
         </div>
     </div>
         </form>

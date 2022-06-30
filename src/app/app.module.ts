@@ -17,9 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
-import { OrderHistoryComponent } from './user/order-history/order-history.component';
-
-
+import { LogoutComponent } from './user-info/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -29,14 +27,13 @@ import { OrderHistoryComponent } from './user/order-history/order-history.compon
     StorefrontComponent,
     CartComponent,
     UserComponent,
-    OrdersComponent,   
+    OrdersComponent,
     CheckoutComponent,
     LoginComponent,
     RegisteruserComponent,
     EditUserProfileComponent,
     ViewUserComponent,
-    OrderHistoryComponent
-    
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

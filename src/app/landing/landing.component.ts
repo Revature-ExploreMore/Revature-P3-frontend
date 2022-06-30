@@ -16,19 +16,6 @@ export class LandingComponent implements OnInit {
   allCourse: Course[];
   categories: String[];
 
-  newCategory: Category = {
-    id: 0,
-    categoryName: ''
-  }
-
-  newCourse: Course = {
-    id: 0,
-    name: '',
-    description: '',
-    price: 0,
-    imageUrl: '',
-    category: this.newCategory
-  };
 
   constructor(private coursesService: CoursesService,
     private router: Router) {

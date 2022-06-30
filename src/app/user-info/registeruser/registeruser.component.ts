@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./registeruser.component.css']
 })
 export class RegisteruserComponent implements OnInit {
-  
+
   userRegister:boolean=false;
 
   newUser: User={
@@ -55,7 +55,7 @@ export class RegisteruserComponent implements OnInit {
       registerDate:new Date,
       roleId:2
     }
-    
+
     this.userservice.registerUser(addUser).subscribe((response)=>{
       console.log(response);
       // console.log(user.id);
