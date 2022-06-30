@@ -42,7 +42,7 @@ import { LogoutComponent } from './user-info/logout/logout.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  // providers: [OrdersService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

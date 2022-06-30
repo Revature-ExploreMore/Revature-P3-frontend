@@ -17,14 +17,13 @@ const routes: Routes = [
   {path: "registeruser", component:RegisteruserComponent},
   {path: "store", component: StorefrontComponent},
   {path: 'checkout', component: CheckoutComponent},
-  {path:"orders-history",component:OrdersComponent},
   {path: "cart", component: CartComponent},
   {path: "orders", component: OrdersComponent},
-  {path:"landing", component:LandingComponent},
+  {path: "landing", component:LandingComponent},
   {path: "profile", component: ViewUserComponent},
   {path: "profile/edit", component: EditUserProfileComponent},
-  {path:"store", component:StorefrontComponent},
-  {path:"logout",component:LogoutComponent}
+  {path: "store", component:StorefrontComponent},
+  {path: "logout",component:LogoutComponent}
 
 ];
 
