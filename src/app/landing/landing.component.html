@@ -18,15 +18,21 @@
 
 <div class="container">
     <div class="row align-items-start">
+        <h2><u>Categories</u></h2>
+        <div class="btn-group">
+            <div class="cateogory" *ngFor="let cateogory of categories; let i=index">
+                <button type="button" class="btn btn-primary">{{cateogory}}</button>
+            </div>
+        </div>
         <h2 class="header" id = 'header'><u>List of Courses</u></h2>
         <div class="col-4" *ngFor="let course of allCourse; let i=index">
             <div *ngIf="i<6">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="assets\img\comingsoon.png" alt="Card image cap">
+                    <img class="card-img-top" src="{{course.imageUrl}}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{course.name}}</h5>
                         <p>{{course.description}}</p>
-                        <p> $ {{course.price}} </p>
+                        <p> $ {{course.price}}</p>
                     </div>
                 </div>
             </div>
@@ -35,24 +41,6 @@
 </div>
 
 <!-- ---------------------------------------------------------------------------------->
-<div class="container">
-    <div class="row align-items-start">
-        <h2><u>List of categories</u></h2>
-    </div>
-    <div class="row align-items-start">
-        <div class="col-4" *ngFor="let cateogory of categories; let i=index">
-            <div *ngIf="i<6">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="assets\img\comingsoon.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{cateogory}}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div class="mt-5 p-4 bg-dark text-white text-center">
     <div class="row">
