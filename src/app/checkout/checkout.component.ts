@@ -1,4 +1,4 @@
-import { Country } from './../models/countries.model';
+import { Country } from '../models/countries.model';
 import { CheckoutService } from './../services/checkout.service';
 import { PaymentInfo } from './../models/payment.model';
 import { Component, OnInit } from '@angular/core';
