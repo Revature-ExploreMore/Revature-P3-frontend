@@ -11,10 +11,10 @@ import { PaymentInfo } from '../models/payment.model';
 })
 export class CheckoutService {
 
-  constructor(private http:HttpClient) { 
-    
+  constructor(private http:HttpClient) {
+
   }
-  baseUrl:string = 'http://localhost:7474/'
+  baseUrl:string = 'http://localhost:8484/'
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
     return this.http.post<PaymentInfo>(this.baseUrl + 'payment/payment',paymentInfo);
@@ -30,10 +30,10 @@ export class CheckoutService {
     return this.http.post<Order>(`${this.baseUrl}order/orders`,order);
 
   }
-  
+
   getCountries():Country[]{
   return this.countries;
-    
+
 }
 countries : Country[] = [
   {
