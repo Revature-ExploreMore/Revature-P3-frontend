@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CartComponent } from 'src/app/cart/cart.component';
 import { Cart } from 'src/app/models/cart.model';
 import { User } from 'src/app/models/user.model';
+import { OrdersComponent } from 'src/app/orders/orders.component';
 import { UserService } from 'src/app/user-info/user.service';
 
 
@@ -29,15 +30,13 @@ export class ViewUserComponent implements OnInit {
     registerDate: this.user.registerDate,
     roleId: this.user.roleId
   }
-
-
+  
 
   constructor(private userService: UserService, private router: Router) {
     this.currentAllUsers = [];
   }
 
   ngOnInit(): void {
-    this.loadData();
   }
   loadData() {
     this.userService.getAllUsers().subscribe(
@@ -64,19 +63,8 @@ export class ViewUserComponent implements OnInit {
       this.shouldDisplay = true;
     }
   }
-
-  getOrderHistory(): Cart[]{
-   let cart:Cart[] = 
-      [{id: 1,
-      createdAt:'date',
-      modifiedAt: 'date',
-      isRemoved: true,
-      cartTotal: 10,
-      userId: 6,
-      orderId: 8}]
-    return cart;
-
-
+  goToOrderHistory() {
+    this.router.navigate(['orders']);
   }
 }
 
