@@ -1,90 +1,127 @@
+import { Country } from './../models/countries.model';
 import { CheckoutService } from './../services/checkout.service';
 import { PaymentInfo } from './../models/payment.model';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-
-
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Billing } from '../models/billing.model';
+import { AuthService } from '../user-info/auth.service';
 
 @Component({
   selector: 'checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+  styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
-
-  checkoutFormGroup!: FormGroup;
-  paymentInfo:PaymentInfo ={
+    countries: Country[] = []; 
+  checkoutFormGroup : FormGroup;
+  paymentInfo: PaymentInfo = {
     id: 0,
     cardType: '',
     cardNumber: '',
     expDate: '',
     cvv: 0,
-    userId: 0
-  }
+    userId: 0,
+  };
+  billinInfo: Billing = {
+    id: 0,
+    streetName: '',
+    city: '',
+    state: '',
+    zipCode: 0,
+    userId: 0,
+  };
 
-  constructor(private formBuilder: FormBuilder,private checkOut:CheckoutService) { }
+  
 
-  ngOnInit(): void {
+  constructor(
+    private formBuilder: FormBuilder,
+    private checkOut: CheckoutService, private authService: AuthService
+  ) {
+
 
     this.checkoutFormGroup = this.formBuilder.group({
-      customerBilling : this.formBuilder.group({
-        street:[''],
-        city:[''],
-        state:[''],
-        zipCode:['']
-        //user id = sessionStorage of the user
-      }),
-    
-      paymentInfo: this.formBuilder.group({
-        cardType:[''],
-        cardNumber:[''],
-        expDate:[''],
-        cvv:[''],
-
-      })
-    })
-    
+        customerBilling: this.formBuilder.group({
+          street: new FormControl('', [Validators.required,Validators.minLength(2)]),
+          city: new FormControl('', [Validators.required]),
+          state: new FormControl('', [Validators.required]),
+          zipCode: new FormControl('', [Validators.required,Validators.minLength(2)]),
+          //user id = sessionStorage of the user
+        }),
+  
+        paymentInfo: this.formBuilder.group({
+          cardType: new FormControl('', [Validators.required]),
+          cardNumber: new FormControl('', [Validators.required,Validators.pattern('[0-9]{16}')]),
+          expDate: new FormControl('', [Validators.required,Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')]),
+          cvv: new FormControl('', [Validators.required,Validators.pattern('[0-9]{3}')]),
+        }),
+      });
   }
 
-  addPaymentInfo(){
+  // Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')
 
-    this.paymentInfo ={
+  ngOnInit(): void {
+    this.countries = this.checkOut.getCountries();
+ 
+  }
+
+  addPaymentInfo() {
+    let user:any = this.authService.getUserDetails();
+
+    this.billinInfo = {
       id: 0,
-      cardType: this.checkoutFormGroup.get('paymentInfo')?.get('cardType')?.value,
-      cardNumber: this.checkoutFormGroup.get('paymentInfo')?.get('cardNumber')?.value,
+      streetName: this.checkoutFormGroup.get('customerBilling')?.get('street')
+        ?.value,
+      city: this.checkoutFormGroup.get('customerBilling')?.get('city')?.value,
+      state: this.checkoutFormGroup.get('customerBilling')?.get('state')?.value,
+      zipCode: this.checkoutFormGroup.get('customerBilling')?.get('zipCode')
+        ?.value,
+      userId: 4//user?.id,
+    };
+    this.paymentInfo = {
+      id: 0,
+      cardType: this.checkoutFormGroup.get('paymentInfo')?.get('cardType')
+        ?.value,
+      cardNumber: this.checkoutFormGroup.get('paymentInfo')?.get('cardNumber')
+        ?.value,
       expDate: this.checkoutFormGroup.get('paymentInfo')?.get('expDate')?.value,
       cvv: this.checkoutFormGroup.get('paymentInfo')?.get('cvv')?.value,
-      userId: 0
-    }
+      userId: 4//user?.id
+    };
+
+    this.checkOut.addBillingInfo(this.billinInfo).subscribe({
+      next: (response) => console.log(response),
+      error: (error) => console.log(error),
+    });
     this.checkOut.addPaymentInfo(this.paymentInfo).subscribe({
+      next: (response) => console.log(response),
+      error: (error) => console.log(error),
+    });
 
-      next: (response)=> console.log(response),
-      error: (error)=> console.log(error)
-    })
-
+    
   }
 
+  get billingAddressStreet() {return this.checkoutFormGroup.get('customerBilling.street');}
+  get billingAddressCity() {return this.checkoutFormGroup.get('customerBilling.city');}
+  get billingAddressState() {return this.checkoutFormGroup.get('customerBilling.state');}
+  get billingAddressZipCode() {return this.checkoutFormGroup.get('customerBilling.zipCode');}
 
+  get creditCardType() {return this.checkoutFormGroup.get('paymentInfo.cardType');}
+  get creditCardNameOnCard() {return this.checkoutFormGroup.get('paymentInfo.nameOnCard');}
+  get creditCardNumber() {return this.checkoutFormGroup.get('paymentInfo.cardNumber');}
+  get creditCardExpDate() {return this.checkoutFormGroup.get('paymentInfo.expDate');}
+  get creditCardSecurityCode() {return this.checkoutFormGroup.get('paymentInfo.cvv');}
 
-
-  // copyShippingAddressToBillingAddress(event:any){
-
-  //   if (event.target.checked){
-  //     this.checkoutFormGroup.controls['customerBilling']
-  //     .setValue(this.checkoutFormGroup.controls['customerBilling']);
-  //   }else{
-  //     this.checkoutFormGroup.controls['customerBilling'].reset();
-  //   }
-  // }
-
+  
   onSubmit() {
-    console.log("Handling form data");
+    console.log('Handling form data');
     console.log(this.checkoutFormGroup.get('customerBilling')?.value);
     console.log(this.checkoutFormGroup.get('paymentInfo')?.value);
-
   }
 
-
-
-
+  
 }
