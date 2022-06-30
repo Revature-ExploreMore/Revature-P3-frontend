@@ -1,0 +1,7 @@
+version: '3'
+services:
+  angular-service:
+    image: exploremore-frontend
+    build: .
+    ports:
+      - 5200:80

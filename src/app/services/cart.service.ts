@@ -14,7 +14,7 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
   deleteItem(cartCourseId: number): Observable<boolean>{
-    return this.http.delete<boolean>(this.baseURL+'/'+ cartCourseId);
+    return this.http.delete<boolean>(this.baseURL+'cartCourse/'+ cartCourseId);
   }
   getCartByUserID(id : number) : Observable<Cart> {
     return this.http.get<Cart>(`${this.baseURL}cart/${id}`);

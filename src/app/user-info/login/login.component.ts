@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           this.authService.isAnonymous=true;
           this.router.navigate(['store']);
           }
-        
+
         else{
           this.invalidMessage="Invalid username/password";
         }
