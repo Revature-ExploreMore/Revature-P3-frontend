@@ -171,9 +171,23 @@ setCart(){
     
   }
   emptyCart(cartId: number){
-    this.cartService.emptyCart(cartId).subscribe((response)=>{
+    this.cartService.emptyCart(cartId).subscribe({
+      next: (response) => {
       console.log(response);
       this.setCourses();
+      this.newCart.cartTotal -= this.newCart.cartTotal;
+        this.newCart.modifiedAt = new Date;
+        this.cartService.updateCart(this.newCart).subscribe({
+          next: (response) => {
+            console.log(response);
+            this.newCart = response;
+            sessionStorage.setItem("cart", JSON.stringify(this.newCart));
+            console.log(this.newCart);
+          },
+          error: (err) => console.log(err)
+        })
+      },
+      error: (err) => console.log(err)
     });
 
   }
