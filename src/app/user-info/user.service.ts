@@ -6,8 +6,8 @@ import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService { 
-  baseUrlLogin: string = "http://localhost:7474/user/user-info/";
+export class UserService {
+  baseUrlLogin: string = "http://localhost:8484/user/user-info/";
    constructor(private http: HttpClient) { }
 
   validLogin(user: User): Observable<User> {

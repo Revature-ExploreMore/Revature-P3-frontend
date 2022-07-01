@@ -1,3 +1,4 @@
+
 <section class="vh-100" style="background-color: rgb(196, 196, 196);"> <!-- color difference only to differentiate between view an edit user during development-- temperary-->
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -19,8 +20,44 @@
               <div class="d-flex justify-content-between text-center mt-5 mb-2">
               </div>
             </div>
+            <h3 class="mb-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Edit First and Last Name"
+                ng-model="profile/edit.Name"
+              />
+            </h3>
+            <h3 class="mb-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Edit Phone Number"
+                ng-model="profile/edit.phoneNumber"
+              />
+            </h3>
+            <h3 class="mb-2">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Edit Email Adress"
+                ng-model="profile/edit.Email"
+              />
+            </h3>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="updateProfileInfo()"
+            >
+              <i class="material-icons>edit">Submit Profile Changes</i>
+            </button>
+
+            <div
+              class="d-flex justify-content-between text-center mt-5 mb-2"
+            ></div>
           </div>
         </div>
       </div>
     </div>
-  </section>  
+  </div>
+</section>
