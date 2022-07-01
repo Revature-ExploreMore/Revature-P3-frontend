@@ -43,7 +43,7 @@ export class EditUserProfileComponent implements OnInit {
 
   updateProfileInfo() {
     this.userService.updateUser(this.updateUser).subscribe((response) => {
-      this.router.navigate(['profile']);
+    this.router.navigate(['profile']);
     })
   }
 

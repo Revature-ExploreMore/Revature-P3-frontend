@@ -1,27 +1,41 @@
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCourse" data-bs-whatever="@mdo">Edit</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCourse">Add New Course</button>
 
-<div class="modal fade" id="editCourse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addCourse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="addCourse">Register New Course</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form #addCourseForm="ngForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <label for="courseName" class="col-form-label">Course Name</label>
+            <input type="text" class="form-control" id="courseName" placeholder="Enter Course Name" name="courseName" [(ngModel)]="newCourse.name" #name="ngModel" required>
+            <div *ngIf="!name.valid && name.touched" class="text-danger small">New Course Name Required!</div>
           </div>
           <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <label for="courseDescription" class="col-form-label">Course Description</label>
+            <textarea class="form-control" id="message-text" placeholder="Enter Course Description" name="courseDescription" [(ngModel)]="newCourse.description" #name="ngModel" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="coursePrice" class="col-form-label">Course Price</label>
+            <input type="number" class="form-control" id="coursePrice" placeholder="Enter Course Price" name="coursePrice" [(ngModel)]="newCourse.price" #name="ngModel" required>
+            <div *ngIf="!name.valid && name.touched" class="text-danger small">New Course Price Required!</div>
+          </div>
+          <div class="mb-3">
+            <label for="courseImageUrl" class="col-form-label">Course Image</label>
+            <input type="image" class="form-control" id="courseImageUrl" placeholder="Enter Course Image URL" name="courseImageUrl" [(ngModel)]="newCourse.imageUrl" #name="ngModel" required>
+          </div>
+          <div class="mb-3">
+            <label for="courseCategory" class="col-form-label">Course Category</label>
+            <input type="text" class="form-control" id="courseCategory" placeholder="Enter Course Category" name="courseCategory" [(ngModel)]="newCourse.category" #name="ngModel" required>
+            <div *ngIf="!name.valid && name.touched" class="text-danger small">New Course Category Required!</div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button type="button" class="btn btn-primary">Submit New Course</button>
       </div>
     </div>
   </div>

@@ -22,10 +22,10 @@ export class UserService {
     return this.http.get<User[]>(this.baseUrlLogin);
   }
   getUser(id: any): Observable<User> {
-    return this.http.get<User>(this.baseUrlLogin + '/' + id);
+    return this.http.get<User>(this.baseUrlLogin + id);
   }
   updateUser(sentUser: User): Observable<User> {
-    return this.http.put<User>(this.baseUrlLogin, sentUser);
+    return this.http.put<User>(this.baseUrlLogin + "updateUser", sentUser);
 
   }
 }
