@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category.model';
 import { Course } from '../models/course.model';
 import { Router } from '@angular/router';
-import { Category } from '../models/category.model';
 import { CoursesService } from '../services/courses.service';
+import { AuthService } from '../user-info/auth.service';
 
 
 
@@ -68,15 +68,13 @@ export class CourseComponent implements OnInit {
     imageUrl: "",
     category: this.newCategory
     }
-    
-    
+  
     this.courseService.addNewCourse(addCourse).subscribe((response)=>{
       console.log(response);
     })
 
-      }
-    }
-
+  }
+  
   updateCourse(){
     this.courseService.updatedCourse(this.updated).subscribe((response)=>{
     console.log(response);
