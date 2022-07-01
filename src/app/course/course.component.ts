@@ -1,11 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category.model';
 import { Course } from '../models/course.model';
+import { Router } from '@angular/router';
+import { Category } from '../models/category.model';
 import { CoursesService } from '../services/courses.service';
 
 
+
 @Component({
-  selector: 'app-course',
+  selector: 'course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
@@ -23,15 +27,28 @@ export class CourseComponent implements OnInit {
     price: 0,
     imageUrl: "",
     category: this.newCategory
+  } 
+
+  updated: Course = {
+    id: 0,
+    name: "",
+    description: "",
+    price: 0,
+    imageUrl: "",
+    category: this.newCategory
   }
 
-
   constructor(
-    private courseService : CoursesService,
-  ) { }
+    private courseService: CoursesService, 
+    private authService: AuthService,
+    private router: Router) {
+    let update = this.authService.getUserDetails();
+    }
+
 
   ngOnInit(): void {
   }
+  
   addANewCourse(){
     let course= this.courseService;
     let addCourse:Course={
@@ -51,10 +68,19 @@ export class CourseComponent implements OnInit {
     imageUrl: "",
     category: this.newCategory
     }
+    
+    
     this.courseService.addNewCourse(addCourse).subscribe((response)=>{
       console.log(response);
     })
 
       }
     }
-       
+
+  updateCourse(){
+    this.courseService.updatedCourse(this.updated).subscribe((response)=>{
+    console.log(response);
+    });
+  }
+}
+
