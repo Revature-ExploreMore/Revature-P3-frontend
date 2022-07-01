@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 export class UserService {
   //baseUrlLogin: string = "http://localhost:7474/user/user-info/";
   baseUrlLogin: string = environment.apiUrl+"/user/user-info";
-  
+
    constructor(private http: HttpClient) { }
 
   validLogin(user: User): Observable<User> {
