@@ -30,6 +30,10 @@ export class CheckoutService {
     return this.http.post<Order>(`${this.baseUrl}order/orders`,order);
 
   }
+
+  getPaymentInfo(userId:any){
+    return this.http.get<PaymentInfo[]>(`${this.baseUrl}payment/payment/`+userId)
+  }
   
   getCountries():Country[]{
   return this.countries;
