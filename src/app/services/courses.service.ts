@@ -23,10 +23,10 @@ export class CoursesService {
   }
 
   addNewCourse(newCourse: Course):Observable<Course>{
-    return this.http.post<Course>(this.baseURL+"addCourse", newCourse); 
+    return this.http.post<Course>(this.baseUrl+"addCourse", newCourse); 
   }
 
   updatedCourse(updateCourse: Course): Observable<Course> {
-    return this.http.put<Course>(this.baseURL + 'updateCourse', updateCourse);
+    return this.http.put<Course>(this.baseUrl + 'updateCourse', updateCourse);
   }
 }
