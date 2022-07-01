@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from '../models/order.model';
+import { User } from '../models/user.model';
 import { OrdersService } from '../services/orders.service';
 
 @Component({
@@ -11,13 +13,23 @@ export class OrdersComponent implements OnInit {
 
  // orders!: Order[];
  orderHistoryList:Order[]=[];
- storage : Storage =sessionStorage;
+ user: User = {
+  id: 0,
+  name: '',
+  email: '',
+  phoneNumber: '',
+  username: '',
+  password: '',
+  darkModePreference: false,
+  registerDate : new Date,
+  roleId: 0
+}
 
 
-  constructor(private ordersService:OrdersService) { }
+  constructor(private ordersService:OrdersService, private router: Router) { }
 
   ngOnInit(): void {
-//  this.handleOrderHistory();
+  this.handleOrderHistory();
   }
 /*
   we should call a function from backend that retrieves all
@@ -35,16 +47,25 @@ export class OrdersComponent implements OnInit {
   a route  "...order/orders/{uid}"
 */
 
-//   handleOrderHistory() {
-// // @ts-ignore: Object is possibly 'null'.
-//     const theEmail=JSON.parse(this.storage.getItem('userEmail'));
-//     this.ordersService.getOrderHistory(theEmail).subscribe(
-//       data=>{
-//         this.orderHistoryList=data.orders;
-//       }
+   handleOrderHistory() {
 
-//     );
-//   }
+      let userData : any = sessionStorage.getItem('user');
+      if(userData != null){
+        this.user = JSON.parse(userData) as User;
+        console.log(this.user);
+      } else {
+        this.router.navigateByUrl('');
+      }
+      this.ordersService.getOrderHistory(this.user.id).subscribe({
+        next:(response)=>{
+          console.log(response);
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      })
 
 
+
+   }
 }

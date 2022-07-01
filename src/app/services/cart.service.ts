@@ -31,4 +31,10 @@ export class CartService {
   addCourseToCart(cartCourse : CartCourse) : Observable<CartCourse> {
     return this.http.post<CartCourse>(`${this.baseURL}cartCourse`, cartCourse);
   }
+  emptyCart(cartId: number): Observable<boolean>{
+    return this.http.delete<boolean>(this.baseURL+ cartId);
+  }
+    updateCart(cart : Cart) : Observable<Cart> {
+    return this.http.put<Cart>(`${this.baseURL}update`, cart);
+  }
 }

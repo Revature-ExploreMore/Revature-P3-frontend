@@ -6,7 +6,7 @@ import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService { 
+export class UserService {
   baseUrlLogin: string = "http://localhost:7474/user/user-info/";
    constructor(private http: HttpClient) { }
 
@@ -17,7 +17,6 @@ export class UserService {
   registerUser(newUser1: User):Observable<User>{
     return this.http.post<User>(this.baseUrlLogin+"register", newUser1);
   }
-
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrlLogin);

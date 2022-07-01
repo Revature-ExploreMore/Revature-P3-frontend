@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Billing } from '../models/billing.model';
 import { Country } from '../models/countries.model';
 import { Order } from '../models/order.model';
+
 import { PaymentInfo } from '../models/payment.model';
 
 @Injectable({
@@ -11,8 +12,8 @@ import { PaymentInfo } from '../models/payment.model';
 })
 export class CheckoutService {
 
-  constructor(private http:HttpClient) { 
-    
+  constructor(private http:HttpClient) {
+
   }
   baseUrl:string = 'http://localhost:7474/'
 
@@ -30,10 +31,10 @@ export class CheckoutService {
     return this.http.post<Order>(`${this.baseUrl}order/orders`,order);
 
   }
-  
+
   getCountries():Country[]{
   return this.countries;
-    
+
 }
 countries : Country[] = [
   {
