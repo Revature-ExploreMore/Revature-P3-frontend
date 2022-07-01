@@ -10,15 +10,15 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class CoursesService {
 
-  baseUrl: string = "http://localhost:7474/course";
-  //baseUrl: string = environment.apiUrl+"/course";
+  //baseUrl: string = "http://localhost:7474/course/";
+  baseUrl: string = environment.apiUrl+"/course/";
   constructor(private http: HttpClient) { }
 
   getAll() : Observable<Course[]> {
     return this.http.get<Course[]>(`${this.baseUrl}getAll`);
   }
   deleteCourse(id: number): Observable<Boolean>{
-    return this.http.delete<Boolean>(this.baseUrl + '/' + id);
+    return this.http.delete<Boolean>(`${this.baseUrl}`);
 
   }
 
