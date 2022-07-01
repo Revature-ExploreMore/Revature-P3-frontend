@@ -10,7 +10,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class CartService {
-  baseURL: string = "http://localhost:8484/cart/";
+  baseURL: string = "http://localhost:7474/cart/";
   constructor(private http: HttpClient) { }
 
   deleteItem(cartCourseId: number): Observable<boolean>{
@@ -33,7 +33,8 @@ export class CartService {
   }
   emptyCart(cartId: number): Observable<boolean>{
     return this.http.delete<boolean>(this.baseURL+ cartId);
-  updateCart(cart : Cart) : Observable<Cart> {
+  }
+    updateCart(cart : Cart) : Observable<Cart> {
     return this.http.put<Cart>(`${this.baseURL}update`, cart);
   }
 }
