@@ -14,12 +14,9 @@ import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { CartService } from '../services/cart.service';
 
-<<<<<<< Updated upstream
 import { ActivatedRoute, Navigation, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-=======
->>>>>>> Stashed changes
 
 @Component({
   selector: 'checkout',
