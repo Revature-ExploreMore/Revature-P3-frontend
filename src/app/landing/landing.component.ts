@@ -17,7 +17,7 @@ export class LandingComponent implements OnInit {
 
   allCourse: Course[];
   categories: String[];
-  user: number= this.getUserId();
+  user: number = 0;
  
 
   constructor(private coursesService: CoursesService, private authService: AuthService, 
@@ -26,6 +26,7 @@ export class LandingComponent implements OnInit {
         this.categories = [];
        
   }
+  //used to enable or disable the delete button depending if its an admin or not
   getUserId():number{
    let id:any = this.authService.getUserDetails();
    if(id.roleId == null){
@@ -34,10 +35,12 @@ export class LandingComponent implements OnInit {
     return id.roleId;
    }
   }
+
+
   ngOnInit(): void {
     this.viewAllCourse();
     this.viewAllCategory();
-    console.log(this.user);
+    this.user = this.getUserId();
   }
 
   addANewUser(){
@@ -53,6 +56,7 @@ export class LandingComponent implements OnInit {
           return this.allCourse=response;
         });
   }
+  //method works to call the back end, but needs rework
   deleteCourse(id:number){
     this.coursesService.deleteCourse(id).subscribe({
       next: (response) =>{

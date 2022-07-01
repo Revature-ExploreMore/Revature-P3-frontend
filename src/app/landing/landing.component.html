@@ -39,7 +39,9 @@
                         <h5 class="card-title">{{course.name}}</h5>
                         <p>{{course.description}}</p>
                         <p> $ {{course.price}}</p>
-                        <button *ngIf="user == 1" (click) = "deleteCourse(course.id)">Delete course</button>
+                        <!-- this is a delete buton that doesnt work, wanted to keep it to delete a course on the admin side but if a course is deleted it
+                        must be removed from other tables.  -->
+                        <!-- <button *ngIf="user == 1" (click) = "deleteCourse(course.id)">Delete course</button> -->
                     </div>
                 </div>
             </div>
