@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartComponent } from 'src/app/cart/cart.component';
+import { Cart } from 'src/app/models/cart.model';
 import { User } from 'src/app/models/user.model';
+import { OrdersComponent } from 'src/app/orders/orders.component';
 import { UserService } from 'src/app/user-info/user.service';
 
 
@@ -14,25 +17,26 @@ export class ViewUserComponent implements OnInit {
   currentAllUsers: User[];
   storeMessage: string = "";
   shouldDisplay: boolean = false;
-  user: User = { 
-              id: 0,
-              name: "",
-              email: "",
-              phoneNumber: "",                  //delete when backend works
-              username: "",
-              password: "",
-              darkModePreference: false,
-              registerDate: new Date (""),
-              roleId: 0
+  userData:any=sessionStorage.getItem('user')
+  user = JSON.parse(this.userData) as User
+  updateUser: User = {
+    id: this.user.id,
+    name:  this.user.name,
+    email: this.user.email,
+    phoneNumber: this.user.phoneNumber,
+    username: this.user.username,
+    password: this.user.password,
+    darkModePreference: this.user.darkModePreference,
+    registerDate: this.user.registerDate,
+    roleId: this.user.roleId
   }
-
+  
 
   constructor(private userService: UserService, private router: Router) {
     this.currentAllUsers = [];
   }
 
   ngOnInit(): void {
-    this.loadData();
   }
   loadData() {
     this.userService.getAllUsers().subscribe(
@@ -58,6 +62,9 @@ export class ViewUserComponent implements OnInit {
     } else {
       this.shouldDisplay = true;
     }
+  }
+  goToOrderHistory() {
+    this.router.navigate(['orders']);
   }
 }
 
