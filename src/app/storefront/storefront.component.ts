@@ -152,6 +152,17 @@ export class StorefrontComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.cartCourseIDs.push(course.id);
+        this.cart.cartTotal += course.price;
+        this.cart.modifiedAt = new Date;
+        this.cartServ.updateCart(this.cart).subscribe({
+          next: (response) => {
+            console.log(response);
+            this.cart = response;
+            sessionStorage.setItem("cart", JSON.stringify(this.cart));
+            console.log(this.cart);
+          },
+          error: (err) => console.log(err)
+        })
       },
       error: (err) => {
         console.log(err);

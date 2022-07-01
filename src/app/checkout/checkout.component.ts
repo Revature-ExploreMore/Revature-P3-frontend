@@ -10,6 +10,9 @@ import {
 } from '@angular/forms';
 import { Billing } from '../models/billing.model';
 import { AuthService } from '../user-info/auth.service';
+import { Cart } from '../models/cart.model';
+import { CartCourse } from '../models/cartcourse.model';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'checkout',
@@ -35,12 +38,24 @@ export class CheckoutComponent implements OnInit {
     zipCode: 0,
     userId: 0,
   };
+  cart: Cart = {
+    id: 0,
+    createdAt: new Date(),
+    modifiedAt: new Date(),
+    cartTotal: 0,
+    isRemoved: false, 
+    userId: 0,
+    orderId: 0,
+  }
+  courses: CartCourse [] = [];
 
   
 
   constructor(
     private formBuilder: FormBuilder,
-    private checkOut: CheckoutService, private authService: AuthService
+    private checkOut: CheckoutService, 
+    private authService: AuthService,
+    private cartService: CartService
   ) {
 
 
@@ -66,8 +81,29 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.countries = this.checkOut.getCountries();
- 
+    this.setCart();
+    this.setCourses();
   }
+
+  setCart(){
+    let cart : any = sessionStorage.getItem("cart");
+    if (cart != null){
+      this.cart = JSON.parse(cart) as Cart;
+      console.log(this.cart);
+    }
+  }
+
+  setCourses(){
+    let cidParam = this.cart.id;
+    this.cartService.getCartCourses(cidParam).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.courses = response;
+        console.log(this.courses);
+      }
+    });
+  
+}
 
   addPaymentInfo() {
     let user:any = this.authService.getUserDetails();

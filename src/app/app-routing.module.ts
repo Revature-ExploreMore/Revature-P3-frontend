@@ -1,3 +1,4 @@
+import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './user-info/login/login.component';
 import { RegisteruserComponent } from './user-info/registeruser/registeruser.component';
 import { NgModule } from '@angular/core';
@@ -20,7 +21,9 @@ const routes: Routes = [
   {path: "orders", component: OrdersComponent},
   {path:"landing", component:LandingComponent},
   {path: "profile", component: ViewUserComponent},
-  {path: "profile/edit", component: EditUserProfileComponent}
+  {path: "profile/edit", component: EditUserProfileComponent},
+  {path: "logout",component:LogoutComponent},
+  {path:"viewCourse()",component:LandingComponent}
 
 ];
 

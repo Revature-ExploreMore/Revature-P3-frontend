@@ -23,7 +23,7 @@ describe('RegisteruserComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it(`should render title`, () => {
+  it(`should have welcome message as 'Welcome To ExploreMore...'`, () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.registerform h1')?.textContent).toContain("Welcome To ExploreMore...");
