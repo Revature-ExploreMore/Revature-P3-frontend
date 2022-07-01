@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root',
 })
 export class OrdersService {
-  //private baseUrl = 'http://localhost:7474/order';
-  private baseUrl: string = environment.apiUrl+"/order";
+  private baseUrl = 'http://localhost:7474/order';
+  //private baseUrl: string = environment.apiUrl+"/order";
 
 
   constructor(private http:HttpClient) { }
