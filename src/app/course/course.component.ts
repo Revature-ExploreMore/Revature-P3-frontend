@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category.model';
 import { Course } from '../models/course.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../services/courses.service';
 import { AuthService } from '../user-info/auth.service';
+
 
 
 
@@ -15,6 +15,9 @@ import { AuthService } from '../user-info/auth.service';
 })
 export class CourseComponent implements OnInit {
  
+  courses: Course[];
+  categories: String[];
+  
   newCategory: Category = {
     id: 0,
     categoryName: ""
@@ -41,12 +44,35 @@ export class CourseComponent implements OnInit {
   constructor(
     private courseService: CoursesService, 
     private authService: AuthService,
-    private router: Router) {
-    let update = this.authService.getUserDetails();
-    }
+    private router: Router,
+    private activatedRoute: ActivatedRoute) 
+      {
+        this.courses = [];
+        this.categories = [];
+      }
 
 
   ngOnInit(): void {
+    this.viewAllCourse();
+    this.viewAllCategory();
+  }
+
+  viewAllCourse() {
+    this.courseService.getAll().subscribe(response => {
+          return this.courses=response;
+        });
+  }
+
+  viewAllCategory(){
+    this.courseService.getAll().subscribe(response => {
+      console.log(response);
+      for(let course of response){
+        this.courses.push(course);
+        if(!this.categories.includes(course.category.categoryName)){
+          this.categories.push(course.category.categoryName);
+        }
+      }
+    })
   }
   
   addANewCourse(){
@@ -72,12 +98,11 @@ export class CourseComponent implements OnInit {
     this.courseService.addNewCourse(addCourse).subscribe((response)=>{
       console.log(response);
     })
-
   }
   
   updateCourse(){
     this.courseService.updatedCourse(this.updated).subscribe((response)=>{
-    console.log(response);
+      this.router.navigate(['course']);
     });
   }
 }

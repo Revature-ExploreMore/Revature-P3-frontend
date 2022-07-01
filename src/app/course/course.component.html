@@ -1,63 +1,131 @@
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCourse" data-bs-whatever="@mdo">Edit</button>
-
-<div class="modal fade" id="editCourse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courses">
+        <td>{{ course.name }}</td>
+        <td>{{ course.description }}</td>
+        <td>{{ course.price }}</td>
+        <td><img src={{course.imageUrl}} style="width:100px; height:100px"></td>
+        <td>{{ course.category.categoryName }}</td>
+        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCourse"
+          (click)="updateCourse()">Edit</button>
+      </tr>
+    </tbody>
+  </table>
 </div>
+<div></div>
 
 
 
-
-
-
-
-
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCourse" data-bs-whatever="@mdo">Edit</button>
-<div class="modal fade" id="editCourse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
+  <div
+    class="modal fade"
+    id="editCourse"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCourse">Edit Course</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="container myUpdateCourse">
+        <div class="modal-body">
+          <form #myForm="ngForm">
+            <div class="mb-3">
+              <label for="name" class="col-form-label">Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                value="{{updated.name}}"
+                name="name"
+                [(ngModel)]="updated.name"
+                #name="ngModel"/>
+              <div *ngIf="!name.valid && name.touched" class="text-danger small">
+                user name is required!
+            </div>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="col-form-label"
+                >Description:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                value="{{ updated.description }}"
+                #description="ngModel"
+                [(ngModel)]="updated.description"/>
+              <div *ngIf="!description.valid && description.touched" class="text-danger small">
+                user name is required!
+            </div>
+            </div>
+            <div class="mb-3">
+              <label for="price" class="col-form-label">Price:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="price"
+                name="price"
+                value="{{ updated.price }}"
+                #price="ngModel"
+                [(ngModel)]="updated.price"/>
+              <div *ngIf="!price.valid && price.touched" class="text-danger small">
+                user name is required!
+            </div>
+            </div>
+            <div class="mb-3">
+              <label for="url" class="col-form-label"
+                >Image URL:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="url"
+                name="url"
+                value="{{ updated.imageUrl }}"
+                #url="ngModel"
+                [(ngModel)]="updated.imageUrl"/>
+              <div *ngIf="!url.valid && url.touched" class="text-danger small">
+                user name is required!
+            </div>
+            </div>
+            <div class="mb-3">
+              <label for="category" class="col-form-label"
+                >Category:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="category"
+                name="category"
+                value="{{ updated.category.id }}"
+                #category="ngModel"
+                [(ngModel)]="updated.category.id"/>
+              <div *ngIf="!category.valid && category.touched" class="text-danger small">
+                user name is required!
+            </div>
+            </div>
+          </form>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button type="button" class="btn btn-primary">Update Course</button>
       </div>
     </div>
   </div>
