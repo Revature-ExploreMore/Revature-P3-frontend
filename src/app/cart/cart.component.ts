@@ -89,15 +89,43 @@ setUser(){
   }
 }
 
-
- setCart(){
- let cart : any = sessionStorage.getItem("cart");
- if (cart != null){
-  this.newCart = JSON.parse(cart) as Cart;
-  console.log(this.newCart);
-}
- }
  
+/*
+  getCartId(userId: number){
+    this.cartService.getCartId(userId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.currentCartId = response;
+      }
+    })
+  }
+  */
+setCart(){
+  let cart : any = sessionStorage.getItem("cart");
+  if (cart != null){
+    this.newCart = JSON.parse(cart) as Cart;
+    console.log(this.newCart);
+  }
+}
+ /*
+ setCartCourses() {
+  this.cartServ.getCartCourses(this.cart.id).subscribe({
+    next: (response) => {
+      console.log("cartCourses", response);
+      this.cartCourse.cart = this.cart;
+      for(let cartCourse of response) {
+        if(cartCourse.course) {
+          this.cartCourseIDs.push(cartCourse.course.id);
+        }
+      }
+      console.log("cartCourseIDs", this.cartCourseIDs);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+}
+*/
   setCourses(){
     let cidParam = this.newCart.id;
     this.cartService.getCartCourses(cidParam).subscribe({
@@ -115,10 +143,24 @@ setUser(){
   
 }
 
-  deleteItem(cartCourseId: number){
-    this.cartService.deleteItem(cartCourseId).subscribe((response)=>{
-      console.log(response);
-      this.setCourses();
+  deleteItem(cartCourse: CartCourse){
+    this.cartService.deleteItem(cartCourse.id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.setCourses();
+        this.newCart.cartTotal -= cartCourse.course.price;
+        this.newCart.modifiedAt = new Date;
+        this.cartService.updateCart(this.newCart).subscribe({
+          next: (response) => {
+            console.log(response);
+            this.newCart = response;
+            sessionStorage.setItem("cart", JSON.stringify(this.newCart));
+            console.log(this.newCart);
+          },
+          error: (err) => console.log(err)
+        })
+      },
+      error: (err) => console.log(err)
     });
     
   }

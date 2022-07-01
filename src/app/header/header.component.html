@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark text-lg-start">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">ExploreMore</a>
+           <img class="logo ourlogo" src="assets\img\newlogo.PNG">
+           <a class="navbar-brand" href="#">ExploreMore</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,16 +10,12 @@
           <li class="nav-item" *ngIf="hasLoggedIn()">
             <a class="nav-link" routerLink="store">Home</a>
           </li>
-          <li class="nav-item" >
-            <a class="nav-link" href="#">View Courses by Id</a>
+          <li class="nav-item" *ngIf="!hasLoggedIn()">
+            <a class="nav-link" routerLink="viewAllCategory()">Course Categeories</a>
           </li>
-          <li class="nav-item" >
-            <a class="nav-link" href="#">View All Courses</a>
+          <li class="nav-item" *ngIf="!hasLoggedIn()">
+            <a class="nav-link" routerLink="viewCourse()">View All Courses</a>            
           </li>      
-            
-          <li class="nav-item" *ngIf="hasLoggedIn() && isUser()">                     
-            <a class="nav-link" routerLink="goToEditUser">My Profile</a>            <!--Added for edit user profile function-->
-          </li>
           <li class="nav-item" *ngIf="hasLoggedIn() && isAdmin()" >
             <a class="nav-link" routerLink="">Add new Course</a>
           </li>
@@ -38,9 +35,6 @@
           </li>
           <li class="nav-item" *ngIf="!hasLoggedIn()">
             <a class="nav-link" routerLink="registeruser">Sign up/Register</a>
-          </li>
-          <li class="nav-item" *ngIf="hasLoggedIn()">     <!-- uncomment *ngIf="hasLoggedIn() when user profile function completed -->                
-            <a class="nav-link" routerLink="profile">My Profile</a>            <!--Added for edit user profile function-->
           </li>
           <li class="nav-item" *ngIf="hasLoggedIn()">
             <a class="nav-link" routerLink="logout">Log Out</a>

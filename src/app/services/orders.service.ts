@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class OrdersService {
-  private baseUrl = 'Http://localhost:7474/orders';
+  private baseUrl = 'http://localhost:7474/orders';
 
 
   constructor(private http:HttpClient) { }

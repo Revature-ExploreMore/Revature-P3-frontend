@@ -33,5 +33,7 @@ export class CartService {
   }
   emptyCart(cartId: number): Observable<boolean>{
     return this.http.delete<boolean>(this.baseURL+ cartId);
+  updateCart(cart : Cart) : Observable<Cart> {
+    return this.http.put<Cart>(`${this.baseURL}update`, cart);
   }
 }

@@ -23,7 +23,7 @@
                     </td>
                     <td class="text-center text-lg text-medium" *ngIf="item.course" >$ {{item.course.price}}</td>
                     <td class="text-center"><a class="remove-from-cart" data-toggle="tooltip"
-                            (click)="deleteItem(item.id)" title="" data-original-title="Remove item"><i
+                            (click)="deleteItem(item)" title="" data-original-title="Remove item"><i
                                 class="fa fa-trash"></i></a></td>
                 </tr>
             </tbody>
