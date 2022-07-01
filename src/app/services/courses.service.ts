@@ -13,4 +13,7 @@ export class CoursesService {
   getAll() : Observable<Course[]> {
     return this.http.get<Course[]>(`${this.baseURL}getAll`);
   }
+  deleteCourse(id: number): Observable<Boolean>{
+    return this.http.delete<Boolean>(this.baseURL + '/' + id);
+  }
 }
