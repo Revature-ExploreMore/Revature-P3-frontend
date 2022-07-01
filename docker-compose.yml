@@ -4,4 +4,5 @@ services:
     image: exploremore-frontend
     build: .
     ports:
+      - "443:80"
       - 5200:80
