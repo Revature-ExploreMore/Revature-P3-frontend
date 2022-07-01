@@ -18,6 +18,7 @@ import { AuthService } from '../user-info/auth.service';
 })
 export class CheckoutComponent implements OnInit {
     countries: Country[] = []; 
+    
   checkoutFormGroup : FormGroup;
   paymentInfo: PaymentInfo = {
     id: 0,
