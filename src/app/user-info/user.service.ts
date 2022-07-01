@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class UserService {
-  baseUrlLogin: string = "http://localhost:7474/user/user-info/";
-  //baseUrlLogin: string = environment.apiUrl+"/user/user-info";
+  //baseUrlLogin: string = "http://localhost:7474/user/user-info/";
+  baseUrlLogin: string = environment.apiUrl+"/user/user-info";
 
    constructor(private http: HttpClient) { }
 
