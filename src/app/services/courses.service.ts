@@ -16,4 +16,7 @@ export class CoursesService {
   deleteCourse(id: number): Observable<Boolean>{
     return this.http.delete<Boolean>(this.baseURL + '/' + id);
   }
+  addNewCourse(newCourse: Course):Observable<Course>{
+    return this.http.post<Course>(this.baseURL+"addCourse", newCourse); 
+  }
 }
