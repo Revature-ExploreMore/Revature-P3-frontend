@@ -48,14 +48,15 @@ select.form-control {
     vertical-align: middle !important
 }
 
-.shopping-cart>table thead th
+.shopping-cart>table thead th,
+.wishlist-table>table thead th,
 .order-table>table thead th {
     padding-top: 17px;
     padding-bottom: 17px;
     border-width: 1px
 }
 
-.shopping-cart .remove-from-cart
+.shopping-cart .remove-from-cart,
 .order-table .remove-from-cart {
     display: inline-block;
     color: #ff5252;
@@ -75,6 +76,7 @@ select.form-control {
 
 .shopping-cart .product-item .product-thumb,
 .shopping-cart .product-item .product-info
+
  {
     display: table-cell;
     vertical-align: top
