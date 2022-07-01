@@ -15,15 +15,15 @@ export class ViewUserComponent implements OnInit {
   storeMessage: string = "";
   shouldDisplay: boolean = false;
   user: User = { 
-              id: 1,
-              name: "John Example",
-              email: "Example@nowhere.com",
-              phoneNumber: "000-000-0000",                  //delete when backend works
-              username: "Example",
-              password: "Password",
+              id: 0,
+              name: "",
+              email: "",
+              phoneNumber: "",                  //delete when backend works
+              username: "",
+              password: "",
               darkModePreference: false,
-              registerDate: new Date ("6-28-22"),
-              roleId: 2
+              registerDate: new Date (""),
+              roleId: 0
   }
 
 

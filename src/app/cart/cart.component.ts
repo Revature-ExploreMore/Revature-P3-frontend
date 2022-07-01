@@ -91,13 +91,13 @@ setUser(){
     })
   }
   */
- setCart(){
- let cart : any = sessionStorage.getItem("cart");
- if (cart != null){
-  this.newCart = JSON.parse(cart) as Cart;
-  console.log(this.newCart);
+setCart(){
+  let cart : any = sessionStorage.getItem("cart");
+  if (cart != null){
+    this.newCart = JSON.parse(cart) as Cart;
+    console.log(this.newCart);
+  }
 }
- }
  /*
  setCartCourses() {
   this.cartServ.getCartCourses(this.cart.id).subscribe({
@@ -139,10 +139,24 @@ setUser(){
   
 }
 
-  deleteItem(cartCourseId: number){
-    this.cartService.deleteItem(cartCourseId).subscribe((response)=>{
-      console.log(response);
-      this.setCourses();
+  deleteItem(cartCourse: CartCourse){
+    this.cartService.deleteItem(cartCourse.id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.setCourses();
+        this.newCart.cartTotal -= cartCourse.course.price;
+        this.newCart.modifiedAt = new Date;
+        this.cartService.updateCart(this.newCart).subscribe({
+          next: (response) => {
+            console.log(response);
+            this.newCart = response;
+            sessionStorage.setItem("cart", JSON.stringify(this.newCart));
+            console.log(this.newCart);
+          },
+          error: (err) => console.log(err)
+        })
+      },
+      error: (err) => console.log(err)
     });
     
   }

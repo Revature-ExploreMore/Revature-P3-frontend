@@ -36,8 +36,9 @@ export class LandingComponent implements OnInit {
     
   viewAllCourse() {
     this.coursesService.getAll().subscribe(response => {
-          console.log(response);
-          this.allCourse = response;
+          //console.log(response);
+          //this.allCourse = response;
+          return this.allCourse=response;
         });
   }
   viewAllCategory(){
