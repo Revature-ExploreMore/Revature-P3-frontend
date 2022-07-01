@@ -45,7 +45,14 @@
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="assets\img\comingsoon.png" alt="Card image cap">
                     <div class="card-body">
+<<<<<<< Updated upstream
                         <h5 class="card-title">{{cateogory}}</h5>
+=======
+                        <h5 class="card-title">{{course.name}}</h5>
+                        <p>{{course.description}}</p>
+                        <p> $ {{course.price}}</p>
+                        <button *ngIf="user == 1" (click) = "deleteCourse(course.id)">Delete course</button>
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
