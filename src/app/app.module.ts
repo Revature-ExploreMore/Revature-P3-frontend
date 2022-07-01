@@ -18,8 +18,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
 import { LogoutComponent } from './user-info/logout/logout.component';
+<<<<<<< Updated upstream
 import { CourseComponent } from './course/course.component';
 import { NgEventBus } from 'ng-event-bus';
+=======
+import { CartService } from './services/cart.service';
+>>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
@@ -45,7 +49,11 @@ import { NgEventBus } from 'ng-event-bus';
     FormsModule,
     ReactiveFormsModule
   ],
+<<<<<<< Updated upstream
   providers: [NgEventBus],
+=======
+  providers: [ CartService],
+>>>>>>> Stashed changes
   bootstrap: [AppComponent]
 })
 export class AppModule { }
