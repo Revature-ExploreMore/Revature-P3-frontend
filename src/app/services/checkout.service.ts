@@ -15,7 +15,7 @@ export class CheckoutService {
   constructor(private http:HttpClient) {
 
   }
-  baseUrl:string = 'http://localhost:8484/'
+  baseUrl:string = 'http://localhost:7474/'
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
     return this.http.post<PaymentInfo>(this.baseUrl + 'payment/payment',paymentInfo);
