@@ -22,7 +22,11 @@ export class HeaderComponent implements OnInit {
    
   }
 
-
+  myFunction() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+ }
+ 
 
   viewCourse() {
     
