@@ -21,6 +21,7 @@ import { CartService } from '../services/cart.service';
 })
 export class CheckoutComponent implements OnInit {
     countries: Country[] = []; 
+    
   checkoutFormGroup : FormGroup;
   paymentInfo: PaymentInfo = {
     id: 0,
@@ -106,7 +107,7 @@ export class CheckoutComponent implements OnInit {
 }
 
   addPaymentInfo() {
-    let user:any = this.authService.getUserDetails();
+    var user:any = this.authService.getUserDetails();
 
     this.billinInfo = {
       id: 0,
@@ -152,6 +153,7 @@ export class CheckoutComponent implements OnInit {
   get creditCardExpDate() {return this.checkoutFormGroup.get('paymentInfo.expDate');}
   get creditCardSecurityCode() {return this.checkoutFormGroup.get('paymentInfo.cvv');}
 
+  
   
   onSubmit() {
     console.log('Handling form data');
