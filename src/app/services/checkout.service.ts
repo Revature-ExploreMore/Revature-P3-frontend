@@ -8,6 +8,8 @@ import { Country } from '../models/countries.model';
 import { PaymentInfo } from '../models/payment.model';
 import { User } from '../models/user.model';
 import { OrderCourseSet } from '../models/ordercourseset.model';
+import { environment } from 'src/environments/environment.prod';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,8 @@ export class CheckoutService {
   constructor(private http:HttpClient) {
 
   }
-  baseUrl:string = 'http://localhost:7474/'
+  baseUrl:string = "http://localhost:7474/";
+  //baseUrl: string = environment.apiUrl;
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
     return this.http.post<PaymentInfo>(this.baseUrl + 'payment/payment',paymentInfo);
