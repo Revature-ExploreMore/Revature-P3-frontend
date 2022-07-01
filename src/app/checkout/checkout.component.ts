@@ -83,7 +83,12 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.countries = this.checkOut.getCountries();
     this.setCart();
-    this.setCourses();
+  //  this.setCourses();
+
+    this.cartService.allPassedData.subscribe((allPassedData)=>{
+      this.courses = allPassedData;
+      console.log(JSON.stringify(this.courses)); 
+    }) 
   }
 
   setCart(){
@@ -93,7 +98,7 @@ export class CheckoutComponent implements OnInit {
       console.log(this.cart);
     }
   }
-
+/*
   setCourses(){
     let cidParam = this.cart.id;
     this.cartService.getCartCourses(cidParam).subscribe({
@@ -105,7 +110,7 @@ export class CheckoutComponent implements OnInit {
     });
   
 }
-
+*/
   addPaymentInfo() {
     var user:any = this.authService.getUserDetails();
 

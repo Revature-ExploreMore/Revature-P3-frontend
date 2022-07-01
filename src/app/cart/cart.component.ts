@@ -171,6 +171,10 @@ setCart(){
     });
 
   }
+  passCoursesToCheckout(){
+    this.cartService.allPassedData.next(this.courses); 
+  
+  }
 
   goToStoreFront() {
     this.router.navigateByUrl("store");

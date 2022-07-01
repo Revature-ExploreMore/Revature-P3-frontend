@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
@@ -33,7 +33,15 @@ export class CartService {
   }
   emptyCart(cartId: number): Observable<boolean>{
     return this.http.delete<boolean>(this.baseURL+ cartId);
-  updateCart(cart : Cart) : Observable<Cart> {
+  }
+    updateCart(cart : Cart) : Observable<Cart> {
     return this.http.put<Cart>(`${this.baseURL}update`, cart);
   }
+  allPassedData: BehaviorSubject<CartCourse[]> = new BehaviorSubject<CartCourse[]>([]);
+  
+  storePassedObject(passedData: CartCourse[]) {
+    this.allPassedData.next(passedData);
+   
+}
+
 }
