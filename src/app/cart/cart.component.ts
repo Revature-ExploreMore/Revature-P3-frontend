@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Router, NavigationExtras} from '@angular/router';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
@@ -8,13 +8,16 @@ import { User } from '../models/user.model';
 import { CartService } from '../services/cart.service';
 import { CoursesService } from '../services/courses.service';
 import { AuthService } from '../user-info/auth.service';
+import { NgEventBus } from 'ng-event-bus';
 
 
 @Component({
   selector: 'cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
+  providers: [CartService]
 })
+@Injectable()
 export class CartComponent implements OnInit {
   
   newCategory: Category = {
@@ -66,6 +69,7 @@ title = 'My Cart';
   constructor(private cartService: CartService,
               private authService: AuthService,
               private courseService: CoursesService,
+              private eventBus: NgEventBus,
               private router: Router) { 
     this.courses = [];
      this.cartMessage = '';
@@ -74,8 +78,10 @@ title = 'My Cart';
     this.setCart();
     this.setUser();
     this.setCourses();
-   
+    
   }
+
+
   // navigationExtras: NavigationExtras = {
   //   state: {
   //     courses: this.courses;
@@ -171,8 +177,9 @@ setCart(){
     });
 
   }
+  
   passCoursesToCheckout(){
-    this.cartService.allPassedData.next(this.courses); 
+    
   
   }
 
@@ -181,7 +188,9 @@ setCart(){
   }
 
   goToCheckout() {
-    this.router.navigateByUrl("checkout");
+    
+    this.router.navigate(["checkout", JSON.stringify(this.courses)]);  
+  //  ,JSON.stringify(this.courses)
   }
 }
 

@@ -1,7 +1,7 @@
 import { Country } from '../models/countries.model';
 import { CheckoutService } from './../services/checkout.service';
 import { PaymentInfo } from './../models/payment.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -14,10 +14,15 @@ import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { CartService } from '../services/cart.service';
 
+import { ActivatedRoute, Navigation, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+
 @Component({
   selector: 'checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
+  providers: [CartService]
 })
 export class CheckoutComponent implements OnInit {
     countries: Country[] = []; 
@@ -50,15 +55,25 @@ export class CheckoutComponent implements OnInit {
   }
   courses: CartCourse [] = [];
 
-  
+  private subscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private checkOut: CheckoutService, 
     private authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
-
+  
+    
+    
+  
+  
+    this.subscription = route.params.subscribe(
+      (param: any) => this.courses = JSON.parse(param['courses'])
+    );
+  
 
     this.checkoutFormGroup = this.formBuilder.group({
         customerBilling: this.formBuilder.group({
@@ -77,6 +92,9 @@ export class CheckoutComponent implements OnInit {
         }),
       });
   }
+  ngOnDestroy() { 
+    this.subscription.unsubscribe();
+  }
 
   // Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')
 
@@ -85,11 +103,17 @@ export class CheckoutComponent implements OnInit {
     this.setCart();
   //  this.setCourses();
 
-    this.cartService.allPassedData.subscribe((allPassedData)=>{
-      this.courses = allPassedData;
-      console.log(JSON.stringify(this.courses)); 
-    }) 
+ 
+ console.log(this.route.snapshot.queryParams['data']);
+    
+ 
+  //  this.cartService.allPassedData.subscribe((allPassedData)=>{
+    //  this.courses = allPassedData;
+    //  console.log(this.courses); 
+  //  }) 
   }
+ 
+
 
   setCart(){
     let cart : any = sessionStorage.getItem("cart");

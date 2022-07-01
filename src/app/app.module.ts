@@ -19,6 +19,7 @@ import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-pro
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
 import { LogoutComponent } from './user-info/logout/logout.component';
 import { CourseComponent } from './course/course.component';
+import { NgEventBus } from 'ng-event-bus';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { CourseComponent } from './course/course.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [NgEventBus],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
