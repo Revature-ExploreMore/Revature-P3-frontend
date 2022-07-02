@@ -36,10 +36,10 @@
                     <label for="password" class="form-label">Password:</label>
                     <input type="password" class="form-control" id="password"
                         placeholder="Create Password for Login" name="password" [(ngModel)]="newUser.password"
-                        #password="ngModel" min="6" max="12" required
+                        #password="ngModel" minlength="8" maxlength="12" required
                         ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&].{8,}$/">
                     <div ng-messages="ngForm.password.$error">
-                        <div ng-message="pattern" *ngIf="password.valid && password.touched" class="text-danger small">
+                        <div ng-message="pattern" *ngIf="!password.valid && password.touched" class="text-danger small">
                             Password should be at least 8 characters long
                             and should contain one number,one character and one special
                             character
