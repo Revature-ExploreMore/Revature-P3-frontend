@@ -12,9 +12,6 @@
           </tr>
           <tr *ngFor="let tempOrderHistory of orderHistoryList">
             <td>
-              {{tempOrderHistory.orderId}}
-            </td>
-            <td>
               {{tempOrderHistory.orderTotal |currency:'USD'}}
             </td>
             <td>
