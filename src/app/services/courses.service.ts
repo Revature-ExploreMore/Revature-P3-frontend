@@ -1,18 +1,36 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Course } from '../models/course.model';
+import { environment } from 'src/environments/environment.prod';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CoursesService {
-  baseURL: string = environment.apiUrl + "/course/"; 
-  //baseURL: string = "http://localhost:7474/course/";
+
+  //baseUrl: string = "http://localhost:7474/course/";
+  baseUrl: string = environment.apiUrl+"/course/";
   constructor(private http: HttpClient) { }
 
+  getACourse(id: any): Observable<Course>{
+    return this.http.get<Course>(this.baseUrl + 'getById/' + id);
+  }
+
   getAll() : Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.baseURL}getAll`);
+    return this.http.get<Course[]>(`${this.baseUrl}getAll`);
+  }
+
+  deleteCourse(id: number): Observable<Boolean>{
+    return this.http.delete<Boolean>(`${this.baseUrl}`);
+  }
+
+  addNewCourse(newCourse: Course): Observable<Course>{
+    return this.http.post<Course>(this.baseUrl + 'addNewCourse', newCourse); 
+  }
+
+  updatedCourse(updateCourse: Course): Observable<Course> {
+    return this.http.put<Course>(this.baseUrl + 'updateCourse', updateCourse);
   }
 }

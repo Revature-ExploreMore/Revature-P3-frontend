@@ -10,3 +10,19 @@
     border: 1px solid white;
     border-radius: 10px;
 }
+.ourlogo{
+    width:40px;
+    height:40px;
+    border-radius: 50%;
+}
+body {
+    transition: all .3s ease-in-out;
+}
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+.dark-light {
+    background-color: white;
+    color: black;
+}
