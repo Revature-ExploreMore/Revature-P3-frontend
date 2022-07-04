@@ -18,9 +18,9 @@
 
 <div class="container">
     <div class="row align-items-start">
-        <h2>List of Courses</h2>
+        <h2 class="header" id = 'header'><u>List of Courses</u></h2>
         <div class="col-4" *ngFor="let course of allCourse; let i=index">
-            <div *ngIf="i<9">
+            <div *ngIf="i<6">
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="assets\img\comingsoon.png" alt="Card image cap">
                     <div class="card-body">
@@ -37,7 +37,7 @@
 <!-- ---------------------------------------------------------------------------------->
 <div class="container">
     <div class="row align-items-start">
-        <h2>List of categories</h2>
+        <h2><u>List of categories</u></h2>
     </div>
     <div class="row align-items-start">
         <div class="col-4" *ngFor="let cateogory of categories; let i=index">
@@ -63,9 +63,9 @@
 
         </div>
         <div class="col-4">
-            <p>Contact Us</p>
-            <p>info@exploremore.com</p>
-            <p>p 123-456-7890</p>
+            <p class = 'title'>Contact Us</p>
+            <p class = "CompanyEmail">info@exploremore.com</p>
+            <p class = "CompanyPhone">p 123-456-7890</p>
             <p></p>
         </div>
     </div>

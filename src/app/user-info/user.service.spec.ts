@@ -19,6 +19,6 @@ describe('UserService', () => {
   });
 
   it('should return correct url', () => {
-    expect(service.baseUrlLogin).toBe('http://localhost:7272/');
+    expect(service.baseUrlLogin).toBe('http://localhost:7474/user/user-info/');
   });
 });

@@ -9,9 +9,9 @@
                 <img src="https://freesvg.org/img/abstract-user-flat-4.png"
                   class="rounded-circle img-fluid" style="width: 100px;" /> 
               </div>
-              <h3 class="mb-2">Edit Name</h3>  <!--input type? form? -- ngmodel?-->
-              <p class="text-muted mb-4">Edit Phone Number<span class="mx-2">|</span> <a
-                  href="#!">Edit Email Address</a></p>
+              <h3 class="mb-2"><input type="text" class="form-control" placeholder="Edit First and Last Name" ng-model="profile/edit.Name"></h3> 
+              <h3 class="mb-2"><input type="text" class="form-control" placeholder="Edit Phone Number" ng-model="profile/edit.phoneNumber"></h3>
+              <h3 class="mb-2"><input type="email" class="form-control" placeholder="Edit Email Adress" ng-model="profile/edit.Email"></h3>
                 <button type="button" class="btn btn-primary"
                   (click)="updateProfileInfo()">
                   <i class="material-icons>edit">Submit Profile Changes</i>
@@ -20,7 +20,6 @@
               </div>
             </div>
           </div>
-  
         </div>
       </div>
     </div>
