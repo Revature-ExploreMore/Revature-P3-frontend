@@ -253,17 +253,30 @@
             <!----------------------------------------- Shipping Address Begins ---------------------------------------------->
 
             <!------------------------------------------ Billing Address And Shipping Address Form Group End------------------------------------->
-
-
             <hr class="mb-4" />
-            <h4 class="mb-4">Saved Payment Information</h4>
+            <h4 class="mb-4">Saved Billing Information</h4>
             <!-- Checkbox start for the paymentInfo  -->
-            <div class="form-check" *ngFor="let paymentInfo of savedPaymentInfo">
-              <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1"  (change)="copyPaymentInfo($event)">{{paymentInfo.cardNumber}}
-              <label class="form-check-label" for="radio1"></label>
+           
+            <div class="form-check" *ngFor="let billingInfo of savedBillingInfo let i = index" >
+              <label class="au-checkbox">
+              <input type="checkbox" class="form-check-input"  (change)="copyBillingInfo($event)"> Address with street : {{billingInfo.street}} and city : {{billingInfo.city}}
+            </label>
             </div>
 
+
+  
+
     <div formGroupName="paymentInfo" class="form-group">
+
+      <hr class="mb-4" />
+      <h4 class="mb-4">Saved Payment Information</h4>
+      <!-- Checkbox start for the paymentInfo  -->
+     
+      <div class="form-check" *ngFor="let paymentInfo of savedPaymentInfo let i = index" >
+        <label class="au-checkbox">
+        <input type="checkbox" class="form-check-input"  (change)="copyPaymentInfo($event)"> {{paymentInfo.cardType}} Card Ending in : ************{{paymentInfo.cardNumber.slice(-4)}}
+      </label>
+      </div>
 
           <hr class="mb-4" />
           <h4 class="mb-3">Payment</h4>

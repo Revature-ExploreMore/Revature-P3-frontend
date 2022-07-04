@@ -24,6 +24,10 @@ export class CheckoutService {
   addBillingInfo(billingInfo:Billing):Observable<Billing>{
     return this.http.post<Billing>(this.baseUrl+'billing/billing-address',billingInfo);
   }
+  getBillingInfo(userId:any):Observable<Billing[]>{
+
+    return this.http.get<Billing[]>(`${this.baseUrl}billing/billing-address/`+userId);
+  }
 
   addOrder(order: Order):Observable<Order>{
 

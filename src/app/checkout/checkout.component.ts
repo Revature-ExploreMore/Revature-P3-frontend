@@ -24,6 +24,7 @@ import { User } from '../models/user.model';
 export class CheckoutComponent implements OnInit {
   countries: Country[] = [];
   savedPaymentInfo: PaymentInfo[] = [];
+  savedBillingInfo: Billing[] = [];
 
   checkoutFormGroup: FormGroup;
   paymentInfo: PaymentInfo = {
@@ -35,9 +36,9 @@ export class CheckoutComponent implements OnInit {
     userId: 0,
   };
 
- billinInfo: Billing = {
+  billinInfo: Billing = {
     id: 0,
-    streetName: '',
+    street: '',
     city: '',
     state: '',
     zipCode: 0,
@@ -94,6 +95,8 @@ export class CheckoutComponent implements OnInit {
         ]),
       }),
     });
+
+    this.getPaymentInfo();
   }
 
   // Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')
@@ -102,43 +105,68 @@ export class CheckoutComponent implements OnInit {
     this.countries = this.checkOut.getCountries();
     this.setCart();
     this.setCourses();
-    this.getPaymentInfo();
+    this.getBillingInfo();
   }
 
-  copyPaymentInfo(event:any){
-    for(let savedInfo of this.savedPaymentInfo){
-    if (event.target.checked) {
-      this.checkoutFormGroup.controls['paymentInfo']
-            .setValue(
-              {
-                cardType : savedInfo.cardType,
-                cardNumber : savedInfo.cardNumber,
-                expDate: savedInfo.expDate,
-                cvv: savedInfo.cvv
+  copyPaymentInfo(event: any) {
+    this.savedPaymentInfo.forEach((paymentInfo) => {
+      event.target.checked
+        ? this.checkoutFormGroup.controls['paymentInfo'].setValue({
+            cardType: paymentInfo.cardType,
+            cardNumber: paymentInfo.cardNumber,
+            expDate: paymentInfo.expDate,
+            cvv: paymentInfo.cvv,
+          })
+        : this.checkoutFormGroup.controls['paymentInfo'].reset();
+    });
+  }
+  copyBillingInfo(event:any){
+    this.savedBillingInfo.forEach((billingInfo) => {
+      if(event.target.checked){
 
-              }
-            );     
-    }
-    else {
-      this.checkoutFormGroup.controls['paymentInfo'].reset();
-   
-    }
-  }
+        this.checkoutFormGroup.controls['customerBilling'].setValue({
+            street: billingInfo.street,
+            city: billingInfo.city,
+            state: billingInfo.state,
+            zipCode: billingInfo.zipCode
+
+        });
+
+      }else{
+        this.checkoutFormGroup.controls['cutomerBilling'].reset()
+      }
+    });
+  
   }
 
-  backToCart(){
-    this.router.navigateByUrl("cart").catch(error=>console.log(error));
-    
+
+  backToCart() {
+    this.router.navigateByUrl('cart').catch((error) => console.log(error));
   }
-  getPaymentInfo(){
+  getPaymentInfo() {
     let user = this.authService.getUserDetails();
 
     return this.checkOut.getPaymentInfo(user?.id).subscribe({
-      next:(response)=>{
-        this.savedPaymentInfo = response 
-      }}
-    )}
-  
+      next: (response) => {
+        this.savedPaymentInfo = response as PaymentInfo[];
+      },
+    });
+  }
+  getBillingInfo() {
+    let user = this.authService.getUserDetails(); 
+
+    return this.checkOut.getBillingInfo(user?.id).subscribe({
+
+      next:(response) => {
+
+        this.savedBillingInfo = response as Billing[]
+      },
+      error: (error) => console.log(error)
+    }
+
+    )
+
+  }
 
   setCart() {
     let cart: any = sessionStorage.getItem('cart');
@@ -160,11 +188,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   addPaymentInfo() {
-    var user: any = this.authService.getUserDetails();
+    let user: any = this.authService.getUserDetails();
 
     this.billinInfo = {
       id: 0,
-      streetName: this.checkoutFormGroup.get('customerBilling')?.get('street')
+      street: this.checkoutFormGroup.get('customerBilling')?.get('street')
         ?.value,
       city: this.checkoutFormGroup.get('customerBilling')?.get('city')?.value,
       state: this.checkoutFormGroup.get('customerBilling')?.get('state')?.value,
@@ -226,5 +254,6 @@ export class CheckoutComponent implements OnInit {
     console.log('Handling form data');
     console.log(this.checkoutFormGroup.get('customerBilling')?.value);
     console.log(this.checkoutFormGroup.get('paymentInfo')?.value);
+    this.router.navigateByUrl('orders');
   }
 }
