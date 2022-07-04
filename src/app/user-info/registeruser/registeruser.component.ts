@@ -3,6 +3,7 @@ import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'registeruser',
@@ -25,7 +26,7 @@ export class RegisteruserComponent implements OnInit {
     roleId:2
   }
 
-  constructor(private authService:AuthService, private userservice:UserService) { }
+  constructor(private authService:AuthService, private userservice:UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -57,9 +58,8 @@ export class RegisteruserComponent implements OnInit {
     }
 
     this.userservice.registerUser(addUser).subscribe((response)=>{
-      console.log(response);
-      // console.log(user.id);
       this.userRegister=false;
+      this.router.navigate(['login']);
     })
   }
 
