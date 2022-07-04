@@ -14,16 +14,20 @@ export class CoursesService {
   baseUrl: string = environment.apiUrl+"/course/";
   constructor(private http: HttpClient) { }
 
+  getACourse(id: any): Observable<Course>{
+    return this.http.get<Course>(this.baseUrl + 'getById/' + id);
+  }
+
   getAll() : Observable<Course[]> {
     return this.http.get<Course[]>(`${this.baseUrl}getAll`);
   }
+
   deleteCourse(id: number): Observable<Boolean>{
     return this.http.delete<Boolean>(`${this.baseUrl}`);
-
   }
 
-  addNewCourse(newCourse: Course):Observable<Course>{
-    return this.http.post<Course>(this.baseUrl+"addCourse", newCourse); 
+  addNewCourse(newCourse: Course): Observable<Course>{
+    return this.http.post<Course>(this.baseUrl + 'addNewCourse', newCourse); 
   }
 
   updatedCourse(updateCourse: Course): Observable<Course> {

@@ -1,84 +1,120 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category.model';
 import { Course } from '../models/course.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../services/courses.service';
 import { AuthService } from '../user-info/auth.service';
-
-
 
 @Component({
   selector: 'course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css']
+  styleUrls: ['./course.component.css'],
 })
 export class CourseComponent implements OnInit {
- 
+  courses: Course[];
+  categories: String[];
+
   newCategory: Category = {
     id: 0,
-    categoryName: ""
-  }
+    categoryName: '',
+  };
 
   newCourse: Course = {
     id: 0,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     price: 0,
-    imageUrl: "",
-    category: this.newCategory
-  } 
+    imageUrl: '',
+    category: this.newCategory,
+  };
 
   updated: Course = {
     id: 0,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     price: 0,
-    imageUrl: "",
-    category: this.newCategory
-  }
+    imageUrl: '',
+    category: this.newCategory,
+  };
 
   constructor(
-    private courseService: CoursesService, 
+    private courseService: CoursesService,
     private authService: AuthService,
-    private router: Router) {
-    let update = this.authService.getUserDetails();
-    }
-
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.courses = [];
+    this.categories = [];
+  }
 
   ngOnInit(): void {
-  }
-  
-  addANewCourse(){
-    let course= this.courseService;
-    let addCourse:Course={
-    id: 0,
-    name: this.newCourse.name,
-    description: this.newCourse.description,
-    price: 0,
-    imageUrl: this.newCourse.imageUrl,
-    category: this.newCategory
-    };
+    this.viewAllCourse();
+    this.viewAllCategory();
 
-    this.newCourse={
-    id: 0,
-    name: "",
-    description: "",
-    price: 0,
-    imageUrl: "",
-    category: this.newCategory
-    }
-  
-    this.courseService.addNewCourse(addCourse).subscribe((response)=>{
+    let cidParam = this.activatedRoute.snapshot.paramMap.get('cid');
+    this.courseService.getACourse(cidParam).subscribe((response) => {
+    this.updated = response;
+    });
+  }
+
+  viewAllCourse() {
+    this.courseService.getAll().subscribe((response) => {
+      return (this.courses = response);
+    });
+  }
+
+  viewAllCategory() {
+    this.courseService.getAll().subscribe((response) => {
       console.log(response);
-    })
-
+      for (let course of response) {
+        this.courses.push(course);
+        if (!this.categories.includes(course.category.categoryName)) {
+          this.categories.push(course.category.categoryName);
+        }
+      }
+    });
   }
-  
-  updateCourse(){
-    this.courseService.updatedCourse(this.updated).subscribe((response)=>{
-    console.log(response);
+
+  addCourse() {
+    switch(this.newCourse.category.categoryName){
+      case "science":{
+        this.newCourse.category.id = 1;
+        break;
+      }
+      case "math":{
+        this.newCourse.category.id = 2;
+        break;
+      }
+      case "programming":{
+        this.newCourse.category.id = 3;
+        break;
+      }
+      case "writing":{
+        this.newCourse.category.id = 4;
+        break;
+      }
+      case "photography":{
+        this.newCourse.category.id = 5;
+        break;
+      }
+      case "digital art":{
+        this.newCourse.category.id = 6;
+        break;
+      }
+    }
+
+    this.courseService.addNewCourse(this.newCourse).subscribe((response) => {
+      console.log(response);
+    });
+  }
+
+  setCurrentCourse(course: Course) {
+    this.updated = course;
+  }
+
+  updateCourse() {
+    this.courseService.updatedCourse(this.updated).subscribe((response) => {
+      this.router.navigate(['course']);
     });
   }
 }
-
