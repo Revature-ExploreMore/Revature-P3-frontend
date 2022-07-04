@@ -15,6 +15,9 @@ import { CartCourse } from '../models/cartcourse.model';
 import { CartService } from '../services/cart.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
+import { OrderCourseSet } from '../models/ordercourseset.model';
+import { Order } from '../models/order.model';
+import { Course } from '../models/course.model';
 
 @Component({
   selector: 'checkout',
@@ -44,6 +47,18 @@ export class CheckoutComponent implements OnInit {
     zipCode: 0,
     userId: 0,
   };
+  newUser: User = {
+    id: 0,
+    name: '',
+    email: '',
+    phoneNumber: '',
+    username: '',
+    password: '',
+    darkModePreference: false,
+    registerDate: new Date(),
+    roleId: 0
+  }
+
   cart: Cart = {
     id: 0,
     createdAt: new Date(),
@@ -52,8 +67,23 @@ export class CheckoutComponent implements OnInit {
     isRemoved: false,
     userId: 0,
     orderId: 0,
-  };
-  courses: CartCourse[] = [];
+  }
+  courses: CartCourse [] = [];
+  coursesAct: Course [] = [];
+
+  order: Order = {
+    id: 0,
+    orderTimestamp: new Date(),
+    orderTotal: 0,
+    user: this.newUser
+  }
+
+  orderCourseSet: OrderCourseSet = {
+    order: this.order,
+    courses: this.coursesAct
+  }
+
+  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -103,6 +133,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.countries = this.checkOut.getCountries();
+    this.setUser();
     this.setCart();
     this.setCourses();
     this.getBillingInfo();
@@ -168,9 +199,17 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  setCart() {
-    let cart: any = sessionStorage.getItem('cart');
-    if (cart != null) {
+  setUser(){
+    let userData: any = sessionStorage.getItem('user');
+    if (userData != null){
+      this.newUser = JSON.parse(userData) as User;
+      console.log(this.newUser);
+    }
+  }
+
+  setCart(){
+    let cart : any = sessionStorage.getItem("cart");
+    if (cart != null){
       this.cart = JSON.parse(cart) as Cart;
       console.log(this.cart);
     }
@@ -211,7 +250,28 @@ export class CheckoutComponent implements OnInit {
       userId: user?.id,
     };
 
-    this.checkOut.addBillingInfo(this.billinInfo).subscribe({
+    // this.checkOut.addBillingInfo(this.billinInfo).subscribe({
+    //   next: (response) => console.log(response),
+    //   error: (error) => console.log(error),
+    // });
+    // this.checkOut.addPaymentInfo(this.paymentInfo).subscribe({
+    //   next: (response) => console.log(response),
+    //   error: (error) => console.log(error),
+    // });
+    // this.courses[0].cart = this.cart;
+    this.order.orderTimestamp = new Date();
+    this.order.orderTotal = this.cart.cartTotal;
+    this.order.user = this.newUser;
+
+    this.orderCourseSet.order = this.order;
+    this.coursesAct = [];
+    for (let cc of this.courses) {
+      this.coursesAct.push(cc.course);
+    }
+    this.orderCourseSet.courses = this.coursesAct;
+
+    console.log(this.orderCourseSet);
+    this.checkOut.addOrder(this.orderCourseSet).subscribe({
       next: (response) => console.log(response),
       error: (error) => console.log(error),
     });

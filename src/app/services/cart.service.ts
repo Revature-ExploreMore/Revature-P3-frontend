@@ -5,12 +5,15 @@ import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  baseURL: string = "http://localhost:7474/cart/";
+  //baseURL: string = "http://localhost:7474/cart/";
+  baseURL: string = environment.apiUrl+"/cart/";
+
   constructor(private http: HttpClient) { }
 
   deleteItem(cartCourseId: number): Observable<boolean>{
@@ -31,8 +34,10 @@ export class CartService {
   addCourseToCart(cartCourse : CartCourse) : Observable<CartCourse> {
     return this.http.post<CartCourse>(`${this.baseURL}cartCourse`, cartCourse);
   }
-
-  updateCart(cart : Cart) : Observable<Cart> {
+  emptyCart(cartId: number): Observable<boolean>{
+    return this.http.delete<boolean>(this.baseURL+ cartId);
+  }
+    updateCart(cart : Cart) : Observable<Cart> {
     return this.http.put<Cart>(`${this.baseURL}update`, cart);
   }
 }

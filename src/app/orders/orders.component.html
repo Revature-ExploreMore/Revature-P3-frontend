@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
     <div class ="container-fluid">
-      <h3>Your Orders</h3>
+      <h3>Order History: </h3>
       <div *ngIf="orderHistoryList.length>0">
         <table class="table table-bordered">
           <tr>
@@ -11,9 +11,6 @@
 
           </tr>
           <tr *ngFor="let tempOrderHistory of orderHistoryList">
-            <td>
-              {{tempOrderHistory.orderId}}
-            </td>
             <td>
               {{tempOrderHistory.orderTotal |currency:'USD'}}
             </td>

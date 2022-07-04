@@ -13,17 +13,16 @@ import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-pro
 import { LogoutComponent } from './user-info/logout/logout.component';
 
 const routes: Routes = [
-  {path: "", component:LandingComponent},
+  {path: "", component:LandingComponent}, 
   {path: "login", component:LoginComponent},
   {path: "registeruser", component:RegisteruserComponent},
   {path: "store", component: StorefrontComponent},
-  {path: 'checkout', component: CheckoutComponent},
+  {path: "checkout", component: CheckoutComponent},
   {path: "cart", component: CartComponent},
   {path: "orders", component: OrdersComponent},
-  {path: "landing", component:LandingComponent},
+  {path:"landing", component:LandingComponent},
   {path: "profile", component: ViewUserComponent},
   {path: "profile/edit", component: EditUserProfileComponent},
-  {path: "store", component:StorefrontComponent},
   {path: "logout",component:LogoutComponent},
   {path:"viewCourse()",component:LandingComponent}
 

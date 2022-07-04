@@ -2,19 +2,25 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Billing } from '../models/billing.model';
+import { CartCourse } from '../models/cartcourse.model';
 import { Country } from '../models/countries.model';
-import { Order } from '../models/order.model';
+
 import { PaymentInfo } from '../models/payment.model';
+import { User } from '../models/user.model';
+import { OrderCourseSet } from '../models/ordercourseset.model';
+import { environment } from 'src/environments/environment.prod';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
 
-  constructor(private http:HttpClient) { 
-    
+  constructor(private http:HttpClient) {
+
   }
-  baseUrl:string = 'http://localhost:7474/'
+  //baseUrl:string = "http://localhost:7474/";
+  baseUrl: string = environment.apiUrl;
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
     return this.http.post<PaymentInfo>(this.baseUrl + 'payment/payment',paymentInfo);
@@ -29,9 +35,9 @@ export class CheckoutService {
     return this.http.get<Billing[]>(`${this.baseUrl}billing/billing-address/`+userId);
   }
 
-  addOrder(order: Order):Observable<Order>{
+  addOrder(orderCourseSet : OrderCourseSet):Observable<number>{
 
-    return this.http.post<Order>(`${this.baseUrl}order/orders`,order);
+    return this.http.post<number>(`${this.baseUrl}order/orders`,orderCourseSet);
 
   }
 
@@ -41,7 +47,7 @@ export class CheckoutService {
   
   getCountries():Country[]{
   return this.countries;
-    
+
 }
 countries : Country[] = [
   {
