@@ -33,4 +33,8 @@ export class CoursesService {
   updatedCourse(updateCourse: Course): Observable<Course> {
     return this.http.put<Course>(this.baseUrl + 'updateCourse', updateCourse);
   }
+
+  addCourse(newCourse : Course) : Observable<Course> {
+    return this.http.post<Course>(this.baseURL + "addcourse", newCourse);
+  }
 }

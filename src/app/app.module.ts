@@ -15,7 +15,15 @@ import { FormsModule } from '@angular/forms';
 import { RegisteruserComponent } from './user-info/registeruser/registeruser.component';
 import { LoginComponent } from './user-info/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { HttpClientModule } from '@angular/common/http';
+=======
+import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
+import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
+import { LogoutComponent } from './user-info/logout/logout.component';
+import { AddCourseComponent } from './admin/add-course/add-course.component';
+import { AdminComponent } from './admin/admin.component';
+>>>>>>> a6e1b1d (admin's add-course component)
 
 @NgModule({
   declarations: [
@@ -29,8 +37,18 @@ import { HttpClientModule } from '@angular/common/http';
     UserComponent,
     OrdersComponent,
     CheckoutComponent,
+<<<<<<< HEAD
     CourseComponent,
     RegisteruserComponent
+=======
+    LoginComponent,
+    RegisteruserComponent,
+    EditUserProfileComponent,
+    ViewUserComponent,
+    LogoutComponent,
+    AddCourseComponent,
+    AdminComponent
+>>>>>>> a6e1b1d (admin's add-course component)
   ],
   imports: [
     BrowserModule,
