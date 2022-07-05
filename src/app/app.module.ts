@@ -17,8 +17,8 @@ import { LoginComponent } from './user-info/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
-// import { NgEventBus } from 'ng-event-bus';
 import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +43,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [],
-  // providers: [NgEventBus],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
