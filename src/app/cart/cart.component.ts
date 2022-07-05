@@ -73,17 +73,51 @@ export class CartComponent implements OnInit {
     this.setCourses();
   }
 
-  setUser() {
-    let userData: any = sessionStorage.getItem('user');
-    if (userData != null) {
-      this.newUser = JSON.parse(userData) as User;
-    }
+  // navigationExtras: NavigationExtras = {
+  //   state: {
+  //     courses: this.courses;
+  //   }
+  // }
+setUser(){
+  let userData: any = sessionStorage.getItem('user');
+  if (userData != null){
+    this.newUser = userData;
+    console.log(this.newUser);
   }
 
-  setCart() {
-    let cart: any = sessionStorage.getItem('cart');
-    if (cart != null) {
-      this.newCart = JSON.parse(cart) as Cart;
+ 
+/*
+  getCartId(userId: number){
+    this.cartService.getCartId(userId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.currentCartId = response;
+      }
+    })
+  }
+  */
+setCart(){
+  let cart : any = sessionStorage.getItem("cart");
+  if (cart != null ){
+    this.newCart = JSON.parse(cart) as Cart;
+    console.log(this.newCart);
+  }
+}
+ /*
+ setCartCourses() {
+  this.cartServ.getCartCourses(this.cart.id).subscribe({
+    next: (response) => {
+      console.log("cartCourses", response);
+      this.cartCourse.cart = this.cart;
+      for(let cartCourse of response) {
+        if(cartCourse.course) {
+          this.cartCourseIDs.push(cartCourse.course.id);
+        }
+      }
+      console.log("cartCourseIDs", this.cartCourseIDs);
+    },
+    error: (err) => {
+      console.log(err);
     }
   }
 
