@@ -33,8 +33,6 @@ export class EditUserProfileComponent implements OnInit {
   ngOnInit(): void {
 
     let bidParam = this.activateRoute.snapshot.paramMap.get('bid');
-    console.log(bidParam);
-
     this.userService.getUser(bidParam).subscribe((response) => {
       this.updateUser = response;
     })
@@ -43,7 +41,7 @@ export class EditUserProfileComponent implements OnInit {
 
   updateProfileInfo() {
     this.userService.updateUser(this.updateUser).subscribe((response) => {
-      this.router.navigate(['profile']);
+    this.router.navigate(['profile']);
     })
   }
 
