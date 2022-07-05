@@ -260,7 +260,7 @@
            
             <div class="form-check" *ngFor="let billingInfo of savedBillingInfo let i = index" >
               <label class="au-checkbox">
-              <input type="checkbox" class="form-check-input"  (change)="copyBillingInfo($event)"> Address with street : {{billingInfo.streetName}} and city : {{billingInfo.city}}
+              <input type="checkbox" class="form-check-input"  (change)="copyBillingInfo(billinInfo)"> Address with street : {{billingInfo.streetName}} and city : {{billingInfo.city}}
             </label>
             </div>
 
