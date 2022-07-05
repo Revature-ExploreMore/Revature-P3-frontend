@@ -4,7 +4,7 @@
         <h2>Browse Our Courses!</h2>
         <button class="btn btn-primary" (click)="goToCart()">Cart <span>({{ cartCourseIDs.length }})</span></button>
     </div>
-    <div class="input-group mb-3">
+    <div class="input-group mb-3 mt-3">
         <input type="text" class="form-control" [(ngModel)]="searchCourseName" name="searchCourseName" #ctrl="ngModel" placeholder="Search by name" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         <button class="btn btn-primary" (click)="filterBySearch(searchCourseName)">Search</button>
     </div>
