@@ -39,9 +39,9 @@ export class ViewUserComponent implements OnInit {
   ngOnInit(): void {
   this.userService.getUser(this.user.id);
   }
-
   goToEditUser() {
     this.router.navigate(['profile/edit']);
+
   }
 
   displayUserForm() {
@@ -55,5 +55,3 @@ export class ViewUserComponent implements OnInit {
     this.router.navigate(['orders']);
   }
 }
-
-

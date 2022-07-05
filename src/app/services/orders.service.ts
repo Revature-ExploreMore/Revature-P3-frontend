@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root',
 })
 export class OrdersService {
-  //private baseUrl = 'http://localhost:7474/order'; //switch back when done!!
-  private baseUrl: string = environment.apiUrl+"/order";
+  private baseUrl = 'http://localhost:7474/order';
+  // private baseUrl: string = environment.apiUrl+"/order";
 
 
   constructor(private http:HttpClient) { }
@@ -31,9 +31,4 @@ export class OrdersService {
 
     return this.http.get<Order[]>(this.baseUrl);
   }
-
-  //need to retrieve all orders by userid in the form of a list
-  //of order and course objects, may need to create and orderCourse model
-  //similar to cartCourse
-
 }

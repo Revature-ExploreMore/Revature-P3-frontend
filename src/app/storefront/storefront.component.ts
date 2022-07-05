@@ -8,14 +8,12 @@ import { CoursesService } from '../services/courses.service';
 import { Category } from '../models/category.model';
 import { CartService } from '../services/cart.service';
 
-
 @Component({
   selector: 'store',
   templateUrl: './storefront.component.html',
-  styleUrls: ['./storefront.component.css']
+  styleUrls: ['./storefront.component.css'],
 })
 export class StorefrontComponent implements OnInit {
-
   user: User = {
     id: 0,
     name: '',
@@ -24,47 +22,46 @@ export class StorefrontComponent implements OnInit {
     username: '',
     password: '',
     darkModePreference: false,
-    registerDate : new Date,
-    roleId: 0
-  }
+    registerDate: new Date(),
+    roleId: 0,
+  };
   newCategory: Category = {
     id: 0,
-    categoryName: ''
-  }
-  newCourse : Course = {
+    categoryName: '',
+  };
+  newCourse: Course = {
     id: 0,
     name: '',
     description: '',
     price: 0,
     imageUrl: '',
     category: this.newCategory,
-  }
+  };
   cart: Cart = {
     id: 0,
     createdAt: '',
     modifiedAt: '',
-    isRemoved: false, 
+    isRemoved: false,
     cartTotal: 0,
     userId: this.user.id,
-    orderId: 1
+    orderId: 12
   }
 
-
-  cartCourse : CartCourse = {
+  cartCourse: CartCourse = {
     id: 0,
     cart: this.cart,
-    course: this.newCourse
-  }
+    course: this.newCourse,
+  };
   courses: Course[] = [];
 
-  filteredCourses: Course [] = [];
-  cartCourseIDs : number [] = [];
+  filteredCourses: Course[] = [];
+  cartCourseIDs: number[] = [];
   categories: String[] = [];
 
   constructor(
-    private courseServ : CoursesService,
-    private cartServ : CartService,
-    private router : Router
+    private courseServ: CoursesService,
+    private cartServ: CartService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -74,105 +71,93 @@ export class StorefrontComponent implements OnInit {
   }
 
   setUser() {
-    let userData : any = sessionStorage.getItem('user');
-    if(userData != null){
+    let userData: any = sessionStorage.getItem('user');
+    if (userData != null) {
       this.user = JSON.parse(userData) as User;
-      console.log(this.user);
     } else {
       this.router.navigateByUrl('');
     }
   }
-  
+
   setCourses() {
     this.courseServ.getAll().subscribe({
       next: (response) => {
-        console.log(response);
-        for(let course of response) {
+        for (let course of response) {
           this.courses.push(course);
-          if(!this.categories.includes(course.category.categoryName)) {
+          if (!this.categories.includes(course.category.categoryName)) {
             this.categories.push(course.category.categoryName);
           }
         }
         this.filteredCourses = this.courses;
-        console.log("courses", this.courses);
-        console.log("categories", this.categories);
       },
-      error: (err) => console.log(err)
-    })
+      error: (err) => console.log(err),
+    });
   }
 
   setCart() {
     this.cartServ.getCartByUserID(this.user.id).subscribe({
       next: (response) => {
         this.cart = response;
-        sessionStorage.setItem("cart", JSON.stringify(this.cart));
-        console.log("cart", this.cart);
+        sessionStorage.setItem('cart', JSON.stringify(this.cart));
         this.setCartCourses();
-        // let cart2 : any = sessionStorage.getItem("cart");
-        // console.log("cart2", JSON.parse(cart2) as Cart);
       },
       error: (err) => {
         console.log(err);
         this.cartServ.newCartForUser(this.user).subscribe({
           next: (response) => {
-            console.log(response);
             this.cart = response;
-            sessionStorage.setItem("cart", JSON.stringify(this.cart))
+            sessionStorage.setItem('cart', JSON.stringify(this.cart));
             this.setCartCourses();
           },
-          error: (err) => console.log(err)
-        })
-      }
-    })
-    
+          error: (err) => console.log(err),
+        });
+      },
+    });
   }
 
   setCartCourses() {
     this.cartServ.getCartCourses(this.cart.id).subscribe({
       next: (response) => {
-        console.log("cartCourses", response);
         this.cartCourse.cart = this.cart;
-        for(let cartCourse of response) {
-          if(cartCourse.course) {
+        for (let cartCourse of response) {
+          if (cartCourse.course) {
             this.cartCourseIDs.push(cartCourse.course.id);
           }
         }
-        console.log("cartCourseIDs", this.cartCourseIDs);
       },
       error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
 
-  addCourseToCart(course : Course) {
-    console.log("course",course);
+  addCourseToCart(course: Course) {
     this.cartCourse.course = course;
     this.cartCourse.cart = this.cart;
     this.cartServ.addCourseToCart(this.cartCourse).subscribe({
       next: (response) => {
-        console.log(response);
         this.cartCourseIDs.push(course.id);
         this.cart.cartTotal += course.price;
-        this.cart.modifiedAt = new Date;
+        this.cart.modifiedAt = new Date();
         this.cartServ.updateCart(this.cart).subscribe({
           next: (response) => {
-            console.log(response);
             this.cart = response;
-            sessionStorage.setItem("cart", JSON.stringify(this.cart));
-            console.log(this.cart);
+            sessionStorage.setItem('cart', JSON.stringify(this.cart));
           },
-          error: (err) => console.log(err)
-        })
+          error: (err) => console.log(err),
+        });
       },
       error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
 
   goToCart() {
-    this.router.navigateByUrl("cart");
+    this.router.navigateByUrl('cart');
+  }
+
+  filterByCategory(category : string) {
+
   }
 }
-
