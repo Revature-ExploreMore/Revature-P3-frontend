@@ -2,26 +2,26 @@
   <div class="section-content section-content-p30">
     <div class ="container-fluid">
       <h3>Order History: </h3>
-      <div *ngIf="orderHistoryList.length>0">
-        <table class="table table-bordered">
-          <tr>
-            <th width="20%">Order Id Number</th>
-            <th width="10%">Order Total</th>
-            <th width="10%">Order Date</th>
-
-          </tr>
-          <tr *ngFor="let tempOrderHistory of orderHistoryList">
-            <td>
-              {{tempOrderHistory.orderTotal |currency:'USD'}}
-            </td>
-            <td>
-              {{tempOrderHistory.orderTimestamp |date:'medium'}}
-            </td>
-
-          </tr>
-
-        </table>
-
+      <div class="container-fluid" *ngIf="orderHistoryList.length>0">
+        <div  *ngFor="let orderHistory of orderHistoryList">
+          <div class="d-flex justify-content-between">
+            <h5>Purchased Items</h5>
+            <h6>{{ orderHistory.order.orderTimestamp | date}}</h6>
+          </div>
+          <div *ngFor="let course of orderHistory.courses">
+            <img src="{{ course.imageUrl }}"> <!-- wrong syntax?-->
+            <div>
+              {{ course.name }}
+            </div>
+            <div>
+              {{ course.description}}
+            </div>
+            <div>
+              {{ course.price}}
+            </div>
+          </div>
+          <h6>Total: {{ orderHistory.order.orderTotal }}</h6>
+        </div>
       </div>
       <!--if Order is Empty the display a message-->
       <div *ngIf="orderHistoryList.length==0" class = "alert alert-warning col-md-12" role="alert">

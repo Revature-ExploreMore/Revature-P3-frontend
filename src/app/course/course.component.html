@@ -28,7 +28,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form #addCourseForm="ngForm">
           <div class="mb-3">
             <label for="name" class="col-form-label">Name:</label>
             <input
@@ -126,10 +126,11 @@
         </form>
       </div>
       <div class="modal-footer">
+
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="addCourse()">
+        <button type="button" class="btn btn-primary" (click)="addCourse()"  data-bs-dismiss="modal">
           Add Course
         </button>
       </div>
@@ -169,6 +170,7 @@
             data-bs-toggle="modal"
             data-bs-target="#editCourse"
             (click)="setCurrentCourse(course)"
+            routerLink="course"
           >
             Edit
           </button>
@@ -286,7 +288,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="updateCourse()">
+        <button type="button" class="btn btn-primary" (click)="updateCourse()"  data-bs-dismiss="modal">
           Update Course
         </button>
       </div>

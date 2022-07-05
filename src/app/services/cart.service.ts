@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CartService {
-  //baseURL: string = "http://localhost:7474/cart/";
+  // baseURL: string = "http://localhost:7474/cart/";
   baseURL: string = environment.apiUrl+"/cart/";
 
   constructor(private http: HttpClient) { }
@@ -40,4 +40,25 @@ export class CartService {
     updateCart(cart : Cart) : Observable<Cart> {
     return this.http.put<Cart>(`${this.baseURL}update`, cart);
   }
+
+
+  
+ // allPassedData: BehaviorSubject<CartCourse[]> = new BehaviorSubject<CartCourse[]>([]);
+ // private allPassedData = new BehaviorSubject(null);
+// data = this.allPassedData.asObservable();
+
+ // changeData(data: any[]){
+  //  this.allPassedData.next(data)
+ // }
+ /* 
+  storePassedObject(passedData: CartCourse[]) {
+    this.allPassedData.next(passedData);
+   
+}
+
+retrievePassedObject() {
+  return this.allPassedData;
+  
+}
+*/
 }

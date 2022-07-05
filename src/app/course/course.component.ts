@@ -104,7 +104,6 @@ export class CourseComponent implements OnInit {
     }
 
     this.courseService.addNewCourse(this.newCourse).subscribe((response) => {
-      console.log(response);
     });
   }
 
@@ -114,7 +113,6 @@ export class CourseComponent implements OnInit {
 
   updateCourse() {
     this.courseService.updatedCourse(this.updated).subscribe((response) => {
-      this.router.navigate(['course']);
     });
   }
 }

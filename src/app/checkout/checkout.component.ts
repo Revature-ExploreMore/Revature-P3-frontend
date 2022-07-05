@@ -1,7 +1,7 @@
 import { Country } from '../models/countries.model';
 import { CheckoutService } from './../services/checkout.service';
 import { PaymentInfo } from './../models/payment.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -14,16 +14,21 @@ import { AuthService } from '../user-info/auth.service';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { CartService } from '../services/cart.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../models/user.model';
 import { OrderCourseSet } from '../models/ordercourseset.model';
 import { Order } from '../models/order.model';
 import { Course } from '../models/course.model';
 
+
+import { Subscription } from 'rxjs';
+
+
 @Component({
   selector: 'checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
+  providers: [CartService]
 })
 export class CheckoutComponent implements OnInit {
   countries: Country[] = [];
@@ -85,14 +90,15 @@ export class CheckoutComponent implements OnInit {
     courses: this.coursesAct
   }
 
-  
+  private subscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private checkOut: CheckoutService,
     private authService: AuthService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private route:ActivatedRoute
   ) {
     this.checkOutFormGroup = this.formBuilder.group({
       customerBilling: this.formBuilder.group({
@@ -127,10 +133,24 @@ export class CheckoutComponent implements OnInit {
         ]),
       }),
     });
+  
+  
+  
+    
+    
+  
+  
+    this.subscription = this.route.params.subscribe(
+      (param: any) => this.courses = JSON.parse(param['courses'])
+    );
+  
 
     this.getPaymentInfo();
     
     
+  }
+  ngOnDestroy() { 
+    this.subscription.unsubscribe();
   }
 
   
@@ -196,6 +216,8 @@ export class CheckoutComponent implements OnInit {
     )
 
   }
+  
+
 
   setUser(){
     let userData: any = sessionStorage.getItem('user');

@@ -25,10 +25,10 @@
             *ngFor="let item of courses"
           >
             <div>
-              <h6 class="my-0">{{ item.course.name }}</h6>
-              <small class="text-muted">{{ item.course.description }}</small>
+              <h6 class="my-0" *ngIf="item.course" >{{ item.course.name }}</h6>
+              <small class="text-muted" *ngIf="item.course" >{{ item.course.description }}</small>
             </div>
-            <span class="text-muted">{{ item.course.price}}</span>
+            <span class="text-muted" *ngIf="item.course" >{{ item.course.price}}</span>
           </li>
 
 
