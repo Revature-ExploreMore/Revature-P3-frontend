@@ -8,7 +8,7 @@ import { Country } from '../models/countries.model';
 import { PaymentInfo } from '../models/payment.model';
 import { User } from '../models/user.model';
 import { OrderCourseSet } from '../models/ordercourseset.model';
-import { environment } from 'src/environments/environment.prod';
+//import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
@@ -20,7 +20,7 @@ export class CheckoutService {
 
   }
 
-  baseUrl: string = environment.apiUrl;
+  baseUrl: string = "http://ec2-50-16-56-23.compute-1.amazonaws.com:8484";
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
     return this.http.post<PaymentInfo>(this.baseUrl + '/payment/payment',paymentInfo);

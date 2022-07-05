@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+//import { environment } from 'src/environments/environment.prod';
 import { Course } from '../models/course.model';
-import { environment } from 'src/environments/environment.prod';
+
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class CoursesService {
 
-  baseUrl: string = environment.apiUrl+"/course";
+  baseUrl: string = "http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/course";
   
   constructor(private http: HttpClient) { }
 
@@ -20,10 +21,9 @@ export class CoursesService {
 
 
   getAll() : Observable<Course[]> {
-   // return this.http.get<Course[]>(this.baseUrl +`/getAll`);
-   console.log(this.baseUrl);
-   console.log(environment);
-   return this.http.get<Course[]>('http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/course/getAll');
+   return this.http.get<Course[]>(this.baseUrl +`/getAll`);
+  
+   //return this.http.get<Course[]>('http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/course/getAll');
   }
 
   deleteCourse(id: number): Observable<Boolean>{
