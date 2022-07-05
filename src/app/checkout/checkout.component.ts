@@ -181,13 +181,15 @@ export class CheckoutComponent implements OnInit {
     
   }
   copyBillingInfo(billingInfo:any){
-    
+    let user = this.authService.getUserDetails();
     console.log(billingInfo);
     this.checkOutFormGroup.controls['customerBilling'].setValue({
-      cardType: billingInfo.cardType,
-      cardNumber: billingInfo.cardNumber,
-      expDate: billingInfo.expDate,
-      cvv: billingInfo.cvv
+    
+      street: billingInfo.streetName,
+      city: billingInfo.city,
+      state: billingInfo.state,
+      zipCode: billingInfo.zipCode,
+      userId: user?.id
       
     });
 
@@ -338,7 +340,8 @@ export class CheckoutComponent implements OnInit {
 
 
     this.checkOut.addPaymentInfo(this.paymentInfo).subscribe({
-      next: (response) => console.log(response),
+      next: (response) => {console.log(response)
+      this.getPaymentInfo()},
       error: (error) => console.log(error),
     });
   }
