@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Course } from '../models/course.model';
 import { Order } from '../models/order.model';
+import { OrderCourseSet } from '../models/ordercourseset.model';
 import { User } from '../models/user.model';
 import { OrdersService } from '../services/orders.service';
 
@@ -12,7 +14,7 @@ import { OrdersService } from '../services/orders.service';
 export class OrdersComponent implements OnInit {
 
  // orders!: Order[];
- orderHistoryList:Order[]=[];
+ orderHistoryList:OrderCourseSet[]=[];
  user: User = {
   id: 0,
   name: '',
@@ -31,41 +33,43 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
   this.handleOrderHistory();
   }
-/*
-  we should call a function from backend that retrieves all
-  order (maybe order_course objects) using the user id from
-  the user already stored in sessionStore. You may retrieve
-  the user details by calling sessionStorage.getItem as below:
+  
+  handleOrderHistory() {
 
-  let userData : any = sessionStorage.getItem('user');
-    if(userData!=null){
-      return JSON.parse(userData) as User;
+    let userData : any = sessionStorage.getItem('user');
+    if(userData != null){
+      this.user = JSON.parse(userData) as User;
+      console.log(this.user);
+    } else {
+      this.router.navigateByUrl('');
     }
-    return null;
-
-  We need to use the user id as the backend should have implemented
-  a route  "...order/orders/{uid}"
-*/
-
-   handleOrderHistory() {
-
-      let userData : any = sessionStorage.getItem('user');
-      if(userData != null){
-        this.user = JSON.parse(userData) as User;
-        console.log(this.user);
-      } else {
-        this.router.navigateByUrl('');
-      }
-      this.ordersService.getOrderHistory(this.user.id).subscribe({
-        next:(response)=>{
-          console.log(response);
-        },
-        error:(err)=>{
-          console.log(err);
+    this.ordersService.getOrderHistory(this.user.id).subscribe({
+      next:(response)=>{
+        console.log(response);
+        let currOrderId : number = 0;
+        let index : number= 0;
+        for (let orderCourse of response) {
+          if(orderCourse.order.id == currOrderId) {
+            this.orderHistoryList[index - 1].courses.push(orderCourse.course);
+          } else {
+            let order : Order = orderCourse.order;
+            let courses : Course[] = [];
+            let orderCourseSet : OrderCourseSet = {
+              order : order,
+              courses : courses
+            }
+            this.orderHistoryList.push(orderCourseSet);
+            this.orderHistoryList[index].courses.push(orderCourse.course);
+            currOrderId = order.id;
+            index++;
+          }
         }
-      })
+        console.log(this.orderHistoryList);
 
-
-
-   }
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
 }
