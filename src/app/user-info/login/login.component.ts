@@ -40,8 +40,7 @@ export class LoginComponent implements OnInit {
         this.authService.isLoggedIn=true;
         if(response.roleId==1){
           this.authService.isAdmin=true;
-         
-          this.router.navigate(['store']);
+          this.router.navigate(['course']);
         }else if(response.roleId==2){
         this.authService.isUser=true;
         this.router.navigate(['store']);
