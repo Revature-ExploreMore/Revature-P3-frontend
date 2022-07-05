@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
@@ -10,9 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CoursesService {
 
-
-  // baseUrl: string = "http://localhost:7474/course/";
-  baseUrl: string = environment.apiUrl+"/course/";
+  baseUrl: string = environment.apiUrl+"/course";
   
   constructor(private http: HttpClient) { }
 
@@ -22,10 +20,14 @@ export class CoursesService {
 
 
   getAll() : Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.baseUrl}getAll`);
+   // return this.http.get<Course[]>(this.baseUrl +`/getAll`);
+   console.log(this.baseUrl);
+   console.log(environment);
+   return this.http.get<Course[]>('http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/course/getAll');
   }
+
   deleteCourse(id: number): Observable<Boolean>{
-    return this.http.delete<Boolean>(this.baseUrl + 'deleteCourse/' + id);
+    return this.http.delete<Boolean>(this.baseUrl + '/deleteCourse/' + id);
 
   }
 

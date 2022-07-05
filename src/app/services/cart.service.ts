@@ -5,13 +5,12 @@ import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  // baseURL: string = "http://localhost:7474/cart/";
   baseURL: string = environment.apiUrl+"/cart/";
 
   constructor(private http: HttpClient) { }
