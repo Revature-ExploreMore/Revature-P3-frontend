@@ -28,7 +28,7 @@
               <h6 class="my-0" *ngIf="item.course" >{{ item.course.name }}</h6>
               <small class="text-muted" *ngIf="item.course" >{{ item.course.description }}</small>
             </div>
-            <span class="text-muted" *ngIf="item.course" >{{ item.course.price}}</span>
+            <span class="text-muted" *ngIf="item.course" >$ {{ item.course.price | number : '1.2-2' }}</span>
           </li>
 
 
@@ -77,7 +77,7 @@
           <!-- Calculate total of cart items----------------------------->
           <li class="list-group-item d-flex justify-content-between">
             <span>Total (USD)</span>
-            <strong>{{ this.cart.cartTotal }}</strong>
+            <strong>$ {{ this.cart.cartTotal | number : '1.2-2'  }}</strong>
           </li>
 
 
@@ -360,12 +360,13 @@
 
           <!-- Horizontal line -->
           <hr class="mb-4" />
-
-          <!-- Submit Button -->
-          <button class="btn btn-primary btn-lg btn-block" type="submit">
+          <div class="column d-flex justify-content-between"><a (click)="goBackToCart()" class="btn btn-outline-secondary"><i class="icon-arrow-left"
+            ></i>&nbsp;Back to Cart</a> 
+          <!-- Submit Button -->  
+          <button class="btn btn-primary  float-right" type="submit">
             Continue to Order Details
           </button>
-
+          </div>
     </div>
         </form>
         <!------------------------------- LAST FORM TAG--------------------------------------------------------------------------->

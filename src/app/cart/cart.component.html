@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="text-center text-lg text-medium" *ngIf="item.course" >$ {{item.course.price}}</td>
+                    <td class="text-center text-lg text-medium" *ngIf="item.course" >$ {{item.course.price | number : '1.2-2' }}</td>
                     <td class="text-center"><a class="remove-from-cart" data-toggle="tooltip"
                             (click)="deleteItem(item)" title="" data-original-title="Remove item"><i
                                 class="fa fa-trash"></i></a></td>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="shopping-cart-footer">
-        <div class="column text-lg">Subtotal: <span class="text-medium" *ngIf="newCart" >{{newCart.cartTotal}}</span></div>
+        <div class="column text-lg">Subtotal: <span class="text-medium" *ngIf="newCart" >$ {{newCart.cartTotal | number : '1.2-2' }}</span></div>
     </div>
     <div class="shopping-cart-footer">
         <div class="column"><a (click)="goToStoreFront()" class="btn btn-outline-secondary"><i class="icon-arrow-left"
