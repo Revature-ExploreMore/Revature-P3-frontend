@@ -42,7 +42,6 @@ export class ViewUserComponent implements OnInit {
     this.userService.getAllUsers().subscribe(
       {
         next: (response) => {
-          console.log(response);
           this.storeMessage = '';
           this.currentAllUsers = response;
         },
@@ -67,44 +66,3 @@ export class ViewUserComponent implements OnInit {
     this.router.navigate(['orders']);
   }
 }
-
-// updateUser: User = {
-//   id:0,
-//   name:"",
-//   email:"",
-//   phoneNumber:"",
-//   username:"",
-//   password:"",
-//   darkModePreference:false
-//   registerDate:  ,
-//   roleId: 0
-// }
-
-
-// constructor(private userService: UserService, private authService: AuthService, private router: Router) {
-//   this.currentAllUsers = [];
-// }
-
-// ngOnInit(): void {
-// }
-// displayProfile(Id: any){
-//   let userData = this.authService.getUserDetails();
-//   this.userService.getUser(userData.id).subscribe(response=>{
-//     this.userModel=response;
-//   });
-// }
-// goToEditUser(user: User) {
-//   this.router.navigate(['profile/edit', user]);
-// }
-
-// displayUserForm() {
-//   if (this.shouldDisplay) {
-//     this.shouldDisplay = false;
-//   } else {
-//     this.shouldDisplay = true;
-//   }
-// }
-// goToOrderHistory() {
-//   this.router.navigate(['orders']);
-// }
-// }

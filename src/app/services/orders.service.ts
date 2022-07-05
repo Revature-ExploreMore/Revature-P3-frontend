@@ -31,9 +31,4 @@ export class OrdersService {
 
     return this.http.get<Order[]>(this.baseUrl);
   }
-
-  //need to retrieve all orders by userid in the form of a list
-  //of order and course objects, may need to create and orderCourse model
-  //similar to cartCourse
-
 }
