@@ -11,8 +11,8 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class CartService {
-  baseURL: string = "http://localhost:7474/cart/";
-  // baseURL: string = environment.apiUrl+"/cart/";
+  //baseURL: string = "http://localhost:7474/cart/";
+  baseURL: string = environment.apiUrl+"/cart/";
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +35,7 @@ export class CartService {
     return this.http.post<CartCourse>(`${this.baseURL}cartCourse`, cartCourse);
   }
   emptyCart(cartId: number): Observable<boolean>{
-    return this.http.delete<boolean>(this.baseURL+ cartId);
+    return this.http.delete<boolean>(`${this.baseURL}`+ cartId);
   }
     updateCart(cart : Cart) : Observable<Cart> {
     return this.http.put<Cart>(`${this.baseURL}update`, cart);
@@ -44,21 +44,21 @@ export class CartService {
 
   
  // allPassedData: BehaviorSubject<CartCourse[]> = new BehaviorSubject<CartCourse[]>([]);
- // private allPassedData = new BehaviorSubject(null);
+// private allPassedData = new BehaviorSubject(null);
 // data = this.allPassedData.asObservable();
 
  // changeData(data: any[]){
   //  this.allPassedData.next(data)
  // }
- /* 
-  storePassedObject(passedData: CartCourse[]) {
-    this.allPassedData.next(passedData);
+ 
+//   storePassedObject(passedData: CartCourse[]) {
+//     this.allPassedData.next(passedData);
    
-}
+// }
 
-retrievePassedObject() {
-  return this.allPassedData;
+// retrievePassedObject() {
+//   return this.allPassedData;
   
-}
-*/
+// }
+
 }

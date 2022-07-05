@@ -10,12 +10,14 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class CoursesService {
 
-  baseUrl: string = "http://localhost:7474/course/";
-  // baseUrl: string = environment.apiUrl+"/course/";
+
+  //baseUrl: string = "http://localhost:7474/course/";
+  baseUrl: string = environment.apiUrl+"/course/";
+  
   constructor(private http: HttpClient) { }
 
   getACourse(id: any): Observable<Course>{
-    return this.http.get<Course>(this.baseUrl + 'getById/' + id);
+    return this.http.get<Course>(this.baseUrl + '/getById/' + id);
   }
 
 
@@ -28,10 +30,10 @@ export class CoursesService {
   }
 
   addNewCourse(newCourse: Course): Observable<Course>{
-    return this.http.post<Course>(this.baseUrl + 'addNewCourse', newCourse); 
+    return this.http.post<Course>(this.baseUrl + '/addNewCourse', newCourse); 
   }
 
   updatedCourse(updateCourse: Course): Observable<Course> {
-    return this.http.put<Course>(this.baseUrl + 'updateCourse', updateCourse);
+    return this.http.put<Course>(this.baseUrl + '/updateCourse', updateCourse);
   }
 }

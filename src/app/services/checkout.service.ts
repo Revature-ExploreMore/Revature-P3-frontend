@@ -19,24 +19,33 @@ export class CheckoutService {
   constructor(private http:HttpClient) {
 
   }
-  baseUrl:string = "http://localhost:7474/";
-  // baseUrl: string = environment.apiUrl;
+
+  //baseUrl:string = "http://localhost:7474/";
+  baseUrl: string = environment.apiUrl;
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
-    return this.http.post<PaymentInfo>(this.baseUrl + 'payment/payment',paymentInfo);
+    return this.http.post<PaymentInfo>(this.baseUrl + '/payment/payment',paymentInfo);
 
   }
 
   addBillingInfo(billingInfo:Billing):Observable<Billing>{
-    return this.http.post<Billing>(this.baseUrl+'billing/billing-address',billingInfo);
+    return this.http.post<Billing>(this.baseUrl+'/billing/billing-address',billingInfo);
+  }
+  getBillingInfo(userId:any):Observable<Billing[]>{
+
+    return this.http.get<Billing[]>(`${this.baseUrl}/billing/billing-address/`+userId);
   }
 
   addOrder(orderCourseSet : OrderCourseSet):Observable<number>{
 
-    return this.http.post<number>(`${this.baseUrl}order/orders`,orderCourseSet);
+    return this.http.post<number>(`${this.baseUrl}/order/orders`,orderCourseSet);
 
   }
 
+  getPaymentInfo(userId:any){
+    return this.http.get<PaymentInfo[]>(`${this.baseUrl}/payment/payment/`+userId)
+  }
+  
   getCountries():Country[]{
   return this.countries;
 

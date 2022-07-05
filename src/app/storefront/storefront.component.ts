@@ -44,8 +44,8 @@ export class StorefrontComponent implements OnInit {
     isRemoved: false,
     cartTotal: 0,
     userId: this.user.id,
-    orderId: 1,
-  };
+    orderId: 12
+  }
 
   cartCourse: CartCourse = {
     id: 0,
@@ -155,5 +155,9 @@ export class StorefrontComponent implements OnInit {
 
   goToCart() {
     this.router.navigateByUrl('cart');
+  }
+
+  filterByCategory(category : string) {
+
   }
 }
