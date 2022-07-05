@@ -52,7 +52,6 @@ export class LandingComponent implements OnInit {
   deleteCourse(id: number) {
     this.coursesService.deleteCourse(id).subscribe({
       next: (response) => {
-        console.log(response);
       },
       error: (error) => {
         console.log(error);
