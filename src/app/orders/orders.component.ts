@@ -52,7 +52,6 @@ export class OrdersComponent implements OnInit {
       let userData : any = sessionStorage.getItem('user');
       if(userData != null){
         this.user = JSON.parse(userData) as User;
-        console.log(this.user);
       } else {
         this.router.navigateByUrl('');
       }

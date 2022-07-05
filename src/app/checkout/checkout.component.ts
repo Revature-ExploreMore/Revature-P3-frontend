@@ -120,7 +120,6 @@ export class CheckoutComponent implements OnInit {
     let userData: any = sessionStorage.getItem('user');
     if (userData != null){
       this.newUser = JSON.parse(userData) as User;
-      console.log(this.newUser);
     }
   }
 
@@ -128,7 +127,6 @@ export class CheckoutComponent implements OnInit {
     let cart : any = sessionStorage.getItem("cart");
     if (cart != null){
       this.cart = JSON.parse(cart) as Cart;
-      console.log(this.cart);
     }
   }
 
@@ -136,9 +134,7 @@ export class CheckoutComponent implements OnInit {
     let cidParam = this.cart.id;
     this.cartService.getCartCourses(cidParam).subscribe({
       next: (response) => {
-        console.log(response);
         this.courses = response;
-        console.log(this.courses);
       }
     });
   
@@ -188,7 +184,6 @@ export class CheckoutComponent implements OnInit {
     }
     this.orderCourseSet.courses = this.coursesAct;
 
-    console.log(this.orderCourseSet);
     this.checkOut.addOrder(this.orderCourseSet).subscribe({
       next: (response) => console.log(response),
       error: (err) => console.log(err)
@@ -210,7 +205,6 @@ export class CheckoutComponent implements OnInit {
   
   
   onSubmit() {
-    console.log('Handling form data');
     console.log(this.checkoutFormGroup.get('customerBilling')?.value);
     console.log(this.checkoutFormGroup.get('paymentInfo')?.value);
 

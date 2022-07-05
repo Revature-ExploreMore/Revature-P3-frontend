@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
 
   validateLogin(){
     this.userService.validLogin(this.userDetails).subscribe((response)=>{
-      console.log(response)
       if(response.roleId!=0){
         
         this.authService.storeUserDetails(response);

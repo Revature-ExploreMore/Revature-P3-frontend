@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root',
 })
 export class OrdersService {
-  //private baseUrl = 'http://localhost:7474/order';
+  // baseUrl = 'http://localhost:7474/order';
   private baseUrl: string = environment.apiUrl+"/order";
 
 
@@ -18,18 +18,18 @@ export class OrdersService {
 
    getOrderHistory(userId: number): Observable<OrderCourse[]> {
     return this.http.get<OrderCourse[]>(`${this.baseUrl}/orderCourse/${userId}`);
-
    }
 
   viewOrderId (orderId: Order): Observable<Order>{
-
-
     return this.http.get<Order>(this.baseUrl + '/' + orderId);
   }
 
   viewAllOrders (): Observable<Order[]>{
-
     return this.http.get<Order[]>(this.baseUrl);
+  }
+
+  addOrder (newOrder : Order) : Observable<Order> {
+    return this.http.post<Order>(this.baseUrl + "/addorders", newOrder);
   }
 
   //need to retrieve all orders by userid in the form of a list

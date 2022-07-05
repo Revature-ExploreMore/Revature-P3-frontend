@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
     
     this.courseServise.getAll().subscribe(response => {
       this.router.navigate(['landing']);
-          console.log(response);
          // this.allCourse = response;
           return this.allCourse=response;
         });

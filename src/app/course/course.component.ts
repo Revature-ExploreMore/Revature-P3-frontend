@@ -65,7 +65,6 @@ export class CourseComponent implements OnInit {
 
   viewAllCategory() {
     this.courseService.getAll().subscribe((response) => {
-      console.log(response);
       for (let course of response) {
         this.courses.push(course);
         if (!this.categories.includes(course.category.categoryName)) {

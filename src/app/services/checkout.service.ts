@@ -19,7 +19,7 @@ export class CheckoutService {
   constructor(private http:HttpClient) {
 
   }
-  //baseUrl:string = "http://localhost:7474/";
+  // baseUrl:string = "http://localhost:7474/";
   baseUrl: string = environment.apiUrl;
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
@@ -33,7 +33,7 @@ export class CheckoutService {
 
   addOrder(orderCourseSet : OrderCourseSet):Observable<number>{
 
-    return this.http.post<number>(`${this.baseUrl}order/orders`,orderCourseSet);
+    return this.http.post<number>(`${this.baseUrl}order/addorders`,orderCourseSet);
 
   }
 

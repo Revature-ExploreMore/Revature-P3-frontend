@@ -36,14 +36,12 @@ export class LandingComponent implements OnInit {
     
   viewAllCourse() {
     this.coursesService.getAll().subscribe(response => {
-          //console.log(response);
           //this.allCourse = response;
           return this.allCourse=response;
         });
   }
   viewAllCategory(){
     this.coursesService.getAll().subscribe(response => {
-      console.log(response);
       for(let course of response){
         this.allCourse.push(course);
         if(!this.categories.includes(course.category.categoryName)){

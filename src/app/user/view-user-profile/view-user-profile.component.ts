@@ -42,12 +42,10 @@ export class ViewUserComponent implements OnInit {
     this.userService.getAllUsers().subscribe(
       {
         next: (response) => {
-          console.log(response);
           this.storeMessage = '';
           this.currentAllUsers = response;
         },
         error: (error) => {
-          console.log(error.error.errorMessage);
           this.storeMessage = error.error.errorMessage;
         }
       })
