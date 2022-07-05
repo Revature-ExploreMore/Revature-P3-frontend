@@ -59,14 +59,11 @@ export class CartComponent implements OnInit {
     course: this.newCourse,
   };
 
-  title = 'My Cart';
+  constructor(private cartService: CartService,
+              private authService: AuthService,
+              private courseService: CoursesService,
+              private router: Router) { 
 
-  constructor(
-    private cartService: CartService,
-    private authService: AuthService,
-    private courseService: CoursesService,
-    private router: Router
-  ) {
     this.courses = [];
     this.cartMessage = '';
   }
