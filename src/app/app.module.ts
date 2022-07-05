@@ -18,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
 // import { NgEventBus } from 'ng-event-bus';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,13 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpErrorInterceptor,
+    multi: true
+  }
+
+  ],
   // providers: [NgEventBus],
   bootstrap: [AppComponent]
 })
