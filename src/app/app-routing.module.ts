@@ -11,6 +11,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
 import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { LogoutComponent } from './user-info/logout/logout.component';
+import { CourseComponent } from './course/course.component';
 
 const routes: Routes = [
   {path: "", component:LandingComponent}, 
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: "profile", component: ViewUserComponent},
   {path: "profile/edit", component: EditUserProfileComponent},
   {path: "logout",component:LogoutComponent},
-  {path:"viewCourse()",component:LandingComponent}
+  {path: "viewCourse()",component:LandingComponent},
+  {path: "course", component:CourseComponent}
 
 ];
 
