@@ -5,13 +5,13 @@ import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
-import { environment } from 'src/environments/environment.prod';
+//import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  baseURL: string = environment.apiUrl+"/cart/";
+  baseURL: string = "http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/cart/";
 
   constructor(private http: HttpClient) { }
 
