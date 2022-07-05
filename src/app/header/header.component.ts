@@ -9,44 +9,38 @@ import { LandingComponent } from '../landing/landing.component';
   selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  
 })
 export class HeaderComponent implements OnInit {
   allCourse: Course[];
-  constructor(private authService:AuthService, private courseServise: CoursesService,
-    private router:Router
-    ) {  this.allCourse = [];  
-    }
-
-  ngOnInit(): void {
-   
+  constructor(
+    private authService: AuthService,
+    private courseServise: CoursesService,
+    private router: Router
+  ) {
+    this.allCourse = [];
   }
 
-
+  ngOnInit(): void {}
 
   viewCourse() {
-    
-    
-    this.courseServise.getAll().subscribe(response => {
+    this.courseServise.getAll().subscribe((response) => {
       this.router.navigate(['landing']);
-          console.log(response);
-         // this.allCourse = response;
-          return this.allCourse=response;
-        });
+      return (this.allCourse = response);
+    });
   }
-  hasLoggedIn(){
+  hasLoggedIn() {
     return this.authService.isLoggedIn;
   }
 
-  isAdmin(){
+  isAdmin() {
     return this.authService.isAdmin;
   }
 
-  isUser(){
+  isUser() {
     return this.authService.isUser;
   }
 
-  isAnonymous(){
+  isAnonymous() {
     return this.authService.isAnonymous;
   }
 }
