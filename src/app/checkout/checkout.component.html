@@ -260,7 +260,7 @@
            
             <div class="form-check" *ngFor="let billingInfo of savedBillingInfo let i = index" >
               <label class="au-checkbox">
-              <input type="checkbox" class="form-check-input"  (change)="copyBillingInfo(billinInfo)"> Address with street : {{billingInfo.streetName}} and city : {{billingInfo.city}}
+              <input type="checkbox" class="form-check-input"  (change)="copyBillingInfo(billingInfo)"> Address with street : {{billingInfo.streetName}} and city : {{billingInfo.city}}
             </label>
             </div>
 
@@ -383,6 +383,8 @@
                 </div>
             </div>
             </div>
+
+            <div class="column"><button type="button" class="btn btn-secondary" (click)="addPaymentInfo()">Save Payment</button></div>
           </div>
 
           <!-- Horizontal line -->

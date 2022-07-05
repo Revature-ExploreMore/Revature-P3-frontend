@@ -34,7 +34,7 @@ export class CheckoutComponent implements OnInit {
   countries: Country[] = [];
   savedPaymentInfo: PaymentInfo[] = [];
   savedBillingInfo: Billing[] = [];
-  userId:any = this.authService.getUserDetails()?.id;    //checkoutFormGroup: FormGroup;
+     //checkoutFormGroup: FormGroup;
   checkOutFormGroup: FormGroup;
  
   paymentInfo: PaymentInfo = {
@@ -90,17 +90,17 @@ export class CheckoutComponent implements OnInit {
     courses: this.coursesAct
   }
 
-  
+  private sub: Subscription
 
   constructor(
-    private subscription: Subscription,
+    
     private formBuilder: FormBuilder,
     private checkOut: CheckoutService,
     private authService: AuthService,
-    private cartService: CartService,
     private router: Router,
     private route: ActivatedRoute
   ) {
+    let user = this.authService.getUserDetails();
     this.checkOutFormGroup = this.formBuilder.group({
       customerBilling: this.formBuilder.group({
         street: new FormControl('', [
@@ -113,7 +113,7 @@ export class CheckoutComponent implements OnInit {
           Validators.required,
           Validators.minLength(2),
         ]),
-        userId:this.userId
+        userId: user?.id
       }),
 
       paymentInfo: this.formBuilder.group({
@@ -135,7 +135,7 @@ export class CheckoutComponent implements OnInit {
       }),
     });
   
-    this.subscription = route.params.subscribe(
+    this.sub = route.params.subscribe(
       (param: any) => this.courses = JSON.parse(param['courses'])
     );
   
@@ -145,7 +145,7 @@ export class CheckoutComponent implements OnInit {
     
   }
   ngOnDestroy() { 
-    this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   
@@ -158,6 +158,7 @@ export class CheckoutComponent implements OnInit {
     this.setCart();
     //this.setCourses();
     this.getBillingInfo();
+    this.getPaymentInfo();
     
   }   
 
@@ -173,6 +174,7 @@ export class CheckoutComponent implements OnInit {
             cardNumber: paymentInfo.cardNumber,
             expDate: paymentInfo.expDate,
             cvv: paymentInfo.cvv
+            
             
           });
         
@@ -199,16 +201,16 @@ export class CheckoutComponent implements OnInit {
   getPaymentInfo() {
     let user = this.authService.getUserDetails();
 
-    return this.checkOut.getPaymentInfo(2).subscribe({
+    return this.checkOut.getPaymentInfo(user?.id).subscribe({
       next: (response) => {
         this.savedPaymentInfo = response as PaymentInfo[];
-      },
+      }
     });
   }
   getBillingInfo() {
     let user = this.authService.getUserDetails(); 
 
-    return this.checkOut.getBillingInfo(2).subscribe({
+    return this.checkOut.getBillingInfo(user?.id).subscribe({
 
       next:(response) => {
 
@@ -222,7 +224,7 @@ export class CheckoutComponent implements OnInit {
   //  this.setCourses();
 
  
- console.log(this.route.snapshot.queryParams['data']);
+
     
  
   //  this.cartService.allPassedData.subscribe((allPassedData)=>{
@@ -271,11 +273,12 @@ export class CheckoutComponent implements OnInit {
       state: this.checkOutFormGroup.get('customerBilling')?.get('state')?.value,
       zipCode: this.checkOutFormGroup.get('customerBilling')?.get('zipCode')
         ?.value,
-      userId: 2,
+      userId: user.id
     };
 
     this.checkOut.addBillingInfo(this.billinInfo).subscribe({
-      next: (response)=> console.log(response),
+      next: (response)=> {console.log(response)
+        this.getBillingInfo()},
       error:(error) => console.log(error)
     });
 
@@ -302,7 +305,7 @@ export class CheckoutComponent implements OnInit {
         ?.value,
       expDate: this.checkOutFormGroup.get('paymentInfo')?.get('expDate')?.value,
       cvv: this.checkOutFormGroup.get('paymentInfo')?.get('cvv')?.value,
-      userId: 2,
+      userId: user.id,
     };
 
     // this.checkOut.addBillingInfo(this.billinInfo).subscribe({
