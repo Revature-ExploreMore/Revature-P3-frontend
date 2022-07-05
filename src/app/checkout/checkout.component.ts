@@ -1,7 +1,7 @@
 import { Country } from '../models/countries.model';
 import { CheckoutService } from './../services/checkout.service';
 import { PaymentInfo } from './../models/payment.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -18,10 +18,15 @@ import { OrderCourseSet } from '../models/ordercourseset.model';
 import { Course } from '../models/course.model';
 import { Order } from '../models/order.model';
 
+import { ActivatedRoute, Navigation, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+
 @Component({
   selector: 'checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
+  providers: [CartService]
 })
 export class CheckoutComponent implements OnInit {
     countries: Country[] = []; 
@@ -79,15 +84,25 @@ export class CheckoutComponent implements OnInit {
     courses: this.coursesAct
   }
 
-  
+  private subscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private checkOut: CheckoutService, 
     private authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
-
+  
+    
+    
+  
+  
+    this.subscription = route.params.subscribe(
+      (param: any) => this.courses = JSON.parse(param['courses'])
+    );
+  
 
     this.checkoutFormGroup = this.formBuilder.group({
         customerBilling: this.formBuilder.group({
@@ -106,6 +121,9 @@ export class CheckoutComponent implements OnInit {
         }),
       });
   }
+  ngOnDestroy() { 
+    this.subscription.unsubscribe();
+  }
 
   // Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')
 
@@ -113,8 +131,19 @@ export class CheckoutComponent implements OnInit {
     this.countries = this.checkOut.getCountries();
     this.setUser();
     this.setCart();
-    this.setCourses();
+  //  this.setCourses();
+
+ 
+ console.log(this.route.snapshot.queryParams['data']);
+    
+ 
+  //  this.cartService.allPassedData.subscribe((allPassedData)=>{
+    //  this.courses = allPassedData;
+    //  console.log(this.courses); 
+  //  }) 
   }
+  
+
 
   setUser(){
     let userData: any = sessionStorage.getItem('user');
@@ -131,7 +160,7 @@ export class CheckoutComponent implements OnInit {
       console.log(this.cart);
     }
   }
-
+/*
   setCourses(){
     let cidParam = this.cart.id;
     this.cartService.getCartCourses(cidParam).subscribe({
@@ -143,7 +172,7 @@ export class CheckoutComponent implements OnInit {
     });
   
 }
-
+*/
   addPaymentInfo() {
     // var user:any = this.authService.getUserDetails();
 
