@@ -8,7 +8,7 @@ import { Country } from '../models/countries.model';
 import { PaymentInfo } from '../models/payment.model';
 import { User } from '../models/user.model';
 import { OrderCourseSet } from '../models/ordercourseset.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
