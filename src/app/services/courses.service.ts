@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class CoursesService {
 
-  baseUrl: string = environment.apiUrl+"/course/";
+  baseUrl: string = environment.apiUrl+"/course";
   
   constructor(private http: HttpClient) { }
 
@@ -20,10 +20,12 @@ export class CoursesService {
 
 
   getAll() : Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.baseUrl}getAll`);
+   // return this.http.get<Course[]>(this.baseUrl +`/getAll`);
+   return this.http.get<Course[]>('http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/getAll');
   }
+  
   deleteCourse(id: number): Observable<Boolean>{
-    return this.http.delete<Boolean>(this.baseUrl + 'deleteCourse/' + id);
+    return this.http.delete<Boolean>(this.baseUrl + '/deleteCourse/' + id);
 
   }
 
