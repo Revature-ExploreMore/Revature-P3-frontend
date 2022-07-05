@@ -17,11 +17,12 @@ import {
           catchError((error: HttpErrorResponse) => {
             let errorMessage = 'Website error, please try again!';
             if (error.error instanceof ErrorEvent) {
-              // client-side error
-              errorMessage = `Error: ${error.error.message}`;
+              // front-end error
+              errorMessage = `Network Error Occured: ${error.error.message}`;
             } else {
-              // server-side error
-              errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+              // back-end error
+              errorMessage = `Something Went Wrong!`;
+              console.log("Error for url:" + error.message);
             }
             window.alert(errorMessage);
             return throwError(errorMessage);
