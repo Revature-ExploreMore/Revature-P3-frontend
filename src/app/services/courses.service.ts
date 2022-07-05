@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class CoursesService {
 
-  //baseUrl: string = "http://localhost:7474/course/";
+  // baseUrl: string = "http://localhost:7474/course/";
   baseUrl: string = environment.apiUrl+"/course/";
   constructor(private http: HttpClient) { }
 

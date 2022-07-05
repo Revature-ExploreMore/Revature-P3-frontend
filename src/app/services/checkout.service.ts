@@ -19,7 +19,7 @@ export class CheckoutService {
   constructor(private http:HttpClient) {
 
   }
-  //baseUrl:string = "http://localhost:7474/";
+  // baseUrl:string = "http://localhost:7474/";
   baseUrl: string = environment.apiUrl;
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
