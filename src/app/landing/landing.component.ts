@@ -20,7 +20,17 @@ export class LandingComponent implements OnInit {
   constructor(private coursesService: CoursesService,
     private router: Router) {
         this.allCourse = [];
-        this.categories = [];
+        this.categories = [];  
+  }
+  //used to enable or disable the delete button depending if its an admin or not
+  getUserId():number{
+   let id:any = this.authService.getUserDetails();
+   if(id.roleId == 0){
+    return 0;
+   }else{
+    return id.roleId;
+   }
+
   }
 
   ngOnInit(): void {
