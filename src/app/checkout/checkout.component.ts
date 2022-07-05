@@ -23,12 +23,11 @@ import { Course } from '../models/course.model';
 import { ActivatedRoute, Navigation, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-
 @Component({
   selector: 'checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
-  providers: [CartService]
+  providers: [CartService],
 })
 export class CheckoutComponent implements OnInit {
   countries: Country[] = [];
@@ -63,8 +62,8 @@ export class CheckoutComponent implements OnInit {
     password: '',
     darkModePreference: false,
     registerDate: new Date(),
-    roleId: 0
-  }
+    roleId: 0,
+  };
 
   cart: Cart = {
     id: 0,
@@ -74,21 +73,21 @@ export class CheckoutComponent implements OnInit {
     isRemoved: false,
     userId: 0,
     orderId: 0,
-  }
-  courses: CartCourse [] = [];
-  coursesAct: Course [] = [];
+  };
+  courses: CartCourse[] = [];
+  coursesAct: Course[] = [];
 
   order: Order = {
     id: 0,
     orderTimestamp: new Date(),
     orderTotal: 0,
-    user: this.newUser
-  }
+    user: this.newUser,
+  };
 
   orderCourseSet: OrderCourseSet = {
     order: this.order,
-    courses: this.coursesAct
-  }
+    courses: this.coursesAct,
+  };
 
   private sub: Subscription
 
@@ -138,7 +137,6 @@ export class CheckoutComponent implements OnInit {
     this.sub = route.params.subscribe(
       (param: any) => this.courses = JSON.parse(param['courses'])
     );
-  
 
     this.getPaymentInfo();
     
@@ -234,22 +232,18 @@ export class CheckoutComponent implements OnInit {
     //  console.log(this.courses); 
   //  }) 
   }
-  
 
-
-  setUser(){
+  setUser() {
     let userData: any = sessionStorage.getItem('user');
-    if (userData != null){
+    if (userData != null) {
       this.newUser = JSON.parse(userData) as User;
-      console.log(this.newUser);
     }
   }
 
-  setCart(){
-    let cart : any = sessionStorage.getItem("cart");
-    if (cart != null){
+  setCart() {
+    let cart: any = sessionStorage.getItem('cart');
+    if (cart != null) {
       this.cart = JSON.parse(cart) as Cart;
-      console.log(this.cart);
     }
   }
 
