@@ -148,6 +148,7 @@ export class StorefrontComponent implements OnInit {
   addCourseToCart(course : Course) {
     console.log("course",course);
     this.cartCourse.course = course;
+    this.cartCourse.cart = this.cart;
     this.cartServ.addCourseToCart(this.cartCourse).subscribe({
       next: (response) => {
         console.log(response);

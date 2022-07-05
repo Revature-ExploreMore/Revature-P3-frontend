@@ -1,7 +1,7 @@
 export interface Billing{
 
     id:Number;
-    street:string;
+    streetName:string;
     city:string;
     state:string;
     zipCode:Number;

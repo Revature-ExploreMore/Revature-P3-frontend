@@ -3,6 +3,7 @@ import { CheckoutService } from './../services/checkout.service';
 import { PaymentInfo } from './../models/payment.model';
 import { Component, OnInit } from '@angular/core';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -28,8 +29,9 @@ export class CheckoutComponent implements OnInit {
   countries: Country[] = [];
   savedPaymentInfo: PaymentInfo[] = [];
   savedBillingInfo: Billing[] = [];
-
-  checkoutFormGroup: FormGroup;
+  userId:any = this.authService.getUserDetails()?.id;    //checkoutFormGroup: FormGroup;
+  checkOutFormGroup: FormGroup;
+ 
   paymentInfo: PaymentInfo = {
     id: 0,
     cardType: '',
@@ -41,7 +43,7 @@ export class CheckoutComponent implements OnInit {
 
   billinInfo: Billing = {
     id: 0,
-    street: '',
+    streetName: '',
     city: '',
     state: '',
     zipCode: 0,
@@ -92,7 +94,7 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService,
     private router: Router
   ) {
-    this.checkoutFormGroup = this.formBuilder.group({
+    this.checkOutFormGroup = this.formBuilder.group({
       customerBilling: this.formBuilder.group({
         street: new FormControl('', [
           Validators.required,
@@ -104,7 +106,7 @@ export class CheckoutComponent implements OnInit {
           Validators.required,
           Validators.minLength(2),
         ]),
-        //user id = sessionStorage of the user
+        userId:this.userId
       }),
 
       paymentInfo: this.formBuilder.group({
@@ -127,7 +129,11 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.getPaymentInfo();
+    
+    
   }
+
+  
 
   // Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')
 
@@ -137,36 +143,28 @@ export class CheckoutComponent implements OnInit {
     this.setCart();
     this.setCourses();
     this.getBillingInfo();
-  }
+    
+  }   
 
-  copyPaymentInfo(event: any) {
-    this.savedPaymentInfo.forEach((paymentInfo) => {
-      event.target.checked
-        ? this.checkoutFormGroup.controls['paymentInfo'].setValue({
+  
+
+  
+
+  copyPaymentInfo(paymentInfo: any) {
+      console.log(paymentInfo);
+   
+        this.checkOutFormGroup.controls['paymentInfo'].setValue({
             cardType: paymentInfo.cardType,
             cardNumber: paymentInfo.cardNumber,
             expDate: paymentInfo.expDate,
-            cvv: paymentInfo.cvv,
-          })
-        : this.checkoutFormGroup.controls['paymentInfo'].reset();
-    });
+            cvv: paymentInfo.cvv
+            
+          });
+        
+    
   }
   copyBillingInfo(event:any){
-    this.savedBillingInfo.forEach((billingInfo) => {
-      if(event.target.checked){
-
-        this.checkoutFormGroup.controls['customerBilling'].setValue({
-            street: billingInfo.street,
-            city: billingInfo.city,
-            state: billingInfo.state,
-            zipCode: billingInfo.zipCode
-
-        });
-
-      }else{
-        this.checkoutFormGroup.controls['cutomerBilling'].reset()
-      }
-    });
+    
   
   }
 
@@ -177,7 +175,7 @@ export class CheckoutComponent implements OnInit {
   getPaymentInfo() {
     let user = this.authService.getUserDetails();
 
-    return this.checkOut.getPaymentInfo(user?.id).subscribe({
+    return this.checkOut.getPaymentInfo(2).subscribe({
       next: (response) => {
         this.savedPaymentInfo = response as PaymentInfo[];
       },
@@ -186,7 +184,7 @@ export class CheckoutComponent implements OnInit {
   getBillingInfo() {
     let user = this.authService.getUserDetails(); 
 
-    return this.checkOut.getBillingInfo(user?.id).subscribe({
+    return this.checkOut.getBillingInfo(2).subscribe({
 
       next:(response) => {
 
@@ -226,28 +224,49 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  addPaymentInfo() {
-    let user: any = this.authService.getUserDetails();
+  addBillingInfo(){
+    let user:any  = this.authService.getUserDetails();
 
     this.billinInfo = {
       id: 0,
-      street: this.checkoutFormGroup.get('customerBilling')?.get('street')
+      streetName: this.checkOutFormGroup.get('customerBilling')?.get('street')
         ?.value,
-      city: this.checkoutFormGroup.get('customerBilling')?.get('city')?.value,
-      state: this.checkoutFormGroup.get('customerBilling')?.get('state')?.value,
-      zipCode: this.checkoutFormGroup.get('customerBilling')?.get('zipCode')
+      city: this.checkOutFormGroup.get('customerBilling')?.get('city')?.value,
+      state: this.checkOutFormGroup.get('customerBilling')?.get('state')?.value,
+      zipCode: this.checkOutFormGroup.get('customerBilling')?.get('zipCode')
         ?.value,
-      userId: user?.id,
+      userId: 2,
     };
+
+    this.checkOut.addBillingInfo(this.billinInfo).subscribe({
+      next: (response)=> console.log(response),
+      error:(error) => console.log(error)
+    });
+
+  }
+
+  addPaymentInfo() {
+    let user: any = this.authService.getUserDetails();
+
+    // this.billinInfo = {
+    //   id: 0,
+    //   street: this.checkoutFormGroup.get('customerBilling')?.get('street')
+    //     ?.value,
+    //   city: this.checkoutFormGroup.get('customerBilling')?.get('city')?.value,
+    //   state: this.checkoutFormGroup.get('customerBilling')?.get('state')?.value,
+    //   zipCode: this.checkoutFormGroup.get('customerBilling')?.get('zipCode')
+    //     ?.value,
+    //   userId: user?.id,
+    // };
     this.paymentInfo = {
       id: 0,
-      cardType: this.checkoutFormGroup.get('paymentInfo')?.get('cardType')
+      cardType: this.checkOutFormGroup.get('paymentInfo')?.get('cardType')
         ?.value,
-      cardNumber: this.checkoutFormGroup.get('paymentInfo')?.get('cardNumber')
+      cardNumber: this.checkOutFormGroup.get('paymentInfo')?.get('cardNumber')
         ?.value,
-      expDate: this.checkoutFormGroup.get('paymentInfo')?.get('expDate')?.value,
-      cvv: this.checkoutFormGroup.get('paymentInfo')?.get('cvv')?.value,
-      userId: user?.id,
+      expDate: this.checkOutFormGroup.get('paymentInfo')?.get('expDate')?.value,
+      cvv: this.checkOutFormGroup.get('paymentInfo')?.get('cvv')?.value,
+      userId: 2,
     };
 
     // this.checkOut.addBillingInfo(this.billinInfo).subscribe({
@@ -258,7 +277,64 @@ export class CheckoutComponent implements OnInit {
     //   next: (response) => console.log(response),
     //   error: (error) => console.log(error),
     // });
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // this.courses[0].cart = this.cart;
+    // this.order.orderTimestamp = new Date();
+    // this.order.orderTotal = this.cart.cartTotal;
+    // this.order.user = this.newUser;
+
+    // this.orderCourseSet.order = this.order;
+    // this.coursesAct = [];
+    // for (let cc of this.courses) {
+    //   this.coursesAct.push(cc.course);
+    // }
+    // this.orderCourseSet.courses = this.coursesAct;
+
+    // console.log(this.orderCourseSet);
+    // this.checkOut.addOrder(this.orderCourseSet).subscribe({
+    //   next: (response) => console.log(response),
+    //   error: (error) => console.log(error),
+    // });
+    this.checkOut.addPaymentInfo(this.paymentInfo).subscribe({
+      next: (response) => console.log(response),
+      error: (error) => console.log(error),
+    });
+  }
+
+  get billingAddressStreet() {
+    return this.checkOutFormGroup.get('customerBilling.street');
+  }
+  get billingAddressCity() {
+    return this.checkOutFormGroup.get('customerBilling.city');
+  }
+  get billingAddressState() {
+    return this.checkOutFormGroup.get('customerBilling.state');
+  }
+  get billingAddressZipCode() {
+    return this.checkOutFormGroup.get('customerBilling.zipCode');
+  }
+
+  get creditCardType() {
+    return this.checkOutFormGroup.get('paymentInfo.cardType');
+  }
+  get creditCardNameOnCard() {
+    return this.checkOutFormGroup.get('paymentInfo.nameOnCard');
+  }
+  get creditCardNumber() {
+    return this.checkOutFormGroup.get('paymentInfo.cardNumber');
+  }
+  get creditCardExpDate() {
+    return this.checkOutFormGroup.get('paymentInfo.expDate');
+  }
+  get creditCardSecurityCode() {
+    return this.checkOutFormGroup.get('paymentInfo.cvv');
+  }
+
+  onSubmit() {
+    console.log('Handling form data');
+    console.log(this.checkOutFormGroup.get('customerBilling')?.value);
+    console.log(this.checkOutFormGroup.get('paymentInfo')?.value);
     this.order.orderTimestamp = new Date();
     this.order.orderTotal = this.cart.cartTotal;
     this.order.user = this.newUser;
@@ -272,48 +348,14 @@ export class CheckoutComponent implements OnInit {
 
     console.log(this.orderCourseSet);
     this.checkOut.addOrder(this.orderCourseSet).subscribe({
-      next: (response) => console.log(response),
+      next: (response) => {
+        console.log(response)
+        this.router.navigateByUrl('orders')
+      
+      },
+      
       error: (error) => console.log(error),
     });
-    this.checkOut.addPaymentInfo(this.paymentInfo).subscribe({
-      next: (response) => console.log(response),
-      error: (error) => console.log(error),
-    });
-  }
-
-  get billingAddressStreet() {
-    return this.checkoutFormGroup.get('customerBilling.street');
-  }
-  get billingAddressCity() {
-    return this.checkoutFormGroup.get('customerBilling.city');
-  }
-  get billingAddressState() {
-    return this.checkoutFormGroup.get('customerBilling.state');
-  }
-  get billingAddressZipCode() {
-    return this.checkoutFormGroup.get('customerBilling.zipCode');
-  }
-
-  get creditCardType() {
-    return this.checkoutFormGroup.get('paymentInfo.cardType');
-  }
-  get creditCardNameOnCard() {
-    return this.checkoutFormGroup.get('paymentInfo.nameOnCard');
-  }
-  get creditCardNumber() {
-    return this.checkoutFormGroup.get('paymentInfo.cardNumber');
-  }
-  get creditCardExpDate() {
-    return this.checkoutFormGroup.get('paymentInfo.expDate');
-  }
-  get creditCardSecurityCode() {
-    return this.checkoutFormGroup.get('paymentInfo.cvv');
-  }
-
-  onSubmit() {
-    console.log('Handling form data');
-    console.log(this.checkoutFormGroup.get('customerBilling')?.value);
-    console.log(this.checkoutFormGroup.get('paymentInfo')?.value);
-    this.router.navigateByUrl('orders');
+    
   }
 }

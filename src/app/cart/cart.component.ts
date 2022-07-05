@@ -84,7 +84,7 @@ title = 'My Cart';
 setUser(){
   let userData: any = sessionStorage.getItem('user');
   if (userData != null){
-    this.newUser = JSON.parse(userData) as User;
+    this.newUser = userData;
     console.log(this.newUser);
   }
 }
@@ -102,7 +102,7 @@ setUser(){
   */
 setCart(){
   let cart : any = sessionStorage.getItem("cart");
-  if (cart != null){
+  if (cart != null ){
     this.newCart = JSON.parse(cart) as Cart;
     console.log(this.newCart);
   }
