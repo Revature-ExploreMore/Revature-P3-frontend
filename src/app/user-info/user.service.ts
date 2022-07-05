@@ -9,8 +9,9 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class UserService {
-   baseUrlLogin: string = "http://localhost:7474/user/user-info/";
-  //baseUrlLogin: string = environment.apiUrl+"/user/user-info/";
+
+  baseUrlLogin: string = "http://localhost:7474/user/user-info/";
+  // baseUrlLogin: string = environment.apiUrl+"/user/user-info/";
 
    constructor(private http: HttpClient) { }
 
@@ -27,11 +28,11 @@ export class UserService {
   }
 
   getUser(id: any): Observable<User> {
-    return this.http.get<User>(this.baseUrlLogin + '/' + id);
+    return this.http.get<User>(this.baseUrlLogin + id);
   }
   
   updateUser(sentUser: User): Observable<User> {
-    return this.http.put<User>(this.baseUrlLogin, sentUser);
+    return this.http.put<User>(this.baseUrlLogin + "updateUser", sentUser);
 
   }
 }

@@ -9,67 +9,59 @@ import { OrdersService } from '../services/orders.service';
 @Component({
   selector: 'orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css']
+  styleUrls: ['./orders.component.css'],
 })
 export class OrdersComponent implements OnInit {
+  orderHistoryList: OrderCourseSet[] = [];
+  user: User = {
+    id: 0,
+    name: '',
+    email: '',
+    phoneNumber: '',
+    username: '',
+    password: '',
+    darkModePreference: false,
+    registerDate: new Date(),
+    roleId: 0,
+  };
 
- // orders!: Order[];
- orderHistoryList:OrderCourseSet[]=[];
- user: User = {
-  id: 0,
-  name: '',
-  email: '',
-  phoneNumber: '',
-  username: '',
-  password: '',
-  darkModePreference: false,
-  registerDate : new Date,
-  roleId: 0
-}
-
-
-  constructor(private ordersService:OrdersService, private router: Router) { }
+  constructor(private ordersService: OrdersService, private router: Router) {}
 
   ngOnInit(): void {
-  this.handleOrderHistory();
+    this.handleOrderHistory();
   }
-  
-  handleOrderHistory() {
 
-    let userData : any = sessionStorage.getItem('user');
-    if(userData != null){
+  handleOrderHistory() {
+    let userData: any = sessionStorage.getItem('user');
+    if (userData != null) {
       this.user = JSON.parse(userData) as User;
-      console.log(this.user);
     } else {
       this.router.navigateByUrl('');
     }
     this.ordersService.getOrderHistory(this.user.id).subscribe({
-      next:(response)=>{
-        console.log(response);
-        let currOrderId : number = 0;
-        let index : number= 0;
+      next: (response) => {
+        let currOrderId: number = 0;
+        let index: number = 0;
         for (let orderCourse of response) {
-          if(orderCourse.order.id == currOrderId) {
+          if (orderCourse.order.id == currOrderId) {
             this.orderHistoryList[index - 1].courses.push(orderCourse.course);
           } else {
-            let order : Order = orderCourse.order;
-            let courses : Course[] = [];
-            let orderCourseSet : OrderCourseSet = {
-              order : order,
-              courses : courses
-            }
+            let order: Order = orderCourse.order;
+            let courses: Course[] = [];
+            let orderCourseSet: OrderCourseSet = {
+              order: order,
+              courses: courses,
+            };
             this.orderHistoryList.push(orderCourseSet);
             this.orderHistoryList[index].courses.push(orderCourse.course);
             currOrderId = order.id;
             index++;
           }
         }
-        console.log(this.orderHistoryList);
-
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
 }
