@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../models/course.model';
 import { Category } from '../models/category.model';
 import { CoursesService } from '../services/courses.service';
+import { AuthService } from '../user-info/auth.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class LandingComponent implements OnInit {
 
 
   constructor(private coursesService: CoursesService,
+    private authService : AuthService,
     private router: Router) {
         this.allCourse = [];
         this.categories = [];  

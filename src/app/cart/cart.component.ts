@@ -84,6 +84,7 @@ setUser(){
     this.newUser = userData;
     console.log(this.newUser);
   }
+}
 
  
 /*
@@ -119,7 +120,7 @@ setCart(){
     error: (err) => {
       console.log(err);
     }
-  }
+  }*/
 
   setCourses() {
     let cidParam = this.newCart.id;
