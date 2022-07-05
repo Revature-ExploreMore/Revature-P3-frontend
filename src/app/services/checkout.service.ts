@@ -20,8 +20,8 @@ export class CheckoutService {
 
   }
 
-  baseUrl:string = "http://localhost:7474/";
-  // baseUrl: string = environment.apiUrl;
+//  baseUrl:string = "http://localhost:7474/";
+   baseUrl: string = environment.apiUrl;
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
     return this.http.post<PaymentInfo>(this.baseUrl + 'payment/payment',paymentInfo);
