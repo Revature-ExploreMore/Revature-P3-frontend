@@ -7,12 +7,11 @@ import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
 import { CartService } from '../services/cart.service';
 
-
 @Component({
   selector: 'cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
-  providers: [CartService]
+  providers: [CartService],
 })
 @Injectable()
 export class CartComponent implements OnInit {
@@ -20,57 +19,55 @@ export class CartComponent implements OnInit {
   
   newCategory: Category = {
     id: 0,
-    categoryName: ''
-  }
-  newCourse : Course = {
+    categoryName: '',
+  };
+  newCourse: Course = {
     id: 0,
     name: '',
     description: '',
     price: 0,
     imageUrl: '',
     category: this.newCategory,
-  }
+  };
 
-  courses: CartCourse [];
-   
-    
- cartMessage: string = '';
-newCart: Cart = {
-  id: 0,
-  createdAt: new Date(),
-  modifiedAt: new Date(),
-  cartTotal: 0,
-  isRemoved: false, 
-  userId: 0,
-  orderId: 0,
-}
-newUser: User = {
-  id: 0,
-  name: '',
-  email: '',
-  phoneNumber: '',
-  username: '',
-  password: '',
-  darkModePreference: false,
-  registerDate: new Date(),
-  roleId: 0
-}
-cartCourse : CartCourse = {
-  id: 0,
-  cart: this.newCart,
-  course: this.newCourse,
-}
+  courses: CartCourse[];
 
 title = 'My Cart';
  
 
  
+  cartMessage: string = '';
+  newCart: Cart = {
+    id: 0,
+    createdAt: new Date(),
+    modifiedAt: new Date(),
+    cartTotal: 0,
+    isRemoved: false,
+    userId: 0,
+    orderId: 0,
+  };
+  newUser: User = {
+    id: 0,
+    name: '',
+    email: '',
+    phoneNumber: '',
+    username: '',
+    password: '',
+    darkModePreference: false,
+    registerDate: new Date(),
+    roleId: 0,
+  };
+  cartCourse: CartCourse = {
+    id: 0,
+    cart: this.newCart,
+    course: this.newCourse,
+  };
 
-  
   constructor(private cartService: CartService,
               private router: Router) { 
+
     this.courses = [];
-     this.cartMessage = '';
+    this.cartMessage = '';
   }
   ngOnInit(): void {
     this.setCart();
@@ -105,58 +102,56 @@ setCart(){
         this.courses = response;   
       },
       error: (error) => {
-       console.log(error.error.errorMessage);
+        console.log(error.error.errorMessage);
         this.cartMessage = error.error.errorMessage;
-      }
+      },
     });
-  
-}
+  }
 
-  deleteItem(cartCourse: CartCourse){
+  deleteItem(cartCourse: CartCourse) {
     this.cartService.deleteItem(cartCourse.id).subscribe({
       next: (response) => {
         this.setCourses();
         this.newCart.cartTotal -= cartCourse.course.price;
-        this.newCart.modifiedAt = new Date;
+        this.newCart.modifiedAt = new Date();
         this.cartService.updateCart(this.newCart).subscribe({
           next: (response) => {
             this.newCart = response;
             sessionStorage.setItem("cart", JSON.stringify(this.newCart));
           },
-          error: (err) => console.log(err)
-        })
+          error: (err) => console.log(err),
+        });
       },
-      error: (err) => console.log(err)
+      error: (err) => console.log(err),
     });
-    
   }
-  emptyCart(cartId: number){
+  emptyCart(cartId: number) {
     this.cartService.emptyCart(cartId).subscribe({
       next: (response) => {
-      this.setCourses();
-      this.newCart.cartTotal -= this.newCart.cartTotal;
-        this.newCart.modifiedAt = new Date;
+        this.setCourses();
+        this.newCart.cartTotal -= this.newCart.cartTotal;
+        this.newCart.modifiedAt = new Date();
         this.cartService.updateCart(this.newCart).subscribe({
           next: (response) => {  
             this.newCart = response;
             sessionStorage.setItem("cart", JSON.stringify(this.newCart));  
           },
-          error: (err) => console.log(err)
-        })
+          error: (err) => console.log(err),
+        });
       },
-      error: (err) => console.log(err)
+      error: (err) => console.log(err),
     });
-
   }
+
+  
   
 
 
   goToStoreFront() {
-    this.router.navigateByUrl("store");
+    this.router.navigateByUrl('store');
   }
 
   goToCheckout() {
     this.router.navigate(["checkout", JSON.stringify(this.courses)], { skipLocationChange: true });  
   }
 }
-

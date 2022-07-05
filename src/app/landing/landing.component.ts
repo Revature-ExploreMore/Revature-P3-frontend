@@ -26,14 +26,20 @@ export class LandingComponent implements OnInit {
   ngOnInit(): void {
     this.viewAllCourse();
     this.viewAllCategory();
+    localStorage.getItem("dark-mode");
   }
 
   addANewUser(){
     return this.router.navigate(['registeruser']);
    
     };
-
     
+    myFunction() {
+      var element = document.body;
+      element.classList.toggle("dark-mode");
+      localStorage.setItem("dark-mode","dark-mode");
+   }
+     
   viewAllCourse() {
     this.coursesService.getAll().subscribe(response => {
           //console.log(response);

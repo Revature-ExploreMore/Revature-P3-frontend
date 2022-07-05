@@ -42,7 +42,6 @@ export class ViewUserComponent implements OnInit {
     this.userService.getAllUsers().subscribe(
       {
         next: (response) => {
-          console.log(response);
           this.storeMessage = '';
           this.currentAllUsers = response;
         },
@@ -67,4 +66,3 @@ export class ViewUserComponent implements OnInit {
     this.router.navigate(['orders']);
   }
 }
-
