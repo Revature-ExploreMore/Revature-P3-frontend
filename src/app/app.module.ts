@@ -9,7 +9,6 @@ import { StorefrontComponent } from './storefront/storefront.component';
 import { CartComponent } from './cart/cart.component';
 import { UserComponent } from './user/user.component';
 import { OrdersComponent } from './orders/orders.component';
-//import { DisplayComponent } from './display/display.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { LoginComponent } from './user-info/login/login.component';
 import { RegisteruserComponent } from './user-info/registeruser/registeruser.component';
@@ -18,12 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { ViewUserComponent } from './user/view-user-profile/view-user-profile.component';
 import { LogoutComponent } from './user-info/logout/logout.component';
-<<<<<<< Updated upstream
 import { CourseComponent } from './course/course.component';
-import { NgEventBus } from 'ng-event-bus';
-=======
-import { CartService } from './services/cart.service';
->>>>>>> Stashed changes
+// import { NgEventBus } from 'ng-event-bus';
 
 @NgModule({
   declarations: [
@@ -49,11 +44,8 @@ import { CartService } from './services/cart.service';
     FormsModule,
     ReactiveFormsModule
   ],
-<<<<<<< Updated upstream
-  providers: [NgEventBus],
-=======
-  providers: [ CartService],
->>>>>>> Stashed changes
+  providers: [],
+  // providers: [NgEventBus],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

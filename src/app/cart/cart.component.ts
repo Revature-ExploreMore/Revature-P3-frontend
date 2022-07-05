@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
 import { CartService } from '../services/cart.service';
 import { CoursesService } from '../services/courses.service';
 import { AuthService } from '../user-info/auth.service';
-import { NgEventBus } from 'ng-event-bus';
+// import { NgEventBus } from 'ng-event-bus';
 
 
 @Component({
@@ -69,7 +69,7 @@ title = 'My Cart';
   constructor(private cartService: CartService,
               private authService: AuthService,
               private courseService: CoursesService,
-              private eventBus: NgEventBus,
+              // private eventBus: NgEventBus,
               private router: Router) { 
     this.courses = [];
      this.cartMessage = '';
