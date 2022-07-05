@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     CheckoutComponent,
     CourseComponent,
     RegisteruserComponent,
+    ViewUserComponent,
     EditUserProfileComponent
   ],
   imports: [

@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
-  // baseUrlLogin: string = "http://localhost:7474/user/user-info/";
+  //baseUrlLogin: string = "http://localhost:7474/user/user-info/";
   baseUrlLogin: string = environment.apiUrl+"/user/user-info/";
 
    constructor(private http: HttpClient) { }
@@ -27,7 +27,7 @@ export class UserService {
     return this.http.get<User[]>(this.baseUrlLogin);
   }
 
-  getUser(id: any): Observable<User> {
+  getUser(id: number): Observable<User> {
     return this.http.get<User>(this.baseUrlLogin + id);
   }
   
