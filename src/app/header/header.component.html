@@ -28,7 +28,7 @@
           <li class="nav-item" *ngIf="!hasLoggedIn()">
             <a class="nav-link" routerLink="registeruser">Sign up/Register</a>
           </li>
-          <li>
+          <li *ngIf="hasLoggedIn()">
             <label class="switch">
               <input type="checkbox" (click)="toggleTheme()">
               <span class="slider round"></span><br><br>

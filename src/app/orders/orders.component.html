@@ -9,7 +9,6 @@
             <h6>{{ orderHistory.order.orderTimestamp | date}}</h6>
           </div>
           <div *ngFor="let course of orderHistory.courses">
-            <img src="{{ course.imageUrl }}"> <!-- wrong syntax?-->
             <div>
               {{ course.name }}
             </div>
@@ -17,10 +16,10 @@
               {{ course.description}}
             </div>
             <div>
-              {{ course.price}}
+              {{ course.price | currency}}
             </div>
           </div>
-          <h6>Total: {{ orderHistory.order.orderTotal }}</h6>
+          <h6>Total: {{ orderHistory.order.orderTotal | currency }}</h6>
         </div>
       </div>
       <!--if Order is Empty the display a message-->
