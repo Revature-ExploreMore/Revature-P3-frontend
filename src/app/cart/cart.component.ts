@@ -80,7 +80,6 @@ export class CartComponent implements OnInit {
     let userData: any = sessionStorage.getItem('user');
     if (userData != null) {
       this.newUser = JSON.parse(userData) as User;
-      console.log(this.newUser);
     }
   }
 
@@ -88,7 +87,6 @@ export class CartComponent implements OnInit {
     let cart: any = sessionStorage.getItem('cart');
     if (cart != null) {
       this.newCart = JSON.parse(cart) as Cart;
-      console.log(this.newCart);
     }
   }
 
@@ -96,10 +94,7 @@ export class CartComponent implements OnInit {
     let cidParam = this.newCart.id;
     this.cartService.getCartCourses(cidParam).subscribe({
       next: (response) => {
-        console.log(response);
         this.courses = response;
-
-        console.log(this.courses);
       },
       error: (error) => {
         console.log(error.error.errorMessage);
@@ -111,16 +106,13 @@ export class CartComponent implements OnInit {
   deleteItem(cartCourse: CartCourse) {
     this.cartService.deleteItem(cartCourse.id).subscribe({
       next: (response) => {
-        console.log(response);
         this.setCourses();
         this.newCart.cartTotal -= cartCourse.course.price;
         this.newCart.modifiedAt = new Date();
         this.cartService.updateCart(this.newCart).subscribe({
           next: (response) => {
-            console.log(response);
             this.newCart = response;
             sessionStorage.setItem('cart', JSON.stringify(this.newCart));
-            console.log(this.newCart);
           },
           error: (err) => console.log(err),
         });
@@ -131,7 +123,6 @@ export class CartComponent implements OnInit {
   emptyCart(cartId: number) {
     this.cartService.emptyCart(cartId).subscribe({
       next: (response) => {
-        console.log(response);
         this.setCourses();
         this.newCart.cartTotal -= this.newCart.cartTotal;
         this.newCart.modifiedAt = new Date();
@@ -140,7 +131,6 @@ export class CartComponent implements OnInit {
             console.log(response);
             this.newCart = response;
             sessionStorage.setItem('cart', JSON.stringify(this.newCart));
-            console.log(this.newCart);
           },
           error: (err) => console.log(err),
         });
