@@ -29,7 +29,7 @@ export class LandingComponent implements OnInit {
   //used to enable or disable the delete button depending if its an admin or not
   getUserId():number{
    let id:any = this.authService.getUserDetails();
-   if(id.roleId == null){
+   if(id.roleId == 0){
     return 0;
    }else{
     return id.roleId;
