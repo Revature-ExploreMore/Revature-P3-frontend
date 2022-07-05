@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Router, NavigationExtras} from '@angular/router';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
@@ -8,13 +8,16 @@ import { User } from '../models/user.model';
 import { CartService } from '../services/cart.service';
 import { CoursesService } from '../services/courses.service';
 import { AuthService } from '../user-info/auth.service';
+// import { NgEventBus } from 'ng-event-bus';
 
 
 @Component({
   selector: 'cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
+  providers: [CartService]
 })
+@Injectable()
 export class CartComponent implements OnInit {
   
   newCategory: Category = {
@@ -66,6 +69,7 @@ title = 'My Cart';
   constructor(private cartService: CartService,
               private authService: AuthService,
               private courseService: CoursesService,
+              // private eventBus: NgEventBus,
               private router: Router) { 
     this.courses = [];
      this.cartMessage = '';
@@ -74,8 +78,10 @@ title = 'My Cart';
     this.setCart();
     this.setUser();
     this.setCourses();
-   
+    
   }
+
+
   // navigationExtras: NavigationExtras = {
   //   state: {
   //     courses: this.courses;
@@ -165,11 +171,30 @@ setCart(){
     
   }
   emptyCart(cartId: number){
-    this.cartService.emptyCart(cartId).subscribe((response)=>{
+    this.cartService.emptyCart(cartId).subscribe({
+      next: (response) => {
       console.log(response);
       this.setCourses();
+      this.newCart.cartTotal -= this.newCart.cartTotal;
+        this.newCart.modifiedAt = new Date;
+        this.cartService.updateCart(this.newCart).subscribe({
+          next: (response) => {
+            console.log(response);
+            this.newCart = response;
+            sessionStorage.setItem("cart", JSON.stringify(this.newCart));
+            console.log(this.newCart);
+          },
+          error: (err) => console.log(err)
+        })
+      },
+      error: (err) => console.log(err)
     });
 
+  }
+  
+  passCoursesToCheckout(){
+    
+  
   }
 
   goToStoreFront() {
@@ -177,7 +202,9 @@ setCart(){
   }
 
   goToCheckout() {
-    this.router.navigateByUrl("checkout");
+    
+    this.router.navigate(["checkout", JSON.stringify(this.courses)]);  
+  //  ,JSON.stringify(this.courses)
   }
 }
 

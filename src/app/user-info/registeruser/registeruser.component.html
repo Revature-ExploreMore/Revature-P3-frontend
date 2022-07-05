@@ -2,7 +2,7 @@
     <form #myForm="ngForm">
         <h1>---Welcome To ExploreMore!---</h1>
         <div class="card m-3">
-            <div class="card-header bg-primary text-white">Registeration Form</div>
+            <div class="card-header bg-primary text-white">Registration Form</div>
             <div class="card-body">
                 <div class="mb-3">
                     <label for="uName" class="form-label">Name:</label>
@@ -37,7 +37,7 @@
                     <input type="password" class="form-control" id="password"
                         placeholder="Create Password for Login" name="password" [(ngModel)]="newUser.password"
                         #password="ngModel" min="6" max="12" required
-                        ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+                        ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&].{8,}$/">
                     <div ng-messages="ngForm.password.$error">
                         <div ng-message="pattern" *ngIf="password.valid && password.touched" class="text-danger small">
                             Password should be at least 8 characters long
