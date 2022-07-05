@@ -1,34 +1,49 @@
-<div class="main-content">
-  <div class="section-content section-content-p30">
-    <div class ="container-fluid">
-      <h3>Order History: </h3>
-      <div class="container-fluid" *ngIf="orderHistoryList.length>0">
-        <div  *ngFor="let orderHistory of orderHistoryList">
-          <div class="d-flex justify-content-between">
-            <h5>Purchased Items</h5>
-            <h6>{{ orderHistory.order.orderTimestamp | date}}</h6>
-          </div>
-          <div *ngFor="let course of orderHistory.courses">
-            <img src="{{ course.imageUrl }}"> <!-- wrong syntax?-->
-            <div>
-              {{ course.name }}
-            </div>
-            <div>
-              {{ course.description}}
-            </div>
-            <div>
-              {{ course.price}}
-            </div>
-          </div>
-          <h6>Total: {{ orderHistory.order.orderTotal }}</h6>
-        </div>
+<h3><b> Order History</b></h3>
+
+
+
+  <div class="container-fluid" *ngIf="orderHistoryList.length>0">
+  <div *ngFor="let orderHistory of orderHistoryList">
+    <div id="table">
+      <table>
+        <tr class="tabletitle">
+          <td class="item"><h2>Course Name</h2></td>
+
+          <td class="Hours"><h2>Description</h2></td>
+          <td class="Rate"><h2>Course Price</h2></td>
+          <td class="Rate"><h2>Date of Purchase</h2></td>
+        </tr>
+
+        <tr *ngFor="let course of orderHistory.courses">
+          <td class="tableitem">
+            <p class="itemtext">{{ course.name }}</p>
+          </td>
+          <td class="tableitem">
+            <p class="itemtext">{{ course.description }}</p>
+          </td>
+          <td class="tableitem">
+            <p class="itemtext">{{ course.price }}</p>
+          </td>
+          <td class="tableitem">
+          <h6> class="itemtext"> {{ orderHistory.order.orderTimestamp | date}}</h6>
+          </td>
+        </tr>
+        <span><div>
+          <h6>
+            <b>Total:{{ orderHistory.order.orderTotal }}</b>
+          </h6></div></span
+        >
+
+      </table>
       </div>
       <!--if Order is Empty the display a message-->
-      <div *ngIf="orderHistoryList.length==0" class = "alert alert-warning col-md-12" role="alert">
-          No orders found!
+      <div
+        *ngIf="orderHistoryList.length == 0"
+        class="alert alert-warning col-md-12"
+        role="alert"
+      >
+        No orders found!
       </div>
-
     </div>
-
   </div>
-</div>
+
