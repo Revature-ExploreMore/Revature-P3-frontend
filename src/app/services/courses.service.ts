@@ -21,9 +21,9 @@ export class CoursesService {
 
   getAll() : Observable<Course[]> {
    // return this.http.get<Course[]>(this.baseUrl +`/getAll`);
-   return this.http.get<Course[]>('http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/getAll');
+   return this.http.get<Course[]>('http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/course/getAll');
   }
-  
+
   deleteCourse(id: number): Observable<Boolean>{
     return this.http.delete<Boolean>(this.baseUrl + '/deleteCourse/' + id);
 
