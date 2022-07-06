@@ -21,14 +21,16 @@
 <div class="container">
     <div class="row align-items-start">
         <div class="col-4" *ngFor="let course of filteredCourses; let i=index">
-            <div *ngIf="i<9"> <!--subject to change, pagination?-->
+            <div *ngIf="i<90"> <!--subject to change, pagination?-->
                 <div class="card" style="width: 18rem; margin: 1em 0; height: 100%;">
                     <img class="card-img-top" src="{{ course.imageUrl }}" alt="Card image cap">
                     <div class="card-body card-bg-color">
                         <h5 class="card-title">{{course.name}}</h5>
                         <p>{{course.description}}</p>
                         <p> $ {{course.price}} </p>
-                        <button class="btn btn-primary" (click)="addCourseToCart(course)" *ngIf="!cartCourseIDs.includes(course.id)">Add to Cart</button>
+                        <button class="btn btn-primary" (click)="addCourseToCart(course)" *ngIf="!cartCourseIDs.includes(course.id) && !purchasedCourseIDs.includes(course.id)">Add to Cart</button>
+                        <div class="badge bg-secondary" *ngIf="cartCourseIDs.includes(course.id)">Added to cart!</div>
+                        <div  *ngIf="purchasedCourseIDs.includes(course.id)"><span class="badge bg-secondary">Purchased!</span></div>
                     </div>
                 </div>
             </div>

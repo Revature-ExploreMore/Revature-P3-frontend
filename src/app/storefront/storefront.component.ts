@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { CoursesService } from '../services/courses.service';
 import { Category } from '../models/category.model';
 import { CartService } from '../services/cart.service';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
   selector: 'store',
@@ -54,7 +55,7 @@ export class StorefrontComponent implements OnInit {
   };
   searchCourseName : string = "";
   courses: Course[] = [];
-  purchasedCourses: Course[] = [];
+  purchasedCourseIDs: number[] = [];
 
   filteredCourses: Course[] = [];
   cartCourseIDs: number[] = [];
@@ -63,6 +64,7 @@ export class StorefrontComponent implements OnInit {
   constructor(
     private courseServ: CoursesService,
     private cartServ: CartService,
+    private ordersServ: OrdersService,
     private router: Router
   ) {}
 
@@ -70,6 +72,7 @@ export class StorefrontComponent implements OnInit {
     this.setUser();
     this.setCourses();
     this.setCart();
+    this.setPurchasedCourses();
   }
 
   setUser() {
@@ -175,5 +178,20 @@ export class StorefrontComponent implements OnInit {
   filterBySearch(search : string) {
     this.filteredCourses = this.courses;
     this.filteredCourses = this.filteredCourses.filter(course => course.name.includes(search));
+  }
+
+  setPurchasedCourses() {
+    this.ordersServ.getOrderHistory(this.user.id).subscribe({
+      next: (response) => {
+        for (let orderCourse of response) {
+          if(!this.purchasedCourseIDs.includes(orderCourse.course.id)) {
+            this.purchasedCourseIDs.push(orderCourse.course.id);
+          }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

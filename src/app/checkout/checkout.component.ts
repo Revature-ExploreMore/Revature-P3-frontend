@@ -2,13 +2,7 @@ import { Country } from '../models/countries.model';
 import { CheckoutService } from './../services/checkout.service';
 import { PaymentInfo } from './../models/payment.model';
 import { Component, NgModule, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder,FormControl,FormGroup,Validators } from '@angular/forms';
 import { Billing } from '../models/billing.model';
 import { AuthService } from '../user-info/auth.service';
 import { Cart } from '../models/cart.model';
@@ -20,7 +14,7 @@ import { OrderCourseSet } from '../models/ordercourseset.model';
 import { Order } from '../models/order.model';
 import { Course } from '../models/course.model';
 
-import { ActivatedRoute, Navigation, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -94,6 +88,7 @@ export class CheckoutComponent implements OnInit {
     private formBuilder: FormBuilder,
     private checkOut: CheckoutService,
     private authService: AuthService,
+    private cartService: CartService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -318,10 +313,28 @@ export class CheckoutComponent implements OnInit {
     this.orderCourseSet.courses = this.coursesAct;
     this.checkOut.addOrder(this.orderCourseSet).subscribe({
       next: (response) => {
+        this.emptyCart(this.cart.id);
         this.router.navigateByUrl('orders');
       },
 
       error: (error) => console.log(error),
+    });
+  }
+
+  emptyCart(cartId: number) {
+    this.cartService.emptyCart(cartId).subscribe({
+      next: (response) => {
+        this.cart.cartTotal = 0;
+        this.cart.modifiedAt = new Date();
+        this.cartService.updateCart(this.cart).subscribe({
+          next: (response) => {
+            this.cart = response;
+            sessionStorage.setItem('cart', JSON.stringify(this.cart));
+          },
+          error: (err) => console.log(err),
+        });
+      },
+      error: (err) => console.log(err),
     });
   }
 }

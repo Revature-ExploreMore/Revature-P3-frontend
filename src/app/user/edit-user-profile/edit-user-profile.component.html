@@ -32,11 +32,13 @@
                 value="{{ updateUser.email }}"
                 [(ngModel)]="updateUser.email"
                 #name="ngModel"></h3>
-                
-                <button type="button" class="btn btn-primary"
+              <div class="d-flex flex-column">
+                <button type="button" class="btn btn-primary mb-2"
                   (click)="updateProfileInfo()">
                   <i class="material-icons>edit">Submit Profile Changes</i>
                   </button> 
+                <button type="button" class="btn btn-secondary" (click)="goBackToProfile()">See Profile Info</button>
+              </div>
               <div class="d-flex justify-content-between text-center mt-5 mb-2">
               </div>
             </div>
