@@ -79,8 +79,6 @@
             <span>Total (USD)</span>
             <strong>${{ this.cart.cartTotal | number : '1.2-2'}}</strong>
           </li>
-
-          <div class="column"><a class="btn btn-success" (click)="backToCart()">Edit Cart</a></div>
           
         </ul>
 <!------------------------------- End of list ------------------------------->
@@ -260,7 +258,7 @@
            
             <div class="form-check" *ngFor="let billingInfo of savedBillingInfo let i = index" >
               <label class="au-checkbox">
-              <input type="checkbox" class="form-check-input"  (change)="copyBillingInfo(billingInfo)"> Address with street : {{billingInfo.streetName}} and city : {{billingInfo.city}}
+              <input type="radio" class="form-check-input"  name="billingRadio" (change)="copyBillingInfo(billingInfo); changeBillingSelected();"> Address with street : {{billingInfo.streetName}} and city : {{billingInfo.city}}
             </label>
             </div>
 
@@ -275,7 +273,7 @@
      
       <div class="form-check" *ngFor="let paymentInfo of savedPaymentInfo let i = index" >
        
-        <input type="radio" id="saved{{i}}" class="form-check-input" name="paymentRadio"  (change)="copyPaymentInfo(paymentInfo)"
+        <input type="radio" id="saved{{i}}" class="form-check-input" name="paymentRadio"  (change)="copyPaymentInfo(paymentInfo); changePaymentSelected();"
         > {{savedPaymentInfo[i].cardType}} Card Ending in : ************{{paymentInfo.cardNumber.slice(-4)}}
         <label class="au-checkbox" for="saved{{i}}"></label>
       </div>
@@ -390,10 +388,13 @@
           <!-- Horizontal line -->
           <hr class="mb-4" />
 
-          <div class="column d-flex justify-content-between"><a (click)="backToCart()" class="btn btn-outline-secondary"><i class="icon-arrow-left"
+          <div class="column d-flex justify-content-between align-items-center"><a (click)="backToCart()" class="btn btn-outline-secondary"><i class="icon-arrow-left"
             ></i>&nbsp;Back to Cart</a> 
             <!-- Submit Button -->
-            <button class="btn btn-primary btn-lg btn-block" type="submit">
+            <button *ngIf="!paymentSelected || !billingSelected" disabled class="btn btn-primary btn-lg btn-block" type="submit">
+              Complete Order
+            </button>
+            <button *ngIf="paymentSelected && billingSelected" class="btn btn-primary btn-lg btn-block" type="submit">
               Complete Order
             </button>
           </div>

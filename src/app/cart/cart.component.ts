@@ -84,7 +84,6 @@ export class CartComponent implements OnInit {
     let cart : any = sessionStorage.getItem("cart");
     if (cart != null ){
       this.newCart = JSON.parse(cart) as Cart;
-      console.log(this.newCart);
     }
   }
 
@@ -140,6 +139,6 @@ export class CartComponent implements OnInit {
   }
 
   goToCheckout() {
-    this.router.navigate(['checkout', JSON.stringify(this.courses), { skipLocationChange : true}]);
+    this.router.navigate(['checkout', JSON.stringify(this.courses)], { skipLocationChange : true});
   }
 }

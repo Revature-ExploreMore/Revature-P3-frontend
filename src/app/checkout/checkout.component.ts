@@ -29,6 +29,9 @@ export class CheckoutComponent implements OnInit {
   savedBillingInfo: Billing[] = [];
   checkOutFormGroup: FormGroup;
 
+  paymentSelected : boolean = false;
+  billingSelected : boolean = false;
+
   paymentInfo: PaymentInfo = {
     id: 0,
     cardType: '',
@@ -174,6 +177,7 @@ export class CheckoutComponent implements OnInit {
       next: (response) => {
         this.savedPaymentInfo = response as PaymentInfo[];
       },
+      error: (err) => {}
     });
   }
   getBillingInfo() {
@@ -336,5 +340,13 @@ export class CheckoutComponent implements OnInit {
       },
       error: (err) => console.log(err),
     });
+  }
+
+  changePaymentSelected() {
+    this.paymentSelected = true;
+  }
+
+  changeBillingSelected() {
+    this.billingSelected = true;
   }
 }

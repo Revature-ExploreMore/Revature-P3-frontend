@@ -51,22 +51,24 @@ export class CourseComponent implements OnInit {
     this.viewAllCourse();
     this.viewAllCategory();
 
-    let cidParam = this.activatedRoute.snapshot.paramMap.get('cid');
-    this.courseService.getACourse(cidParam).subscribe((response) => {
-      this.updated = response;
-    });
+    // let cidParam = this.activatedRoute.snapshot.paramMap.get('cid');
+    // this.courseService.getACourse(cidParam).subscribe((response) => {
+    //   this.updated = response;
+    // });
   }
 
   viewAllCourse() {
-    this.courseService.getAll().subscribe((response) => {
-      return (this.courses = response);
-    });
+    this.courseService.getAll().subscribe({
+      next: (response) => {
+        return (this.courses = response);
+      },
+      error: (err) => {console.log(err)}
+   });
   }
 
   viewAllCategory() {
     this.courseService.getAll().subscribe((response) => {
       for (let course of response) {
-        this.courses.push(course);
         if (!this.categories.includes(course.category.categoryName)) {
           this.categories.push(course.category.categoryName);
         }

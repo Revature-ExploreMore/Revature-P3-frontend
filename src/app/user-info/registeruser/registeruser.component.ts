@@ -73,7 +73,6 @@ validatePhoneNo(field: any) {
       roleId:2
     }
 
-    console.log("hello");
     this.userservice.registerUser(addUser).subscribe((response)=>{
       this.userRegister=false;
       this.router.navigate(['login']);

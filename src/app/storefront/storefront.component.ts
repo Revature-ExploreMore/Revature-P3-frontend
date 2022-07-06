@@ -107,7 +107,6 @@ export class StorefrontComponent implements OnInit {
         this.setCartCourses();
       },
       error: (err) => {
-        console.log(err);
         this.cartServ.newCartForUser(this.user).subscribe({
           next: (response) => {
             this.cart = response;
@@ -131,7 +130,7 @@ export class StorefrontComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }
@@ -167,11 +166,9 @@ export class StorefrontComponent implements OnInit {
     if(category != 'all') {
       this.filteredCourses = this.filteredCourses.filter(course => course.category.categoryName == category);
     }
-    console.log(this.filteredCourses);
   }
 
   updateSearchName(val : string) {
-    console.log(val);
     this.searchCourseName = val;
   }
 

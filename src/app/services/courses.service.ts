@@ -12,7 +12,6 @@ import { Course } from '../models/course.model';
 export class CoursesService {
 
   baseUrl: string = "http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/course";
-  
   constructor(private http: HttpClient) { }
 
   getACourse(id: any): Observable<Course>{

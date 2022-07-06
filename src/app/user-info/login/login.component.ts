@@ -34,8 +34,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   validateLogin() {
-    this.userService.validLogin(this.userDetails).subscribe((response) => {
-      if (response.roleId != 0) {
+    this.userService.validLogin(this.userDetails).subscribe({
+      next: (response) => {
+      if(response == null) {
+        this.invalidMessage = 'Invalid username/password';
+      }
+      else if (response.roleId != 0) {
         this.authService.storeUserDetails(response);
         this.authService.isLoggedIn = true;
         if (response.roleId == 1) {
@@ -51,6 +55,10 @@ export class LoginComponent implements OnInit {
           this.invalidMessage = 'Invalid username/password';
         }
       }
-    });
+    },
+    error: (err) => {
+      console.log(err)
+    }
+  });
   }
 }
