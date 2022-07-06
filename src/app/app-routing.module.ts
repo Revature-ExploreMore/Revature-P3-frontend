@@ -15,7 +15,7 @@ import { CourseComponent } from './course/course.component';
 import { AuthenticationGuard } from './user-info/authentication.guard';
 
 const routes: Routes = [
-  {path: "", component:LandingComponent,}, 
+  {path: "", component:LandingComponent}, 
   {path: "login", component:LoginComponent},
   {path: "registeruser", component:RegisteruserComponent},
   {path: "store", component: StorefrontComponent, canActivate: [AuthenticationGuard]},
