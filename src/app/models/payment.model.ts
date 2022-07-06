@@ -5,5 +5,6 @@ export interface PaymentInfo{
     expDate: string;
     cvv: number;
     userId: number;
+   
 
 }

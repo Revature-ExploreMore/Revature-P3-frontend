@@ -14,7 +14,7 @@ import { UserService } from 'src/app/user-info/user.service';
 })
 export class ViewUserComponent implements OnInit {
 
-  currentAllUsers: User[];
+
   storeMessage: string = "";
   shouldDisplay: boolean = false;
   userData:any=sessionStorage.getItem('user')
@@ -33,26 +33,15 @@ export class ViewUserComponent implements OnInit {
   
 
   constructor(private userService: UserService, private router: Router) {
-    this.currentAllUsers = [];
+
   }
 
   ngOnInit(): void {
+  this.userService.getUser(this.user.id);
   }
-  loadData() {
-    this.userService.getAllUsers().subscribe(
-      {
-        next: (response) => {
-          this.storeMessage = '';
-          this.currentAllUsers = response;
-        },
-        error: (error) => {
-          console.log(error.error.errorMessage);
-          this.storeMessage = error.error.errorMessage;
-        }
-      })
-  }
-  goToEditUser(user: User) {
-    this.router.navigate(['profile/edit', user]);
+  goToEditUser() {
+    this.router.navigate(['profile/edit']);
+
   }
 
   displayUserForm() {

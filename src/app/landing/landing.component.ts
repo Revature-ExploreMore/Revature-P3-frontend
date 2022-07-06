@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../models/course.model';
 import { Category } from '../models/category.model';
 import { CoursesService } from '../services/courses.service';
+import { AuthService } from '../user-info/auth.service';
 
 
 @Component({
@@ -18,9 +19,20 @@ export class LandingComponent implements OnInit {
 
 
   constructor(private coursesService: CoursesService,
+    private authService : AuthService,
     private router: Router) {
         this.allCourse = [];
-        this.categories = [];
+        this.categories = [];  
+  }
+  //used to enable or disable the delete button depending if its an admin or not
+  getUserId():number{
+   let id:any = this.authService.getUserDetails();
+   if(id.roleId == 0){
+    return 0;
+   }else{
+    return id.roleId;
+   }
+
   }
 
   ngOnInit(): void {
@@ -47,10 +59,19 @@ export class LandingComponent implements OnInit {
           return this.allCourse=response;
         });
   }
-  viewAllCategory(){
-    this.coursesService.getAll().subscribe(response => {
-      console.log(response);
-      for(let course of response){
+
+  deleteCourse(id: number) {
+    this.coursesService.deleteCourse(id).subscribe({
+      next: (response) => {
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+  viewAllCategory() {
+    this.coursesService.getAll().subscribe((response) => {
+      for (let course of response) {
         this.allCourse.push(course);
         if(!this.categories.includes(course.category.categoryName)){
           this.categories.push(course.category.categoryName);

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { CoursesService } from '../services/courses.service';
 import { Category } from '../models/category.model';
 import { CartService } from '../services/cart.service';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
   selector: 'store',
@@ -52,15 +53,18 @@ export class StorefrontComponent implements OnInit {
     cart: this.cart,
     course: this.newCourse,
   };
+  searchCourseName : string = "";
   courses: Course[] = [];
+  purchasedCourseIDs: number[] = [];
 
   filteredCourses: Course[] = [];
   cartCourseIDs: number[] = [];
-  categories: String[] = [];
+  categories: string[] = [];
 
   constructor(
     private courseServ: CoursesService,
     private cartServ: CartService,
+    private ordersServ: OrdersService,
     private router: Router
   ) {}
 
@@ -68,6 +72,7 @@ export class StorefrontComponent implements OnInit {
     this.setUser();
     this.setCourses();
     this.setCart();
+    this.setPurchasedCourses();
   }
 
   setUser() {
@@ -158,6 +163,35 @@ export class StorefrontComponent implements OnInit {
   }
 
   filterByCategory(category : string) {
+    this.filteredCourses = this.courses;
+    if(category != 'all') {
+      this.filteredCourses = this.filteredCourses.filter(course => course.category.categoryName == category);
+    }
+    console.log(this.filteredCourses);
+  }
 
+  updateSearchName(val : string) {
+    console.log(val);
+    this.searchCourseName = val;
+  }
+
+  filterBySearch(search : string) {
+    this.filteredCourses = this.courses;
+    this.filteredCourses = this.filteredCourses.filter(course => course.name.includes(search));
+  }
+
+  setPurchasedCourses() {
+    this.ordersServ.getOrderHistory(this.user.id).subscribe({
+      next: (response) => {
+        for (let orderCourse of response) {
+          if(!this.purchasedCourseIDs.includes(orderCourse.course.id)) {
+            this.purchasedCourseIDs.push(orderCourse.course.id);
+          }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

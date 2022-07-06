@@ -19,6 +19,6 @@ describe('UserService', () => {
   });
 
   it('should return correct url', () => {
-    expect(service.baseUrlLogin).toBe('http://localhost:7474/user/user-info/');
+    expect(service.baseUrlLogin).toBe('http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/user/user-info/');
   });
 });

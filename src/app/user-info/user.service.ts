@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
-import { environment } from 'src/environments/environment.prod';
+//import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
@@ -10,8 +10,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class UserService {
 
-  //baseUrlLogin: string = "http://localhost:7474/user/user-info/";
-   baseUrlLogin: string = environment.apiUrl+"/user/user-info/";
+  baseUrlLogin: string = "http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/user/user-info/";
 
    constructor(private http: HttpClient) { }
 
@@ -27,7 +26,7 @@ export class UserService {
     return this.http.get<User[]>(this.baseUrlLogin);
   }
 
-  getUser(id: any): Observable<User> {
+  getUser(id: number): Observable<User> {
     return this.http.get<User>(this.baseUrlLogin + id);
   }
   

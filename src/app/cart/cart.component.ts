@@ -1,5 +1,5 @@
-import { Component, Injectable, OnInit} from '@angular/core';
-import { Router} from '@angular/router';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Category } from '../models/category.model';
@@ -76,15 +76,15 @@ title = 'My Cart';
   
   }
 
-
- 
-setUser(){
-  let userData: any = sessionStorage.getItem('user');
-  if (userData != null){
-    this.newUser = JSON.parse(userData) as User;
-    
+  setUser(){
+    let userData: any = sessionStorage.getItem('user');
+    if (userData != null){
+      this.newUser = userData;
+    }
   }
-}
+
+
+
 
 
 setCart(){
@@ -102,7 +102,6 @@ setCart(){
         this.courses = response;   
       },
       error: (error) => {
-        console.log(error.error.errorMessage);
         this.cartMessage = error.error.errorMessage;
       },
     });
@@ -132,7 +131,7 @@ setCart(){
         this.newCart.cartTotal -= this.newCart.cartTotal;
         this.newCart.modifiedAt = new Date();
         this.cartService.updateCart(this.newCart).subscribe({
-          next: (response) => {  
+          next: (response) => {
             this.newCart = response;
             sessionStorage.setItem("cart", JSON.stringify(this.newCart));  
           },
@@ -143,15 +142,11 @@ setCart(){
     });
   }
 
-  
-  
-
-
   goToStoreFront() {
     this.router.navigateByUrl('store');
   }
 
   goToCheckout() {
-    this.router.navigate(["checkout", JSON.stringify(this.courses)], { skipLocationChange: true });  
+    this.router.navigate(['checkout', JSON.stringify(this.courses), { skipLocationChange : true}]);
   }
 }
