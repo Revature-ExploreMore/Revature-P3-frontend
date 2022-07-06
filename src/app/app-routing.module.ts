@@ -28,16 +28,6 @@ const routes: Routes = [
   {path: "logout",component:LogoutComponent},
   {path: "viewCourse()",component:LandingComponent, canActivate: [AuthenticationGuard]},
   {path: "course", component:CourseComponent, canActivate: [AuthenticationGuard]}
-
-   
-  //{path: "", component:LandingComponent,}, 
-    //   {path: "login", component:LoginComponent},
-
-      // {
-        //path: 'landing', component:LandingComponent,
-        //children:[
-        //]
-       //}
 ];
 
 @NgModule({
