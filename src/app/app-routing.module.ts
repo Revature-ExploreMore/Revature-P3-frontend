@@ -12,22 +12,22 @@ import { ViewUserComponent } from './user/view-user-profile/view-user-profile.co
 import { EditUserProfileComponent } from './user/edit-user-profile/edit-user-profile.component';
 import { LogoutComponent } from './user-info/logout/logout.component';
 import { CourseComponent } from './course/course.component';
+import { AuthenticationGuard } from './user-info/authentication.guard';
 
 const routes: Routes = [
   {path: "", component:LandingComponent}, 
   {path: "login", component:LoginComponent},
   {path: "registeruser", component:RegisteruserComponent},
-  {path: "store", component: StorefrontComponent},
-  {path: "checkout/:courses", component: CheckoutComponent},
-  {path: "cart", component: CartComponent},
-  {path: "orders", component: OrdersComponent},
+  {path: "store", component: StorefrontComponent, canActivate: [AuthenticationGuard]},
+  {path: "checkout/:courses", component: CheckoutComponent, canActivate: [AuthenticationGuard]},
+  {path: "cart", component: CartComponent, canActivate: [AuthenticationGuard]},
+  {path: "orders", component: OrdersComponent, canActivate: [AuthenticationGuard]},
   {path:"landing", component:LandingComponent},
-  {path: "profile", component: ViewUserComponent},
-  {path: "profile/edit", component: EditUserProfileComponent},
+  {path: "profile", component: ViewUserComponent, canActivate: [AuthenticationGuard]},
+  {path: "profile/edit", component: EditUserProfileComponent, canActivate: [AuthenticationGuard]},
   {path: "logout",component:LogoutComponent},
-  {path: "viewCourse()",component:LandingComponent},
-  {path: "course", component:CourseComponent}
-
+  {path: "viewCourse()",component:LandingComponent, canActivate: [AuthenticationGuard]},
+  {path: "course", component:CourseComponent, canActivate: [AuthenticationGuard]}
 ];
 
 @NgModule({
