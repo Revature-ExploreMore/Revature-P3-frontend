@@ -52,11 +52,13 @@ export class StorefrontComponent implements OnInit {
     cart: this.cart,
     course: this.newCourse,
   };
+  searchCourseName : string = "";
   courses: Course[] = [];
+  purchasedCourses: Course[] = [];
 
   filteredCourses: Course[] = [];
   cartCourseIDs: number[] = [];
-  categories: String[] = [];
+  categories: string[] = [];
 
   constructor(
     private courseServ: CoursesService,
@@ -158,6 +160,20 @@ export class StorefrontComponent implements OnInit {
   }
 
   filterByCategory(category : string) {
+    this.filteredCourses = this.courses;
+    if(category != 'all') {
+      this.filteredCourses = this.filteredCourses.filter(course => course.category.categoryName == category);
+    }
+    console.log(this.filteredCourses);
+  }
 
+  updateSearchName(val : string) {
+    console.log(val);
+    this.searchCourseName = val;
+  }
+
+  filterBySearch(search : string) {
+    this.filteredCourses = this.courses;
+    this.filteredCourses = this.filteredCourses.filter(course => course.name.includes(search));
   }
 }
