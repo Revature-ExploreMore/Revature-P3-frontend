@@ -5,22 +5,26 @@
       <div class="container-fluid" *ngIf="orderHistoryList.length>0">
         <div  *ngFor="let orderHistory of orderHistoryList">
           <div class="d-flex justify-content-between">
-            <h5>Purchased Items</h5>
+            <h4>Purchased Items</h4>
             <h6>{{ orderHistory.order.orderTimestamp | date}}</h6>
           </div>
           <div *ngFor="let course of orderHistory.courses">
-            <img src="{{ course.imageUrl }}"> <!-- wrong syntax?-->
-            <div>
-              {{ course.name }}
+            <div class="d-flex justify-content-between">
+              <h6 class="fs-5">
+                {{ course.name }}
+              </h6>
+              <div>
+                {{ course.price | currency}}
+              </div>
             </div>
             <div>
-              {{ course.description}}
-            </div>
-            <div>
-              {{ course.price}}
+              <p>{{ course.description}}</p>
             </div>
           </div>
-          <h6>Total: {{ orderHistory.order.orderTotal }}</h6>
+          <div class="d-flex justify-content-between mb-4">
+            <p></p>
+            <h6>Total: {{ orderHistory.order.orderTotal | currency }}</h6>
+          </div>
         </div>
       </div>
       <!--if Order is Empty the display a message-->

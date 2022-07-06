@@ -51,23 +51,24 @@ export class CourseComponent implements OnInit {
     this.viewAllCourse();
     this.viewAllCategory();
 
-    let cidParam = this.activatedRoute.snapshot.paramMap.get('cid');
-    this.courseService.getACourse(cidParam).subscribe((response) => {
-    this.updated = response;
-    });
+    // let cidParam = this.activatedRoute.snapshot.paramMap.get('cid');
+    // this.courseService.getACourse(cidParam).subscribe((response) => {
+    //   this.updated = response;
+    // });
   }
 
   viewAllCourse() {
-    this.courseService.getAll().subscribe((response) => {
-      return (this.courses = response);
-    });
+    this.courseService.getAll().subscribe({
+      next: (response) => {
+        return (this.courses = response);
+      },
+      error: (err) => {console.log(err)}
+   });
   }
 
   viewAllCategory() {
     this.courseService.getAll().subscribe((response) => {
-      console.log(response);
       for (let course of response) {
-        this.courses.push(course);
         if (!this.categories.includes(course.category.categoryName)) {
           this.categories.push(course.category.categoryName);
         }
@@ -76,34 +77,35 @@ export class CourseComponent implements OnInit {
   }
 
   addCourse() {
-    switch(this.newCourse.category.categoryName){
-      case "science":{
-        this.newCourse.category.id = 1;
-        break;
-      }
-      case "math":{
+    switch (this.newCourse.category.categoryName) {
+      case 'science': {
         this.newCourse.category.id = 2;
         break;
       }
-      case "programming":{
-        this.newCourse.category.id = 3;
+      case 'math': {
+        this.newCourse.category.id = 1;
         break;
       }
-      case "writing":{
+      case 'programming': {
         this.newCourse.category.id = 4;
         break;
       }
-      case "photography":{
+      case 'writing': {
+        this.newCourse.category.id = 3;
+        break;
+      }
+      case 'photography': {
         this.newCourse.category.id = 5;
         break;
       }
-      case "digital art":{
+      case 'digital art': {
         this.newCourse.category.id = 6;
         break;
       }
     }
-
     this.courseService.addNewCourse(this.newCourse).subscribe((response) => {
+      this.viewAllCategory();
+      this.viewAllCourse();
     });
   }
 
@@ -112,7 +114,6 @@ export class CourseComponent implements OnInit {
   }
 
   updateCourse() {
-    this.courseService.updatedCourse(this.updated).subscribe((response) => {
-    });
+    this.courseService.updatedCourse(this.updated).subscribe((response) => {});
   }
 }

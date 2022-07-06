@@ -14,7 +14,7 @@ import { UserService } from 'src/app/user-info/user.service';
 })
 export class ViewUserComponent implements OnInit {
 
-  currentAllUsers: User[];
+
   storeMessage: string = "";
   shouldDisplay: boolean = false;
   userData:any=sessionStorage.getItem('user')
@@ -33,27 +33,15 @@ export class ViewUserComponent implements OnInit {
   
 
   constructor(private userService: UserService, private router: Router) {
-    this.currentAllUsers = [];
+
   }
 
   ngOnInit(): void {
+  this.userService.getUser(this.user.id);
   }
-  loadData() {
-    this.userService.getAllUsers().subscribe(
-      {
-        next: (response) => {
-          console.log(response);
-          this.storeMessage = '';
-          this.currentAllUsers = response;
-        },
-        error: (error) => {
-          console.log(error.error.errorMessage);
-          this.storeMessage = error.error.errorMessage;
-        }
-      })
-  }
-  goToEditUser(user: User) {
-    this.router.navigate(['profile/edit', user]);
+  goToEditUser() {
+    this.router.navigate(['profile/edit']);
+
   }
 
   displayUserForm() {
@@ -67,44 +55,3 @@ export class ViewUserComponent implements OnInit {
     this.router.navigate(['orders']);
   }
 }
-
-// updateUser: User = {
-//   id:0,
-//   name:"",
-//   email:"",
-//   phoneNumber:"",
-//   username:"",
-//   password:"",
-//   darkModePreference:false
-//   registerDate:  ,
-//   roleId: 0
-// }
-
-
-// constructor(private userService: UserService, private authService: AuthService, private router: Router) {
-//   this.currentAllUsers = [];
-// }
-
-// ngOnInit(): void {
-// }
-// displayProfile(Id: any){
-//   let userData = this.authService.getUserDetails();
-//   this.userService.getUser(userData.id).subscribe(response=>{
-//     this.userModel=response;
-//   });
-// }
-// goToEditUser(user: User) {
-//   this.router.navigate(['profile/edit', user]);
-// }
-
-// displayUserForm() {
-//   if (this.shouldDisplay) {
-//     this.shouldDisplay = false;
-//   } else {
-//     this.shouldDisplay = true;
-//   }
-// }
-// goToOrderHistory() {
-//   this.router.navigate(['orders']);
-// }
-// }

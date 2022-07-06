@@ -4,14 +4,13 @@ import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
 import { map } from 'rxjs/operators';
 import { OrderCourse } from '../models/orderCourse.model';
-import { environment } from 'src/environments/environment.prod';
+//import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrdersService {
-  private baseUrl = 'http://localhost:7474/order';
-  // private baseUrl: string = environment.apiUrl+"/order";
+  private baseUrl: string = "http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/order";
 
 
   constructor(private http:HttpClient) { }
@@ -31,9 +30,4 @@ export class OrdersService {
 
     return this.http.get<Order[]>(this.baseUrl);
   }
-
-  //need to retrieve all orders by userid in the form of a list
-  //of order and course objects, may need to create and orderCourse model
-  //similar to cartCourse
-
 }

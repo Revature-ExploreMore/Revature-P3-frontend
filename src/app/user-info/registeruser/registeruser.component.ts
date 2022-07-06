@@ -14,6 +14,22 @@ export class RegisteruserComponent implements OnInit {
 
   userRegister:boolean=false;
 
+  public isValidFlg:boolean = true;
+
+validatePhoneNo(field: any) {
+  var phoneNumDigits = field.value.replace(/\D/g, '');
+
+  this.isValidFlg = (phoneNumDigits.length==0 || phoneNumDigits.length == 10);
+
+  var formattedNumber = phoneNumDigits;
+  if (phoneNumDigits.length >= 6)
+    formattedNumber = '(' + phoneNumDigits.substring(0, 3) + ') ' + phoneNumDigits.substring(3, 6) + '-' + phoneNumDigits.substring(6);
+  else if (phoneNumDigits.length >= 3)
+    formattedNumber = '(' + phoneNumDigits.substring(0, 3) + ') ' + phoneNumDigits.substring(3);
+
+  field.value = formattedNumber;
+}
+
   newUser: User={
     id: 0,
     name: '',

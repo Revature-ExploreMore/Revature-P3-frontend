@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark text-lg-start">
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark text-lg-start w-100">
     <div class="container-fluid">
            <img class="logo ourlogo" src="assets\img\newlogo.PNG">
-           <a class="navbar-brand" href="#">ExploreMorest</a>
+           <span class="navbar-brand ms-1">ExploreMore</span>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -21,11 +21,19 @@
       </div>
       <div class="d-flex align-items-center">
         <ul class="navbar-nav">
+          
         <li class="nav-item" *ngIf="!hasLoggedIn()" >
             <a class="nav-link" routerLink="login">Login</a>
          </li>
           <li class="nav-item" *ngIf="!hasLoggedIn()">
             <a class="nav-link" routerLink="registeruser">Sign up/Register</a>
+          </li>
+          <li *ngIf="hasLoggedIn()">
+            <label class="switch">
+              <input type="checkbox" (click)="toggleTheme()">
+              <span class="slider round"></span><br><br>
+              
+          </label>
           </li>
           <li class="nav-item" *ngIf="hasLoggedIn() && isUser()">    
             <a class="nav-link" routerLink="profile">My Profile</a>

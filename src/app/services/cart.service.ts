@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable, Output } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Cart } from '../models/cart.model';
 import { CartCourse } from '../models/cartcourse.model';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
-import { environment } from 'src/environments/environment.prod';
+//import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  baseURL: string = "http://localhost:7474/cart/";
-  // baseURL: string = environment.apiUrl+"/cart/";
+  baseURL: string = "http://ec2-50-16-56-23.compute-1.amazonaws.com:8484/cart/";
 
   constructor(private http: HttpClient) { }
 
@@ -35,30 +34,9 @@ export class CartService {
     return this.http.post<CartCourse>(`${this.baseURL}cartCourse`, cartCourse);
   }
   emptyCart(cartId: number): Observable<boolean>{
-    return this.http.delete<boolean>(this.baseURL+ cartId);
+    return this.http.delete<boolean>(`${this.baseURL}`+ cartId);
   }
     updateCart(cart : Cart) : Observable<Cart> {
     return this.http.put<Cart>(`${this.baseURL}update`, cart);
   }
-
-
-  
- // allPassedData: BehaviorSubject<CartCourse[]> = new BehaviorSubject<CartCourse[]>([]);
- // private allPassedData = new BehaviorSubject(null);
-// data = this.allPassedData.asObservable();
-
- // changeData(data: any[]){
-  //  this.allPassedData.next(data)
- // }
- /* 
-  storePassedObject(passedData: CartCourse[]) {
-    this.allPassedData.next(passedData);
-   
-}
-
-retrievePassedObject() {
-  return this.allPassedData;
-  
-}
-*/
 }

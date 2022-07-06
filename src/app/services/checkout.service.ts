@@ -8,7 +8,7 @@ import { Country } from '../models/countries.model';
 import { PaymentInfo } from '../models/payment.model';
 import { User } from '../models/user.model';
 import { OrderCourseSet } from '../models/ordercourseset.model';
-import { environment } from 'src/environments/environment.prod';
+//import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
@@ -19,24 +19,32 @@ export class CheckoutService {
   constructor(private http:HttpClient) {
 
   }
-  baseUrl:string = "http://localhost:7474/";
-  // baseUrl: string = environment.apiUrl;
+
+  baseUrl: string = "http://ec2-50-16-56-23.compute-1.amazonaws.com:8484";
 
   addPaymentInfo(paymentInfo:PaymentInfo):Observable<PaymentInfo>{
-    return this.http.post<PaymentInfo>(this.baseUrl + 'payment/payment',paymentInfo);
+    return this.http.post<PaymentInfo>(this.baseUrl + '/payment/payment',paymentInfo);
 
   }
 
   addBillingInfo(billingInfo:Billing):Observable<Billing>{
-    return this.http.post<Billing>(this.baseUrl+'billing/billing-address',billingInfo);
+    return this.http.post<Billing>(this.baseUrl+'/billing/billing-address',billingInfo);
+  }
+  getBillingInfo(userId:any):Observable<Billing[]>{
+
+    return this.http.get<Billing[]>(`${this.baseUrl}/billing/billing-address/`+userId);
   }
 
   addOrder(orderCourseSet : OrderCourseSet):Observable<number>{
 
-    return this.http.post<number>(`${this.baseUrl}order/orders`,orderCourseSet);
+    return this.http.post<number>(`${this.baseUrl}/order/orders`,orderCourseSet);
 
   }
 
+  getPaymentInfo(userId:any){
+    return this.http.get<PaymentInfo[]>(`${this.baseUrl}/payment/payment/`+userId)
+  }
+  
   getCountries():Country[]{
   return this.countries;
 

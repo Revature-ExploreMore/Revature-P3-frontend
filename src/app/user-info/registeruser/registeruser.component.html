@@ -12,18 +12,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="uEmail" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="uEmail" placeholder="Email Address"
-                        name="urEmail" [(ngModel)]="newUser.email" 
-                        #email="ngModel" required>
+                    <input type="email" class="form-control" id="uEmail" placeholder="@email.com"
+                        name="email" [(ngModel)]="newUser.email" 
+                        #email="ngModel" required email>
                     <div *ngIf="!email.valid && email.touched" class="text-danger small">Email is required</div>
                 </div>
                 <div class="mb-3">
                     <label for="contact" class="form-label">Phone Number:</label>
-                    <input type="text" class="form-control" id="contact" minlength= "11" maxlength="12"
-                        placeholder="###-###-####" name="urContact" [(ngModel)]="newUser.phoneNumber"
-                        #phoneNumber="ngModel" required>
-                    <div *ngIf="!phoneNumber.valid && phoneNumber.touched" class="text-danger small">Contact number is
-                        required</div>
+                    <input type="text" id="contact" class="form-control" (input)="validatePhoneNo($event.target)" placeholder="(___) ___-____"
+                    [(ngModel)]="newUser.phoneNumber" name="urContact"  #phoneNumber="ngModel" required>
+                    <div *ngIf="!isValidFlg" class="text-danger small" >Invalid Format"</div>
                 </div>
                 <div class="mb-3">
                     <label for="userName" class="form-label">UserName:</label>
@@ -38,14 +36,14 @@
                         placeholder="Create Password for Login" name="password" [(ngModel)]="newUser.password"
                         #password="ngModel" min="6" max="12" required
                         ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&].{8,}$/">
-                    <div ng-messages="ngForm.password.$error">
-                        <div ng-message="pattern" *ngIf="password.valid && password.touched" class="text-danger small">
+                    
+                        <div ng-messages="ngForm.password.$error" ng-message="pattern" *ngIf="password.valid" class="text-danger small">
                             Password should be at least 8 characters long
                             and should contain one number,one character and one special
                             character
                         </div>
 
-                    </div>
+                    
 
                 </div>
                 <div class="card-footer bg-primary">

@@ -8,52 +8,57 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
-  invalidMessage: string = "";
-  userDetails:User={
+  invalidMessage: string = '';
+  userDetails: User = {
     id: 0,
     name: '',
     email: '',
     phoneNumber: '',
     username: '',
     password: '',
-    darkModePreference:false,
-    registerDate:new Date,
-    roleId:0
-  }
+    darkModePreference: false,
+    registerDate: new Date(),
+    roleId: 0,
+  };
 
-  constructor(private userService:UserService, private authService:AuthService,
-    private http:HttpClient, private router:Router) { }
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  validateLogin(){
-    this.userService.validLogin(this.userDetails).subscribe((response)=>{
-      console.log(response)
-      if(response.roleId!=0){
-        
+  validateLogin() {
+    this.userService.validLogin(this.userDetails).subscribe({
+      next: (response) => {
+      if(response == null) {
+        this.invalidMessage = 'Invalid username/password';
+      }
+      else if (response.roleId != 0) {
         this.authService.storeUserDetails(response);
-        this.authService.isLoggedIn=true;
-        if(response.roleId==1){
-          this.authService.isAdmin=true;
+        this.authService.isLoggedIn = true;
+        if (response.roleId == 1) {
+          this.authService.isAdmin = true;
           this.router.navigate(['course']);
-        }else if(response.roleId==2){
-        this.authService.isUser=true;
-        this.router.navigate(['store']);
-        }else if(response.roleId==3){
-          this.authService.isAnonymous=true;
+        } else if (response.roleId == 2) {
+          this.authService.isUser = true;
           this.router.navigate(['store']);
-          }
-
-        else{
-          this.invalidMessage="Invalid username/password";
+        } else if (response.roleId == 3) {
+          this.authService.isAnonymous = true;
+          this.router.navigate(['store']);
+        } else {
+          this.invalidMessage = 'Invalid username/password';
         }
       }
-    })
+    },
+    error: (err) => {
+      console.log(err)
+    }
+  });
   }
-
 }
