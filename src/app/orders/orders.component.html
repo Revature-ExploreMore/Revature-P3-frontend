@@ -1,4 +1,4 @@
-<h3><b> Order History</b></h3>
+<h1><b> Order History</b></h1>
 
 
 
@@ -7,30 +7,30 @@
     <div id="table">
       <table>
         <tr class="tabletitle">
-          <td class="item"><h2>Course Name</h2></td>
+          <td class="item"><h1><b> Course Name</b></h1></td>
 
-          <td class="Hours"><h2>Description</h2></td>
-          <td class="Rate"><h2>Course Price</h2></td>
-          <td class="Rate"><h2>Date of Purchase</h2></td>
+          <td class="Hours"><h1><b> Description</b></h1></td>
+          <td class="Rate"><h1><b> Course Price</b></h1></td>
+          <td class="Rate"><h1><b> Date of Purchase</b></h1></td>
         </tr>
 
         <tr *ngFor="let course of orderHistory.courses">
           <td class="tableitem">
-            <p class="itemtext">{{ course.name }}</p>
+            <h1 class="itemtext"><b> {{ course.name }}</b></h1>
           </td>
           <td class="tableitem">
-            <p class="itemtext">{{ course.description }}</p>
+            <h1 class="itemtext">{{ course.description }}</h1>
           </td>
           <td class="tableitem">
-            <p class="itemtext">{{ course.price }}</p>
+            <h1 class="itemtext">{{ course.price| currency:'USD'}}</h1>
           </td>
           <td class="tableitem">
-          <h6> class="itemtext"> {{ orderHistory.order.orderTimestamp | date}}</h6>
+          <h6 class="itemtext"> {{ orderHistory.order.orderTimestamp | date}}</h6>
           </td>
         </tr>
         <span><div>
           <h6>
-            <b>Total:{{ orderHistory.order.orderTotal }}</b>
+            <b>Total:{{ orderHistory.order.orderTotal| currency:'USD' }}</b>
           </h6></div></span
         >
 
