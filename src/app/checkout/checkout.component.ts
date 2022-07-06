@@ -33,9 +33,8 @@ export class CheckoutComponent implements OnInit {
   countries: Country[] = [];
   savedPaymentInfo: PaymentInfo[] = [];
   savedBillingInfo: Billing[] = [];
-     //checkoutFormGroup: FormGroup;
   checkOutFormGroup: FormGroup;
- 
+
   paymentInfo: PaymentInfo = {
     id: 0,
     cardType: '',
@@ -89,10 +88,9 @@ export class CheckoutComponent implements OnInit {
     courses: this.coursesAct,
   };
 
-  private sub: Subscription
+  private sub: Subscription;
 
   constructor(
-    
     private formBuilder: FormBuilder,
     private checkOut: CheckoutService,
     private authService: AuthService,
@@ -112,7 +110,7 @@ export class CheckoutComponent implements OnInit {
           Validators.required,
           Validators.minLength(2),
         ]),
-        userId: user?.id
+        userId: user?.id,
       }),
 
       paymentInfo: this.formBuilder.group({
@@ -133,67 +131,43 @@ export class CheckoutComponent implements OnInit {
         ]),
       }),
     });
-  
+
     this.sub = route.params.subscribe(
-      (param: any) => this.courses = JSON.parse(param['courses'])
+      (param: any) => (this.courses = JSON.parse(param['courses']))
     );
 
     this.getPaymentInfo();
-    
-    
   }
-  ngOnDestroy() { 
+  ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
-  
-
-  // Validators.pattern('/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/')
 
   ngOnInit(): void {
     this.countries = this.checkOut.getCountries();
     this.setUser();
     this.setCart();
-    //this.setCourses();
     this.getBillingInfo();
     this.getPaymentInfo();
-    
-  }   
-
-  
-
-  
+  }
 
   copyPaymentInfo(paymentInfo: any) {
-      console.log(paymentInfo);
-   
-        this.checkOutFormGroup.controls['paymentInfo'].setValue({
-            cardType: paymentInfo.cardType,
-            cardNumber: paymentInfo.cardNumber,
-            expDate: paymentInfo.expDate,
-            cvv: paymentInfo.cvv
-            
-            
-          });
-        
-    
+    this.checkOutFormGroup.controls['paymentInfo'].setValue({
+      cardType: paymentInfo.cardType,
+      cardNumber: paymentInfo.cardNumber,
+      expDate: paymentInfo.expDate,
+      cvv: paymentInfo.cvv,
+    });
   }
-  copyBillingInfo(billingInfo:any){
+  copyBillingInfo(billingInfo: any) {
     let user = this.authService.getUserDetails();
-    console.log(billingInfo);
     this.checkOutFormGroup.controls['customerBilling'].setValue({
-    
       street: billingInfo.streetName,
       city: billingInfo.city,
       state: billingInfo.state,
       zipCode: billingInfo.zipCode,
-      userId: user?.id
-      
+      userId: user?.id,
     });
-
-  
   }
-
 
   backToCart() {
     this.router.navigateByUrl('cart').catch((error) => console.log(error));
@@ -204,33 +178,18 @@ export class CheckoutComponent implements OnInit {
     return this.checkOut.getPaymentInfo(user?.id).subscribe({
       next: (response) => {
         this.savedPaymentInfo = response as PaymentInfo[];
-      }
+      },
     });
   }
   getBillingInfo() {
-    let user = this.authService.getUserDetails(); 
+    let user = this.authService.getUserDetails();
 
     return this.checkOut.getBillingInfo(user?.id).subscribe({
-
-      next:(response) => {
-
-        this.savedBillingInfo = response as Billing[]
+      next: (response) => {
+        this.savedBillingInfo = response as Billing[];
       },
-      error: (error) => console.log(error)
-    }
-
-    )
-
-  //  this.setCourses();
-
- 
-
-    
- 
-  //  this.cartService.allPassedData.subscribe((allPassedData)=>{
-    //  this.courses = allPassedData;
-    //  console.log(this.courses); 
-  //  }) 
+      error: (error) => console.log(error),
+    });
   }
 
   setUser() {
@@ -247,19 +206,8 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  // setCourses(){
-  //   let cidParam = this.cart.id;
-  //   this.cartService.getCartCourses(cidParam).subscribe({
-  //     next: (response) => {
-  //       console.log(response);
-  //       this.courses = response;
-  //       console.log(this.courses);
-  //     },
-  //   });
-  // }
-
-  addBillingInfo(){
-    let user:any  = this.authService.getUserDetails();
+  addBillingInfo() {
+    let user: any = this.authService.getUserDetails();
 
     this.billinInfo = {
       id: 0,
@@ -269,15 +217,23 @@ export class CheckoutComponent implements OnInit {
       state: this.checkOutFormGroup.get('customerBilling')?.get('state')?.value,
       zipCode: this.checkOutFormGroup.get('customerBilling')?.get('zipCode')
         ?.value,
-      userId: user.id
+      userId: user.id,
     };
 
     this.checkOut.addBillingInfo(this.billinInfo).subscribe({
-      next: (response)=> {console.log(response)
-        this.getBillingInfo()},
-      error:(error) => console.log(error)
+      next: (response) => {
+        this.getBillingInfo();
+      },
+      error: (error) => console.log(error),
     });
-
+    this.billinInfo = {
+      id: 0,
+      streetName: '',
+      city: '',
+      state: '',
+      zipCode: 0,
+      userId: 0,
+    };
   }
 
   addPaymentInfo() {
@@ -304,40 +260,20 @@ export class CheckoutComponent implements OnInit {
       userId: user.id,
     };
 
-    // this.checkOut.addBillingInfo(this.billinInfo).subscribe({
-    //   next: (response) => console.log(response),
-    //   error: (error) => console.log(error),
-    // });
-    // this.checkOut.addPaymentInfo(this.paymentInfo).subscribe({
-    //   next: (response) => console.log(response),
-    //   error: (error) => console.log(error),
-    // });
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // this.courses[0].cart = this.cart;
-    // this.order.orderTimestamp = new Date();
-    // this.order.orderTotal = this.cart.cartTotal;
-    // this.order.user = this.newUser;
-
-    // this.orderCourseSet.order = this.order;
-    // this.coursesAct = [];
-    // for (let cc of this.courses) {
-    //   this.coursesAct.push(cc.course);
-    // }
-    // this.orderCourseSet.courses = this.coursesAct;
-
-    // console.log(this.orderCourseSet);
-    // this.checkOut.addOrder(this.orderCourseSet).subscribe({
-    //   next: (response) => console.log(response),
-    //   error: (error) => console.log(error),
-    // });
-
-
     this.checkOut.addPaymentInfo(this.paymentInfo).subscribe({
-      next: (response) => {console.log(response)
-      this.getPaymentInfo()},
+      next: (response) => {
+        this.getPaymentInfo();
+      },
       error: (error) => console.log(error),
     });
+    this.paymentInfo = {
+      id: 0,
+      cardType: '',
+      cardNumber: '',
+      expDate: '',
+      cvv: 0,
+      userId: 0,
+    };
   }
 
   get billingAddressStreet() {
@@ -370,9 +306,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Handling form data');
-    console.log(this.checkOutFormGroup.get('customerBilling')?.value);
-    console.log(this.checkOutFormGroup.get('paymentInfo')?.value);
     this.order.orderTimestamp = new Date();
     this.order.orderTotal = this.cart.cartTotal;
     this.order.user = this.newUser;
@@ -383,17 +316,12 @@ export class CheckoutComponent implements OnInit {
       this.coursesAct.push(cc.course);
     }
     this.orderCourseSet.courses = this.coursesAct;
-
-    console.log(this.orderCourseSet);
     this.checkOut.addOrder(this.orderCourseSet).subscribe({
       next: (response) => {
-        console.log(response)
-        this.router.navigateByUrl('orders')
-      
+        this.router.navigateByUrl('orders');
       },
-      
+
       error: (error) => console.log(error),
     });
-    
   }
 }

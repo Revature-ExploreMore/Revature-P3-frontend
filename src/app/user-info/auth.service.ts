@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JsonpClientBackend } from '@angular/common/http';
 import { User } from '../models/user.model';
-import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
