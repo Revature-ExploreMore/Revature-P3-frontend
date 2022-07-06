@@ -160,7 +160,6 @@ setCart(){
         this.newCart.modifiedAt = new Date();
         this.cartService.updateCart(this.newCart).subscribe({
           next: (response) => {
-            console.log(response);
             this.newCart = response;
             sessionStorage.setItem('cart', JSON.stringify(this.newCart));
           },

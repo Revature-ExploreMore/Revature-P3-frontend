@@ -101,8 +101,10 @@ export class CourseComponent implements OnInit {
         break;
       }
     }
-
-    this.courseService.addNewCourse(this.newCourse).subscribe((response) => {});
+    this.courseService.addNewCourse(this.newCourse).subscribe((response) => {
+      this.viewAllCategory();
+      this.viewAllCourse();
+    });
   }
 
   setCurrentCourse(course: Course) {

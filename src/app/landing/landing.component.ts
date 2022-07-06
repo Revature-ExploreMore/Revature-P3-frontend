@@ -59,10 +59,19 @@ export class LandingComponent implements OnInit {
           return this.allCourse=response;
         });
   }
-  viewAllCategory(){
-    this.coursesService.getAll().subscribe(response => {
-      console.log(response);
-      for(let course of response){
+
+  deleteCourse(id: number) {
+    this.coursesService.deleteCourse(id).subscribe({
+      next: (response) => {
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+  viewAllCategory() {
+    this.coursesService.getAll().subscribe((response) => {
+      for (let course of response) {
         this.allCourse.push(course);
         if(!this.categories.includes(course.category.categoryName)){
           this.categories.push(course.category.categoryName);
