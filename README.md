@@ -1,4 +1,4 @@
-#General Application Information
+<h2>General Application Information</h2>
 
 ExploreMore is an e-commerce web application that is designed to sell a digital product(online courses). Once a  customer registers, they are able to browse and add courses to cart which they can then purchase with payment and have their order processed.
 
