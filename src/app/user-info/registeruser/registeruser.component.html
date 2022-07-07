@@ -37,7 +37,12 @@
                         #password="ngModel" required
                         ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&].{8,}$/">
                     
-                        <div ng-messages="ngForm.password.$error" ng-message="pattern" *ngIf="password.valid" class="text-danger small">
+                        <!-- <div ng-messages="ngForm.password.$error" ng-message="pattern" *ngIf="password.valid" class="text-danger small">
+                            Password should be at least 8 characters long
+                            and should contain one number,one character and one special
+                            character
+                        </div> -->
+                        <div ng-messages="ngForm.password.$error" ng-message="pattern" *ngIf="!validPassword() && newUser.password.length > 0" class="text-danger small">
                             Password should be at least 8 characters long
                             and should contain one number,one character and one special
                             character
@@ -47,8 +52,13 @@
 
                 </div>
                 <div class="card-footer bg-primary">
-                    <button type="button" class="btn btn-primary mybtn" [disabled]="!myForm.valid"
+                    <!-- <button type="button" class="btn btn-primary mybtn" [disabled]="!myForm.valid"
+                        (click)="addANewUser()">Register</button> -->
+                    <button type="button" class="btn btn-primary mybtn" disabled *ngIf="!myForm.valid || !validPassword()"
                         (click)="addANewUser()">Register</button>
+                    <button type="button" class="btn btn-primary mybtn" *ngIf="myForm.valid && validPassword()"
+                        (click)="addANewUser()">Register</button>
+                    
                 </div>
             </div>
 

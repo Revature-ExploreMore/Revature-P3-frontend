@@ -79,4 +79,8 @@ validatePhoneNo(field: any) {
     })
   }
 
+  validPassword() {
+    return this.newUser.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&].{8,}$/);
+  }
+
 }
