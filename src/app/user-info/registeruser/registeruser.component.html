@@ -34,7 +34,7 @@
                     <label for="password" class="form-label">Password:</label>
                     <input type="password" class="form-control" id="password"
                         placeholder="Create Password for Login" name="password" [(ngModel)]="newUser.password"
-                        #password="ngModel" min="6" max="12" required
+                        #password="ngModel" required
                         ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&].{8,}$/">
                     
                         <div ng-messages="ngForm.password.$error" ng-message="pattern" *ngIf="password.valid" class="text-danger small">
