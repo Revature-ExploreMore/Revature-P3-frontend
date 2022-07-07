@@ -1,4 +1,5 @@
 #General Application Information
+
 ExploreMore is an e-commerce web application that is designed to sell a digital product(online courses). Once a  customer registers, they are able to browse and add courses to cart which they can then purchase with payment and have their order processed.
 
 The application is deployed as a web application in the Cloud. The front-end and back-end apps are each containerized with Docker and hosted on an Amazon EC2 instance. Code is cloned and both apps are built and staged automatically using a Jenkins script. CI/CD using Github web hooks has not been implemented.
